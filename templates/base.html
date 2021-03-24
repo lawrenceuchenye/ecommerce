@@ -10,10 +10,6 @@
         <title>Bakery</title>
         <style>
           .container{
-            background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
-            background-size:cover;
-            background-position:center;
-            height:100vh;
             width:100%;
             position:absolute;
           }
@@ -54,26 +50,11 @@
               <li><a href="#">Account</a></li>
               <li><a href="#">Contact</a></li>
               <li><a href="#">About</a></li>
-              <li><a href="#">Orders</a></li>
             </ul>
             <img id="menu" src="{% static 'images/menu.svg' %}" onclick="openMenu()"/>
           </div>                                            
-          <div class="info">
-            <h1>Bakery</h1>
-            <p>
-Facebook Bakery Page! Glad tidings dear customers! We are happy to introduce you to our 'Facebook Bakery Page' where you can interact, get latest information & resolve all orders related queries.This is another opportunity from Bakery just for you. 
-            </p>
-            <div class="btnBx">
-              <div class="btn explore-btn">
-                <span></span><span></span><span></span>
-                <a href="#">Explore</a>
-              </div>
-              <div class="btn join-btn">
-                <span></span><span></span><span></span>
-                <a href="#">Join us</a>
-              </div>
-            </div>
-          </div>
+           {% block content %}
+           {% endblock %}
           <div class="terms">
            <a href="#">Terms & Conditions</a>
           </div>
