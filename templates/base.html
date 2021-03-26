@@ -30,8 +30,8 @@
               </li>
               <li>
                 <img src="{% static 'images/user.svg' %}"/>
-                <a href="#">Account</a>
-              </li>
+                <a href="{% url 'account' %}">Account</a>
+              </li>               
               <li>
                 <img src="{% static 'images/mail.svg' %}"/>
                 <a href="#">Contact</a>
@@ -61,16 +61,17 @@
         </div>
     </body>
     <footer>
+     <script src="{% static 'js/jquery.js' %}"></script>
       <script>
         function closeMenu(){
-          var container=document.getElementById("container");
-          container.style.height="0px";
+          $("#container").css({"height":"0vh"});
         }
         
         function openMenu(){
-          var container=document.getElementById("container");
-          container.style.height="100vh";
+          $("#container").css({"height":"100vh"});
         }
       </script>
+     {% block script %}
+     {% endblock %}
     </footer>
 </html>

@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.core.views import base_view,account_view
+
+from apps.core.views import home_view,account_view
+from apps.core.api import verify_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',account_view,name="home")
+    path('',home_view,name="home"),
+    path('account/',account_view,name="account"),
+    path('verify/',verify_user,name="verify"),
 ]
+                         
