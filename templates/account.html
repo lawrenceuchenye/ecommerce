@@ -50,7 +50,8 @@
                    *username already used
                  </p>                  
                  <input name="username-signup" id="signup-username" type="text" placeholder="Username"/>
-                 <input name="email-signup" type="email" placeholder="Email"/>
+                 <input id="signup-email" name="email-signup" type="email" placeholder="Email"/>
+                        
                  <p class="error" id="error-2">
                    *passwords must be the same 
                  </p>
@@ -134,9 +135,10 @@
            var username=$("#signup-username").val();
            var password=$("#signup-password").val();
            var conf_password=$("#signup-password-conf").val();
-           
            var data={
              "username":username,
+             "email":$("#signup-email").val(),
+             "password":password,
              "type":"signup"
            }
            
