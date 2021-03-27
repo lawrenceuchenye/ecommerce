@@ -52,9 +52,21 @@
             <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#">Bakery</a></li>
-              <li><a href="#">Account</a></li>
+               {% if request.user.is_authenticated == False %}
+              <li>
+                <a href="{% url 'account' %}">Account</a>
+              </li> 
+                {% endif %}
+             </li>
               <li><a href="#">Contact</a></li>
               <li><a href="#">About</a></li>
+             {% if request.user.is_authenticated %}
+              <li>
+                <div class="logout-btn">
+                  <a href="{% url 'logout' %}">Log out</a>
+                 </div>
+             </li>
+            {% endif %}
             </ul>
             <img id="menu" src="{% static 'images/menu.svg' %}" onclick="openMenu()"/>
           </div>                                            
@@ -73,7 +85,7 @@
         }
         
         function openMenu(){
-          $("#container").css({"height":"100vh"});
+          $("#container").css({"height":"99.5vh"});
         }
       </script>
      {% block script %}
