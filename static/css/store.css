@@ -1,0 +1,137 @@
+*{
+ margin:0px;
+ padding:0px;
+ font-family:serif;
+}
+
+
+.content .product{
+ padding:10px;
+ margin:10px;
+ width:150px;;
+ border-radius:5px;
+ background:rgba(0,0,0,0.7);
+ margin-top:10px;
+ display:inline-block;
+ margin-right:12px;
+}
+        
+.content .product-empty{
+  background:rgba(0,0,0,0.7);
+  margin:10px;
+  padding:10px;
+  border-radius:5px;
+}
+
+.content .product-empty{
+ color:white;
+}
+
+.content .snav-bar{
+ background:#000;
+ position:relative;
+ margin-top:-2px;
+ padding-top:5px;
+ padding:10px;
+ display:flex;
+ justify-content:left;
+ align-items:left;
+}
+
+.content .snav-bar input[type="text"]{
+ padding:10px;
+ border-radius:5px 0 0 5px;
+ outline:none;
+ width:400px;
+ position:relative;
+ border:none;
+}
+
+.content .snav-bar input[type="submit"]{
+ padding:10px;
+ border-radius: 0 5px 5px 0;
+ position:relative;
+ left:-5px;
+ outline:none;
+ background:#4bbe47;
+ color:white;
+ border:none;
+}
+
+
+.content .snav-bar ul li{
+ display:inline-block;
+ margin-right:10px;
+}
+
+.content .snav-bar ul li a{
+ color:white;
+ padding:10px;
+ text-transform:uppercase;
+ font-size:15px;
+ font-weight:500;
+ text-decoration:none;
+}
+
+.content .product .img-holdet{
+ object-fit:center;
+}
+
+.content .product .img-holder img{
+ width:100%;
+ height:120px;
+ border-radius:2px;
+}
+
+.content .product .info p{
+ color:#fff;
+}
+
+.content .product .btn{
+ padding:5px;
+ text-align:center;
+}
+
+.content .product .btn:before{
+ display:block;
+ height:1px;
+ width:110%;
+ position:relative;
+ left:-6px;
+ margin:auto;
+ border-radius:15px;
+ content:'';
+ margin-bottom:5px;
+ background:#fff;
+}
+.content .product a{
+  text-decoration:none;
+  color:#fff;
+}   
+
+
+.content .product #title{
+ margin-bottom:5px;
+ border-radius:2px;
+ color:white;
+ padding:2px;
+ font-size:13px;
+ background:#0d81ea;
+}
+
+
+@media only screen and (max-width:700px){
+  .content .product{
+   width:87.2px;
+   margin-left:5px;
+   margin-right:5px;
+  }
+
+  .content .product .img-holder img{
+   height:60px;
+  }
+
+  .content .snav-bar input[type="text"]{
+   width:252px;
+  }
+ }

@@ -15,13 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from django.conf import settings
+from django.conf.urls.static import static 
+
 from apps.core.views import home_view,login_view,signup_view,logout_view
+from apps.userprofile.views import dashboard_view
+from apps.store.views import store_view,detail_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view,name="home"),
     path('login/',login_view,name="account"),
     path('signup/',signup_view,name="signup"),
-    path('logout/',logout_view,name="logout")
-]
+    path('logout/',logout_view,name="logout"),
+
+    path('dashboard/',dashboard_view,name="dashboard"),
+    path('store/',store_view,name="store"),
+    path('store/detail/<int:product_id>/',detail_view,name="detail")
+                        
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
                               

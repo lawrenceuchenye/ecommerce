@@ -1,0 +1,254 @@
+*{
+  margin:0;
+  padding:0;
+  font-family:serif;
+}
+        
+.content .user-tab{
+  width:90%;
+  box-shadow:0 0 5px rgba(0,0,0,0.5);
+  margin:2% auto;
+  border-radius:5px;
+  padding:10px;
+  display:flex;
+  background:rgba(0,0,0,0.7);
+  position:relative;
+}
+
+
+.content .user-tab .user-img img{
+  width:50px;
+  height:50px;
+  border-radius:5px;
+}
+
+.content .user-tab .user-img input{
+  width:20px;
+  height:20px;
+  z-index:1;
+  position:absolute;
+  left:45px;
+  bottom:12px;
+  opacity:0;
+}
+
+.content  .user-tab .user-img #add-pic{
+  width:25px;
+  height:25px;
+  position:absolute;
+  left:45px;
+  bottom:10px;
+  background:rgba(0,0,0,0.9);
+  border-radius:50%;
+}
+
+.content .user-tab .user-info{
+  position:relative;
+  top:10px;
+}
+
+.content .user-tab .user-info p{
+  color:white;
+  margin:10px;
+  margin-left:40px;
+  font-size:25px;
+}
+
+.content .user-tab #complaint{
+  width:30px;
+  height:30px;
+  position:absolute;
+  top:20px;
+  right:10px;
+}
+
+
+.content .user-tab #notify{
+  width:30px;
+  height:35px;
+  position:absolute;
+  top:20px;
+  right:60px;
+  object-fit:center;
+}
+
+.content .utills{
+  display:flex;
+  position:relative;
+  justify-content:center;
+  align-items:center;
+}
+
+.content .utills .card{
+  width:265px;
+  height:150px;
+  margin:10px;
+  border-radius:5px;
+  padding:10px;
+  background:rgba(0,0,0,0.7);
+}
+
+.content .utills .card .info-holder{
+  overflow:scroll;
+  padding:5px;
+  height:75px;
+}
+
+.content .orders{
+  width:90%;
+  height:300px;
+  margin:6% auto;
+  margin-top:10px;
+  padding:10px;
+  border-radius:5px;
+  background:rgba(0,0,0,0.7);
+  box-shadow:0 0 5px rgba(0,0,0,0.5);
+}
+
+.content .orders h2{
+  color:white;
+  position:relative;
+  left:10px;
+}
+
+
+.content .orders .order{
+  width:96%;
+  margin:10px;
+  margin-top:15px;
+  padding:10px;
+  border-radius:5px;
+  box-shadow:0 0 7px grey;
+}
+
+.content .orders .order p{
+  color:white;
+}
+
+.content .utills .wishlist .info p{
+  color:white;
+  margin:5px;
+}
+
+.content .utills .wishlist .header{
+  display:flex;
+  padding:10px;
+  margin:5px;
+  border-radius:5px;
+  text-align:right;
+}
+
+.content .utills .wishlist .header p{
+  flex:1;
+  color:white;
+  font-size:25px;
+}
+
+.content .utills .wishlist .header img{
+  width:30px;
+  height:30px;
+}
+
+
+.content .utills .special .info p{
+  color:white;
+  margin:5px;
+}
+
+.content .utills .special .header{
+  display:flex;
+  padding:10px;
+  border-radius:5px;
+  text-align:right;
+}
+
+.content .utills .special .header img{
+  width:30px;
+  height:30px;
+}
+
+.content .utills .special .header p{
+  flex:1;
+  color:white;
+  font-size:25px;
+}
+
+
+.content .utills .customize .info p{
+  color:white;
+  margin:5px;
+}
+
+.content .utills .customize .header{
+  display:flex;
+  padding:10px;
+  border-radius:5px;
+  text-align:right;
+}
+
+.content .utills .customize .header p{
+  flex:1;
+  color:white;
+  font-size:25px;
+}
+
+.content .utills .customize .header img{
+  width:30px;
+  height:30px;
+}
+
+.content .utills .card .info{
+  padding:10px;
+  box-shadow:0 0 5px grey;
+  border-radius:5px;
+  overflow:scroll;
+  margin-bottom:20px;
+}
+
+
+.content .orders .header{
+  display:flex;
+}
+
+.content .orders .header img{
+  width:30px;
+  height:30px;
+}
+
+@media only screen and (max-width:700px){
+  .content{
+    overflow:scroll;
+  }
+  
+  .content .user-tab .user-info p{
+    margin-left:15px;
+  }
+  
+  .content .utills{
+    display:block;
+    margin-top:0px;
+    width:100%;
+  }
+  
+  .content .utills .card{
+    width:320px;
+    height:150px;
+    padding:10px;
+  }
+  
+  .content .orders .order{
+    width:88%;
+  }
+  
+  .content .utills .wishlist .header p{
+    font-family:cursive;
+  }
+  
+  .content .utills .special .header p{
+    font-family:cursive;
+  }
+  
+  .content .utills .customize .header p{
+    font-family:cursive;
+  }
+}

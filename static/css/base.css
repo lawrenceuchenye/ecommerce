@@ -12,6 +12,15 @@
   background:#000;
 }
 
+
+.container .nav-bar p{
+  font-family:cursive;
+  color:#fff;
+  position:relative;
+  top:35px;
+  font-size:30px;
+}
+
 .container .nav-bar ul{
   list-style:none;
   flex:1;
@@ -38,6 +47,10 @@
  transition:0.5s;
 }
 
+.container .nav-bar ul li:nth-child(6) a:after{
+  display:none;
+}
+
 .container .nav-bar ul li a:hover:after{
  width:100%;
 }
@@ -49,141 +62,22 @@
   font-weight:500;
   font-size:20px;
   padding:5px;
-  text-transform:uppercase;
   transition:0.5s;
 }
 
 .container .nav-bar .logout-btn{
  background:#cf1733;
- padding:10px;
+ padding:5px;
  border-radius:5px;
 }
 
 .container .nav-bar img:nth-child(1){
   width:80px;
   height:80px;
-  padding-left:25px;
+  padding-left:8px;
   padding-top:7px;
   padding-bottom:8px;
 }
-
-.container .info{
-  text-align:center;
-}
-
-.container .info h1{
-  opacity:0;
-  color:white;
-  font-size:60px;
-  letter-spacing:2px;
-  margin:10px;
-  animation:fade-in 2s forwards;
-  animation-delay:1s;
-}                         
-
-.container .info p{
-  color:white;
-  margin:5px 10px;
-  opacity:0;
-  animation:fade-in 2s forwards;
-  animation-delay:2s;
-  font-family:serif;
-  text-align:center;
-  margin:20px auto;
-}
-
-.container .info .btnBx{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.container .info .btnBx .btn{
-  width:20%;
-  margin:10px;
-  border:1px solid white;
-  border-radius:5px;;
-  padding:10px;
-  position:relative;
-  overflow:hidden;
-  opacity:0;
-  animation:fade-in 2s forwards;
-  animation-delay:3s;
-}
-
-.container .info .btnBx .btn a{
-  color:white;
-  position:relative;
-  text-decoration:none;
-  z-index:1;
-  padding:2px;
-  transition:1s;
-  font-size:20px;
-  font-family:serif;
-}
-
-.container .info .btnBx .btn span{
-  width:110px;
-  height:110px;
-  background:white;
-  border-radius:15px;
-  position:absolute;
-  top:50px;
-  transition:1s;
-}
-
-.container .info .btnBx .btn span:nth-child(1){
-  left:-5px;
-}
-
-.container .info .btnBx .btn span:nth-child(2){
-  left:53px;
-}
-
-.container .info .btnBx .btn span:nth-child(3){
-  right:-5px;
-}
-
-.container .info .btnBx .btn:nth-child(1):hover span{
-  top:-45px;
-}
-
-.container .info .btnBx .btn:nth-child(2):hover span{
-  top:-45px;
-}
-
-.container .info .btnBx .btn:nth-child(1) span:nth-child(1){
-  transition-delay:0.1s;
-}
-
-.container .info .btnBx .btn:nth-child(1) span:nth-child(2){
-  transition-delay:0.3s;
-}
-
-.container .info .btnBx .btn:nth-child(1) span:nth-child(3){
-  transition-delay:0.6s;
-}
-
-.container .info .btnBx .btn:nth-child(2) span:nth-child(1){
-  transition-delay:0.1s;
-}
-
-.container .info .btnBx .btn:nth-child(2) span:nth-child(2){
-  transition-delay:0.3s;
-}
-
-.container .info .btnBx .btn:nth-child(2) span:nth-child(3){
-  transition-delay:0.6s;
-}
-
-.container .info .btnBx .btn:nth-child(1):hover a{
-  color:black;
-}
-
-.container .info .btnBx .btn:nth-child(2):hover a{
-  color:black;
-}
-
 
 .container .terms{
   padding:0px;
@@ -228,18 +122,6 @@
   position:absolute;
 }
 
-@keyframes fade-in{
-  0%{
-    transform:translateY(15px);
-    opacity:0;
-  }
-  100%{
-    transform:translateY(0px);
-    opacity:1;
-  }
-}
-
-
 .container .utils ul{
   padding-top:50px;
   padding-left:10px;
@@ -261,6 +143,10 @@
   border-radius:3px;
 }
 
+#logout{
+ background:#cf1733;
+}
+
 .container .utils ul li img{
   padding:5px;
 }
@@ -277,7 +163,7 @@
 }
 
 .container .utils ul li:nth-child(2) a{
-  margin-left:13px;
+  margin-left:22px;
 }
 
 .container .utils ul li:nth-child(3) a{
@@ -295,10 +181,6 @@
 .container .utils ul li:nth-child(6) a{
   margin-left:19px;
 }
-
-
-
-
 
 @media only screen and (max-width:700px){
   .container .nav-bar{
@@ -324,21 +206,9 @@
   .container .nav-bar ul{
     display:none;
   }
-    
-  .container .info .btnBx .btn{
-    width:40%;
-  }
   
-  .container .info .btnBx .btn a{
-    padding:2px;
+  .container .nav-bar p{
+   top:10px;
+   font-size:20px;
   }
-  
-  .container .info .btnBx .btn span{
-    transition:1.2s;
-  }
-
-  .container .info h1{
-    font-family:cursive;
-  }
-
 }

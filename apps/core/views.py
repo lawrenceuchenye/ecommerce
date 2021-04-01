@@ -14,7 +14,7 @@ def login_view(request):
   if loginform.is_valid():
      user=authenticate(**loginform.cleaned_data)
      login(request,user)
-     return redirect("home")
+     return redirect("dashboard")
   return render(request,"login.html",{"loginform":loginform})
 
 def signup_view(request):

@@ -1,7 +1,6 @@
 {% load static %}
 
 <!DOCTYPE html>
-
 <html>
     <head>
         <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
@@ -22,21 +21,18 @@
             <ul>                             
               <li>        
                 <img src="{% static 'images/home.svg' %}"/>
-                <a href="#">Home</a>
+                <a href="{% url 'dashboard' %}">Home</a>
               </li>
               <li>
-                <img src="{% static 'images/cart.svg' %}"/>
-                <a href="#">Bakery</a>
-              </li>
+                <img src="{% static 'images/grid.svg' %}"/>
+                <a href="{% url 'store' %}"">Store</a>
+              </li>       
+            {% if request.user.is_authenticated == False %}
               <li>
                 <img src="{% static 'images/user.svg' %}"/>
-                {% if  request.user.is_authenticated == False %}
-                  <a href="{% url 'account' %}">Account</a>
-                {% else %}
-                  <a href="{% url 'logout' %}">Log out</a>
-                {% endif %}
-
-              </li>               
+                <a href="{% url 'account' %}">Account</a>
+              </li>
+            {% endif %}
               <li>
                 <img src="{% static 'images/mail.svg' %}"/>
                 <a href="#">Contact</a>
@@ -45,15 +41,26 @@
                 <img src="{% static 'images/users.svg' %}"/>
                 <a href="#">About</a>
               </li>
+              <li>
+                <img src="{% static 'images/cart.svg' %}"/>
+                <a href="#">Cart</a>
+              </li>
+             {% if request.user.is_authenticated %}
+              <li id="logout">
+                <img src="{% static 'images/user.svg' %}"/>
+                <a href="{% url 'logout' %}">Log out</a>
+              </li>
+             {% endif %}
             </ul>
           </div>
           <div class="nav-bar">
             <img src="{% static 'images/cake.png' %}"/>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Bakery</a></li>
+            <p>Divine Bakery</p>
+            <ul>            
+              <li><a href="{% url 'dashboard' %}"">Home</a></li>
+              <li><a href="{% url 'store' %}">Store</a></li>
                {% if request.user.is_authenticated == False %}
-              <li>
+              <li>          
                 <a href="{% url 'account' %}">Account</a>
               </li> 
                 {% endif %}
@@ -61,6 +68,7 @@
               <li><a href="#">Contact</a></li>
               <li><a href="#">About</a></li>
              {% if request.user.is_authenticated %}
+              <li><a href="#">Cart</a></li>
               <li>
                 <div class="logout-btn">
                   <a href="{% url 'logout' %}">Log out</a>
@@ -69,7 +77,7 @@
             {% endif %}
             </ul>
             <img id="menu" src="{% static 'images/menu.svg' %}" onclick="openMenu()"/>
-          </div>                                            
+          </div>
            {% block content %}
            {% endblock %}
           <div class="terms">

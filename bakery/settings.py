@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
-    'apps.userprofile'
+    'apps.userprofile',
+    'apps.store'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,7 @@ django_heroku.settings(locals())
 LOGIN_URL="account"
 LOGIN_REDIRECT_URL="home"
 LOGOUT_REDIRECT_URL="home"
+
+MEDIA_URL="/media/"
+MEDIA_ROOT=BASE_DIR / "media"
+

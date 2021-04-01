@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% load static %}
+       
+     <style>
+         .content{
+            background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
+            background-size:cover;
+            background-position:center;
+            width:100%;
+            height:91vh;
+            position:absolute;
+          }
+
+          section{
+            position:relative;
+            width:100%;
+            height:100vh;
+          }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"/>
+    <section>
+        <div class="content">
+          <div class="user-tab">
+            <div class="user-img">
+             {% if request.user.userprofile.profile_pic %}
+                <img src="{{ user.userprofile.profile_pic.url }}"/>
+             {% else %}     
+                <img src="{% static 'images/user.svg' %}"/>
+             {% endif %}
+              <input type="file" name="user_profile"/>
+              <img id="add-pic" src="{% static 'images/plus-circle.svg' %}"/>
+            </div>                   
+            <div class="user-info">
+              <p><strong>{{request.user.username}}</strong></p>
+            </div>
+            <a href="#"><img id="notify" src="{% static 'images/bell.svg' %}"/></a>
+            <a href="#"><img id="complaint" src="{% static 'images/edit.svg' %}"/></a>
+          </div>
+          <div class="utills">
+           
+            <div class="card wishlist">
+              <div class="header">
+                <img src="{% static 'images/paperclip.svg' %}"/>
+                <p>Wishlist</p>
+              </div>
+             <div class="info-holder">
+                <div class="info">
+                   <p>Sorry,you have no items wish listed</p>
+                 </div>
+              </div>
+            </div>
+            
+            <div class="card special">
+              <div class="header">
+                <img src="{% static 'images/gift.svg' %}"/>
+                <p>Special</p>
+              </div>
+              <div class="info-holder">
+                <div class="info">
+                   <p>Specials,Coming soon...</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card customize">
+               <div class="header">
+                 <img src="{% static 'images/settings.svg' %}"/>
+                 <p>Customize</p>
+               </div>
+               <div class="info-holder">
+                <div class="info">
+                   <p>You have no custom designed pastry.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="orders">
+            <div class="header">
+              <img src="{% static 'images/package.svg' %}"/>
+              <h2>Orders</h2>
+            </div>
+            <div class="user-orders">
+              <div class="order">
+                <p>Sorry,you have ordered anything ,click here to order</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+{% endblock %}

@@ -10,24 +10,29 @@
      background-position:center;
      background-size:cover;
      position:absolute;
+     overflow:scroll;
     }
    </style>
-   <div class="content">
-          <div class="info">
-            <h1>Bakery</h1>
-            <p>
-Facebook Bakery Page! Glad tidings dear customers! We are happy to introduce you to our 'Facebook Bakery Page' <br /> where you can interact, get latest information & resolve all orders related queries.This is another <br /> opportunity from Bakery just for you. 
-            </p>                                                                                                                                                                                                          
-            <div class="btnBx">
-              <div class="btn explore-btn">
-                <span></span><span></span><span></span>
-                <a href="#">Explore</a>
-              </div>
-              <div class="btn join-btn">
-                <span></span><span></span><span></span>
-                <a href="#">Join us</a>
-              </div>
-           </div>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+   <div class="content" id="cotent">
+      <div class="info">
+        <h1 id="header">Welcome! customer</h1>
+         <p id="body">
+Facebook Bakery Page! Glad tidings dear customers! We are happy to introduce you to our 'Facebook Bakery Page' where you can interact, get latest information & resolve all orders related queries.
+         </p>                                                                                                                     
+         <div class="btnBx">
+           <div class="btn explore-btn">
+              <span></span><span></span><span></span>
+              <a href="{% url 'store' %}">Explore</a>
+           </div>       
+           <div class="btn join-btn">
+              <span></span><span></span><span></span>
+              <a href="{% url 'signup' %}">Join us</a>
+             </div>     
+       </div>
    </div>
 {% endblock %}
 
+{% block script %}
+  
+{% endblock %}
