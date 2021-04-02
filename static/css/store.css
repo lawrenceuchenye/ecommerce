@@ -28,7 +28,6 @@
 }
 
 .content .snav-bar{
- background:#000;
  position:relative;
  margin-top:-2px;
  padding-top:5px;
@@ -133,5 +132,9 @@
 
   .content .snav-bar input[type="text"]{
    width:252px;
+  }
+
+  .content .snav-bar{
+   background:#000;
   }
  }

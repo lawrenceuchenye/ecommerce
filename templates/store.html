@@ -1,21 +1,16 @@
-{% extends "base.html" %}
-
+{% extends "new-base.html" %}
+            
 {% block content %}
 {% load static %}
  <style>
   .content{
    width:100%;
-   height:100vh;
-   background-size:cover;
-   background-position:center;
-   overflow:scroll;
-   background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
+   overflow:hidden;
   }                
-
+  
   .store-goods{
-   margin-bottom:50px;
+    overflow:scroll;
   }
-                  
  </style>
  <link rel="stylesheet" href="{% static 'css/store.css' %}"/>
  <div class="content">

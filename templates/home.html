@@ -1,21 +1,15 @@
-{% extends "base.html" %}
-
+{% extends "new-base.html" %}
+                            
 {% block content %}
   {% load static %}
    <style>
     .content{
      width:100%;
-     height:100vh;
-     background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
-     background-position:center;
-     background-size:cover;
-     position:absolute;
-     overflow:scroll;
     }
    </style>
   <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
-   <div class="content" id="cotent">
-      <div class="info">
+   <div class="content" id="content">
+      <div class="info">      
         <h1 id="header">Welcome! customer</h1>
          <p id="body">
 Facebook Bakery Page! Glad tidings dear customers! We are happy to introduce you to our 'Facebook Bakery Page' where you can interact, get latest information & resolve all orders related queries.

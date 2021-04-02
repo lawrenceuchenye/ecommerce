@@ -19,8 +19,7 @@ class Product(models.Model):
    desc=models.TextField(blank=True,null=True)
    is_in_store=models.BooleanField(default=True)
    created_at=models.DateTimeField(auto_now_add=True)
-   category=models.ForeignKey(Category,on_delete=models.CASCADE)
-   
+
    def snippet_android(self):
        return self.title[:9]+"..."
                            

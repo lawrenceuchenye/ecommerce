@@ -1,14 +1,11 @@
-{% extends "base.html" %}
-
+{% extends "new-base.html" %}
+                                            
 {% block content %}
 {% load static %}
         <style>
           section{
-            background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("{% static 'images/bg.jpg' %}");
-            background-size:cover;                                              
-            background-position:center;
-            height:100vh;
-            overflow-y:scroll;
+          height:100vh;
+          position:relative;          
           }
         </style>
            
@@ -22,7 +19,7 @@
                  <h2>Sign Up</h2>
                   {{signupform.as_p}}
                  <input class="login-btn" type="submit" value="Sign Up"/>
-                 <p>Do you have an account <a href="{% url 'account' %}">Log in</a></p>
+                 <p>Do you have an account <a href="{% url 'login' %}">Log in</p>
                </form> 
              </div>
              <div class="signup-btn-div">

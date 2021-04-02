@@ -25,6 +25,12 @@
  margin-bottom:60px;
 }
 
+.content .info .set #qtty{
+ font-weight:800;
+ position:relative;
+ top:20px;
+}
+
 .content .info .holder{
  background:rgba(0,0,0,0.7);
  border-radius:5px;
