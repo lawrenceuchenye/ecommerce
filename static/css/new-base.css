@@ -4,9 +4,6 @@
   font-family:serif;
 }
 
-.container{
- height:100vh;
-}
 
 .container .nav-bar{
   display:flex;
@@ -102,10 +99,6 @@
 }
 
 @media only screen and (max-width:700px){
-
-  .container{
-   height:680px;
-  }
   
   .container .nav-bar{
     background:#000;
