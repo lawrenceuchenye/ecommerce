@@ -1,15 +1,10 @@
-{% extends "base.html" %}
-
+{% extends "new-base.html" %}
+            
 {% block content %}
   {% load static %}
  <style>
-  .content{
-   width:100%;
-   height:100vh;
-   background-size:cover;
-   background-position:center;
-   overflow:scroll;
-   background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
+  .body{
+   height:120vh;
   }
  </style>
  <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
@@ -18,10 +13,12 @@
      <img src="{{ product.product_pic.url }}"/>
     </div>
     <div class="info">
-      <div class="holder">
+      <div class="holder holder-top">
          <h2>{{product.title}}</h2>
          <h4>NGN{{product.price}}</h4>
          <p>{{product.desc}}</p>
+      </div>
+      <div class="holder">
          <div class="set">        
            <p id="qtty">QTY:</p>
            <button class="btn add" onclick="add()">+</button>
@@ -29,7 +26,8 @@
              <p id="qty">1</p>
            </div>                    
            <button class="btn remove" onclick="removee()">-</button>
-         </div>
+       </div>
+
          <div class="btn-holder">
            <div class="add-cart butn">
              <img src="{% static 'images/cart.svg' %}"/>

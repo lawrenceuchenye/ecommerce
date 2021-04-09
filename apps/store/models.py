@@ -15,17 +15,15 @@ class Category(models.Model):
 class Product(models.Model):
    title=models.CharField(max_length=255)
    product_pic=models.ImageField(upload_to="uploads/products")
-   price=models.FloatField()
+   price=models.DecimalField(max_digits=100,decimal_places=2)
    desc=models.TextField(blank=True,null=True)
    is_in_store=models.BooleanField(default=True)
+   is_featured=models.BooleanField(default=False)
+   is_latest=models.BooleanField(default=True)
+   is_exculsive=models.BooleanField(default=False)
+
    created_at=models.DateTimeField(auto_now_add=True)
-
-   def snippet_android(self):
-       return self.title[:9]+"..."
-                           
-   def snippet_computer(self):
-       return self.title[:10]+"..."
-
+   
    class Meta:
       ordering=["-created_at"]
 

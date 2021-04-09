@@ -35,6 +35,7 @@
  display:flex;
  justify-content:left;
  align-items:left;
+ background:rgba(0,0,0,0.5);
 }
 
 .content .snav-bar input[type="text"]{
@@ -118,6 +119,10 @@
  background:#0d81ea;
 }
 
+.holder-top{
+ margin-bottom:10px;
+ color:red;
+}
 
 @media only screen and (max-width:700px){
   .content .product{
@@ -133,8 +138,10 @@
   .content .snav-bar input[type="text"]{
    width:252px;
   }
+  
+   .content .snav-bar{
+     background:transparent;
+    }
 
-  .content .snav-bar{
-   background:#000;
-  }
+  
  }

@@ -1,33 +1,152 @@
-{% extends "new-base.html" %}
-                            
-{% block content %}
-  {% load static %}
-   <style>
-    .body{
-     width:100%;
-     height:100vh;
-    }
+{% extends "base.html" %}
+     
+{% load static %}
+{% block style %}
+  <style>
+   .exculsive{
+      background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.5)),url("{% static 'images/wed_cake.jpg' %}");
+      background-position:center;
+      background-size:cover;
+      padding-left:25px;
+      padding-right:25px;
+      max-width:1300px;
+      margin:auto;
+   }      
    </style>
-  <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
-   <div class="content" id="content">
-      <div class="info">      
-        <h1 id="header">Welcome! customer</h1>
-         <p id="body">
-Facebook Bakery Page! Glad tidings dear customers! We are happy to introduce you to our 'Facebook Bakery Page' where you can interact, get latest information & resolve all orders related queries.
-         </p>                                                                                                                     
-         <div class="btnBx">
-           <div class="btn explore-btn">
-              <span></span><span></span><span></span>
-              <a href="{% url 'store' %}">Explore</a>
-           </div>       
-           <div class="btn join-btn">
-              <span></span><span></span><span></span>
-              <a href="{% url 'signup' %}">Join us</a>
-             </div>     
-       </div>
-   </div>
 {% endblock %}
+    <!----- Code to be moved to home.html ----->
+       {% block header %}
+          <div class="row">
+            <div class="col-2">
+              <h1 class="header">
+               Welcome Customer!
+              </h1>
+              <p>divine bakery a bakery you can trust to satisfy your tatse</p>
+              <p><a href="#" class="btn">Explore</a></p>
+            </div>
+            <div class="col-2">
+              <img src="{% static 'images/cake.jpg' %}"/>
+            </div>      
+          </div>
+        </div>
+      {% endblock %}
 
-{% block script %}
-  
-{% endblock %}
+      {% block content %}
+     <div class="small-container">
+       <h2 class="title-b">Category</h2>
+        <div class="row">
+          <div class="col-3">
+            <h4 class="title-b">Cake</h4>
+            <img src="{% static 'images/cake.svg' %}"/>
+           <p><i class="fa fa-quote-left"></i></p>
+            <p>We specialize in cake and muffins for all types of events and celebrations</p>
+          </div>                    
+          <div class="col-3">
+            <h4 class="title-b">Donut</h4>
+            <img src="{% static 'images/donut.svg' %}"/>
+           <p><i class="fa fa-quote-left"></i></p>
+            <p>We specialize in making of donuts,bagels with different designs.</p>
+          </div>
+          <div class="col-3">
+            <h4 class="title-b">Pie</h4>
+            <img src="{% static 'images/pie.svg' %}"/>
+           <p><i class="fa fa-quote-left"></i></p>
+            <p>We specialize in pie making such as meat pie,fruit pie etc</p>
+          </div>
+         </div>
+        </div>
+        
+        <div class="small-container">
+          <h2 class="title-b">Featured Pastries</h2>
+          <div class="row">
+            {% for item in featured %}
+            <div class="col-4">
+              <img src="{{item.product_pic.url}}"/>
+              <h4>{{item.title}}</h4>
+              <p>NGN{{item.price}}</p>
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="small-container">
+          <h2 class="title-b">Latest Pastries</h2>
+          <div class="row">
+           {% for item in latest %}
+            <div class="col-4">
+              <img src="{{item.product_pic.url}}"/>
+              <h4>{{item.title}}</h4>
+              <p>NGN{{item.price}}</h4>
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+           {% endfor %}
+          </div>
+          
+        <div class="row exculsive">
+            <div class="col-2">
+              <img src="{{exculsive.product_pic.url}}"/>
+            </div>
+            <div class="col-2">
+              <h1 class="header">
+               {{exculsive.title}}
+              </h1>
+              <p>{{exculsive.desc}}</p>
+            </div>
+       </div>
+       <div class="testimonial">
+         <div class="row">
+           <div class="col-5">
+             <i class="fa fa-quote-left"></i>
+             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <img src="{% static 'images/cookies.jpg' %}"/>
+              <h4>Mr Cookie</h4>
+           </div>
+           <div class="col-5">
+             <i class="fa fa-quote-left"></i>
+             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <img src="{% static 'images/cookies.jpg' %}"/>
+              <h4>Mr Cookie</h4>
+           </div>
+           <div class="col-5">
+             <i class="fa fa-quote-left"></i>
+             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <img src="{% static 'images/cookies.jpg' %}"/>
+              <h4>Mr Cookie</h4>
+           </div>
+         </div>
+       </div>
+       {% endblock %}

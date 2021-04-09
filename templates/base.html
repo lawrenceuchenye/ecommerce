@@ -1,102 +1,104 @@
 {% load static %}
 
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width,scale=1.0">
+        <meta name="viewport" content="width=device-width,scale=1.0"/>
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
-        <title>Bakery</title>
+        <link rel="stylesheet" href="https://font.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"/>
+        <link rel="stylesheet" href="{% static 'css/fontawesome/css/all.min.css' %}"/>
+                                                                          
+        <title>DivineBakery | Welcome!</title>
         <style>
           .container{
-            width:100%;
-            position:absolute;
+            background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.5)),url("{% static 'images/bg.jpg' %}");
+            background-position:center;
+            background-size:cover;
+            padding-left:25px;
+            padding-right:25px;
+            max-width:1300px;
+            margin:auto;
           }
         </style>
+        {% block style %}
+        {% endblock %}
     </head>
     <body>
         <div class="container">
-          <div id="container" class="utils">
-            <img id="exit" src="{% static 'images/x-octagon.svg' %}" onclick="closeMenu()" />
-            <ul>                             
-              <li>        
-                <img src="{% static 'images/home.svg' %}"/>
-                <a href="{% url 'dashboard' %}">Home</a>
-              </li>
-              <li>
-                <img src="{% static 'images/grid.svg' %}"/>
-                <a href="{% url 'store' %}"">Store</a>
-              </li>       
-            {% if request.user.is_authenticated == False %}
-              <li>
-                <img src="{% static 'images/user.svg' %}"/>
-                <a href="{% url 'login' %}">Account</a>
-              </li>                     
-            {% endif %}
-              <li>
-                <img src="{% static 'images/mail.svg' %}"/>
-                <a href="#">Contact</a>
-              </li>
-              <li>
-                <img src="{% static 'images/users.svg' %}"/>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <img src="{% static 'images/cart.svg' %}"/>
-                <a href="#">Cart</a>
-              </li>
-             {% if request.user.is_authenticated %}
-              <li id="logout">
-                <img src="{% static 'images/user.svg' %}"/>
-                <a href="{% url 'logout' %}">Log out</a>
-              </li>
-             {% endif %}
-            </ul>
-          </div>
+          <!----- Nav-bar ----->
           <div class="nav-bar">
-            <img src="{% static 'images/cake.png' %}"/>
-            <p>Divine Bakery</p>
-            <ul>            
-              <li><a href="{% url 'dashboard' %}"">Home</a></li>
-              <li><a href="{% url 'store' %}">Store</a></li>
-               {% if request.user.is_authenticated == False %}
-              <li>          
-                <a href="{% url 'login' %}">Account</a>
-              </li>                     
-                {% endif %}
-             </li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">About</a></li>
-             {% if request.user.is_authenticated %}
-              <li><a href="#">Cart</a></li>
-              <li>
-                <div class="logout-btn">
-                  <a href="{% url 'logout' %}">Log out</a>
-                 </div>
-             </li>
-            {% endif %}
-            </ul>
-            <img id="menu" src="{% static 'images/menu.svg' %}" onclick="openMenu()"/>
+            <img src="{% static 'images/logo.png' %}" width="50px" height="50px"/>
+            <h3>DivineBakery</h3>
+            <ul id="menuItems">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Store</a></li>
+              <li><a href="#">Account</a></li>
+            </ul>               
+            <img id="cart" src="{% static 'images/cart.svg' %}"/>
+            
+            <div class="cart">
+              <p>1</p>
+            </div>               
+            <img  id="menu" src="{% static 'images/menu.svg' %}"/>
           </div>
-           {% block content %}
-           {% endblock %}
-          <div class="terms">
-           <a href="#">Terms & Conditions</a>
+      {% block header %}
+      {% endblock %}
+     
+      {% block content %}             
+      {% endblock %}
+      
+       <div class="brands">
+            <div class="row">
+              <div class="col-6">
+                <img src="{% static 'images/logo-paypal.png' %}"/>
+              </div>
+              <div class="col-6">
+                <img src="{% static 'images/logo-stripe.png' %}"/>
+              </div>
           </div>
         </div>
+        
+        <footer>
+          <div class="links">
+            <div class="row">
+              <div class="col-7">
+                <h2>Divine Bakery</h2>
+              </div>
+              <div class="col-7">
+                <p><b>Useful Links</b></p>
+                <ul>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+              <div class="col-7">
+                <p><b>Follow Us</b></p>
+                <ul>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
     </body>
     <footer>
      <script src="{% static 'js/jquery.js' %}"></script>
-      <script>
-        function closeMenu(){
-          $("#container").css({"height":"0vh"});
+     <script>
+      $("#menu").on("click",function(){              
+        if($("#menuItems").height()==0){
+          $("#menuItems").css({"height":"100px"});
+        }else{
+          $("#menuItems").css({"height":"0px"});
         }
-        
-        function openMenu(){
-          $("#container").css({"height":"99.5vh"});
-        }
-      </script>
-     {% block script %}
+      });
+     </script>
+     {% block script %} 
      {% endblock %}
     </footer>
 </html>
