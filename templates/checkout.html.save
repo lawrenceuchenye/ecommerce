@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+ <link rel="stylesheet" href="{% static 'css/checkout.css' %}"/>
+ <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
+{% endblock %}
+
+{% block header %}
+     <div class="form-holder">
+          <div class="form-container">
+            <img src="{% static 'images/user.svg' %}"/>
+            <form id="form">
+              <input id="firstname" type="text" placeholder="First Name"/>
+              <input id="lastname" type="text" placeholder="Last Name"/>
+              <input id="email"  type="email" placeholder="Email"/>
+              <input id="zipcode"type="text" placeholder="Zip Code"/>
+              <input id="place" type="text" placeholder="Place"/>
+              <input id="address" type="text" placeholder="Address"/>
+              <input id="submit" type="submit" value="check out"/>
+            </form> 
+          </div>
+     </div>         
+{% endblock %} 
+
+
+
+{% block script %}
+ <script type="application/javascript" src="https://js.stripe.com/v3"></script>
+    
+ <script>    
+     
+  $("#form").submit(function(e){
+    e.preventDefault(e);
+   });	
+
+   
+  $("#submit").on("click",function(){
+   var stripe=Stripe("{{pub_key}}");
+    
+   fetch("{% url 'create_checkout_session' %}",{
+     method:"POST",
+     headers:{
+     "Content-Type":"applications/json",
+     "X-CSRFToken":"{{csrf_token}}"
+     },
+     credentials:"same-origin"
+   }).then(response=>{
+      return response.json();
+   }).then(session=>{
+      alert(session.session.id);
+      return stripe.redirectToCheckout({sessionId:session.session.id});
+   });
+
+
+/*
+   fetch("{% url 'api_checkout' %}",{
+     method:"POST",
+     headers:{
+     "Content-Type":"applications/json",
+     "X-CSRFToken":"{{csrf_token}}"
+     },
+     credentials:"same-origin",
+     body:JSON.stringify({
+     "firstname":$("#firstname").val(),
+     "lastname":$("#lastname").val(),
+     "email":$("#email").val(),
+     "zipcode":$("#zipcode").val(),
+     "place":$("#place").val(),
+     "address":$("#address").val()
+     })
+    });*/
+
+  });                 
+ </script>
+{% endblock %}

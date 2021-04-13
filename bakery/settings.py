@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.core',
     'apps.userprofile',
-    'apps.store'
+    'apps.store',
+    'apps.cart',
+    'apps.order'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.store.context_processor.categories',
+                'apps.cart.context_processor.cart_items',
             ],
         },
     },
@@ -142,3 +146,11 @@ LOGOUT_REDIRECT_URL="home"
 MEDIA_URL="/media/"
 MEDIA_ROOT=BASE_DIR / "media"
 
+
+CART_SESSION_ID="cart"
+SESSION_COOKIE_AGE=86400
+
+
+STRIPE_API_PUBLISHABLE_KEY="pk_test_51IfRKVLh9kwXHjLM9P5eEA1Q0RBPSA2x3l8j0ZCR605LhmNG5bs3BsW2a1sqMQX5FpipWHaRdHGUHS3FdlKYSKYQ00BxXGOLHI"
+STRIPE_API_HIDDEN_KEY="sk_test_51IfRKVLh9kwXHjLMb5fSXC4ZL6W3HQEAhxB9wZUZQv9GyGPKnybvu0LXImLvi9ZDpQu8wNGBt0539TQLh6QApyDx008TJ7AP1b"
+                 

@@ -1,6 +1,111 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
+{% endblock %}
 
 {% block content %}
- <div class="content">
- </div>
+  <div class="small-container">
+   <div class="row row-1">
+     <div class="col">
+       <img src="{{product.product_pic.url}}"/>
+      </div>
+     <div class="col-2">
+       <h1>{{product.title}}</h1>
+       <p>NGN{{product.price}}</p>
+       <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+       {% if is_in_cart == False %}
+       <div class="quantity">
+         <button id="remove-btn" class="btn-option">-</button>
+         <p id="qty">1</p>
+         <button id="add-btn" class="btn-option">+</button>
+         <a id="add-to-cart" class="btn">Add To Cart </a>
+        </div>             
+      {% else %}
+        <div class="quantity">
+          <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
+        </div>                                    
+      {% endif %}
+       <h4>Product Detail</h4>
+        <p>{{product.desc}}</p>
+    </div>
+  </div>
+                    
+  <div class="small-container">
+     <h1 class="title-b">Related Pastries</h1>
+       <div class="row row-2">
+           {% for item in related_products %}
+            <a href="{% url 'detail' item.id %}">
+             <div class="col-4">
+              <img src="{{item.product_pic.url}}"/>
+              <h4>{{item.title}}</h4>
+              <p>NGN{{item.price}}</p>
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+{% endblock %}
+
+{% block script %}
+ <script>
+
+    $("#add-btn").on("click",function(){
+      var qty=parseInt($("#qty").text());
+      $("#qty").text(qty+1);
+      $("#remove-btn").css({"opacity":"1"});
+    });
+       
+    $("#remove-btn").on("click",function(){
+      var qty=parseInt($("#qty").text());
+      if(qty>1){
+        $("#remove-btn").css({"opacity":"1"});
+        $("#qty").text(qty-1);
+      }else{
+        $("#remove-btn").css({"opacity":"0.5"});
+      }        
+    });     
+
+    $("#add-to-cart").on("click",function(){
+      $("#add-to-cart").css({"background":"#52ac39"});
+      $("#add-to-cart").html("Item Added   <i class='fas fa-check-circle'></i>");
+      $(".btn-option").css({"opacity":"0.5"});
+      $("#remove-btn").unbind("click");
+      $("#add-btn").unbind("click");
+      $("#add-to-cart").unbind("click");
+
+
+      fetch("{% url 'add_to_cart' %}",{
+        method:"POST",
+        headers:{
+         "Content-Type":"applications/json",
+         "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":"{{product.id}}",
+         "qty":parseInt($("#qty").text())
+        })
+
+      });
+
+      $("#cart-items").css({"display":"block"});
+      $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt($("#qty").text()));
+                                              
+    });  
+  </script>
 {% endblock %}

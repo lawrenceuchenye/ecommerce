@@ -32,20 +32,22 @@
             <img src="{% static 'images/logo.png' %}" width="50px" height="50px"/>
             <h3>DivineBakery</h3>
             <ul id="menuItems">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Store</a></li>
-              <li><a href="#">Account</a></li>
-            </ul>               
-            <img id="cart" src="{% static 'images/cart.svg' %}"/>
-            
-            <div class="cart">
-              <p>1</p>
-            </div>               
+              <li id="exit"><img src="{% static 'images/x-octagon.svg' %}"/>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'store' %}?page=1">Store</a></li>
+              <li><a href="#">Account</a></li>    
+             </ul>                              
+          <a href="{% url 'cart' %}"> <img id="cart" src="{% static 'images/cart.svg' %}"/></a>
+                        
+            <div id="cart-items" class="cart">         
+              <p id="cart_items_n">{{cart_items}}</p>
+            </div>             
             <img  id="menu" src="{% static 'images/menu.svg' %}"/>
           </div>
-      {% block header %}
-      {% endblock %}
-     
+           {% block header %}
+           {% endblock %}
+         </div>
+          
       {% block content %}             
       {% endblock %}
       
@@ -90,13 +92,23 @@
     <footer>
      <script src="{% static 'js/jquery.js' %}"></script>
      <script>
-      $("#menu").on("click",function(){              
-        if($("#menuItems").height()==0){
-          $("#menuItems").css({"height":"100px"});
+
+      $("#menu").on("click",function(){
+       if($("#menuItems").height()==0){
+          $("#menuItems").css({"height":"200px"});
         }else{
           $("#menuItems").css({"height":"0px"});
         }
       });
+
+      $("#exit").on("click",function(){
+        $("#menuItems").css({"height":"0px"});
+      });
+
+      if(parseInt("{{cart_items}}")==0){
+          $("#cart-items").css({"display":"none"});
+      }
+                        
      </script>
      {% block script %} 
      {% endblock %}

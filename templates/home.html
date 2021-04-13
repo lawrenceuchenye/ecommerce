@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-     
 {% load static %}
+
 {% block style %}
   <style>
    .exculsive{
@@ -13,6 +13,7 @@
       margin:auto;
    }      
    </style>
+   <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
 {% endblock %}
     <!----- Code to be moved to home.html ----->
        {% block header %}
@@ -22,8 +23,8 @@
                Welcome Customer!
               </h1>
               <p>divine bakery a bakery you can trust to satisfy your tatse</p>
-              <p><a href="#" class="btn">Explore</a></p>
-            </div>
+              <p><a href="{% url 'store' %}?page=1" class="btn">Explore</a></p>
+            </div>         
             <div class="col-2">
               <img src="{% static 'images/cake.jpg' %}"/>
             </div>      
@@ -60,6 +61,7 @@
           <h2 class="title-b">Featured Pastries</h2>
           <div class="row">
             {% for item in featured %}
+            <a href="{% url 'detail' item.id %}">
             <div class="col-4">
               <img src="{{item.product_pic.url}}"/>
               <h4>{{item.title}}</h4>
@@ -71,6 +73,7 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
+             </a>
             </div>
             {% endfor %}
           </div>
@@ -80,6 +83,7 @@
           <h2 class="title-b">Latest Pastries</h2>
           <div class="row">
            {% for item in latest %}
+           <a href="{% url 'detail' item.id %}">
             <div class="col-4">
               <img src="{{item.product_pic.url}}"/>
               <h4>{{item.title}}</h4>
@@ -91,6 +95,7 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
+              </a>
             </div>
            {% endfor %}
           </div>
@@ -100,11 +105,14 @@
               <img src="{{exculsive.product_pic.url}}"/>
             </div>
             <div class="col-2">
+              <a href="{% url 'detail' exculsive.id %}">
               <h1 class="header">
                {{exculsive.title}}
               </h1>
+              </a>
               <p>{{exculsive.desc}}</p>
             </div>
+
        </div>
        <div class="testimonial">
          <div class="row">

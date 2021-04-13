@@ -10,6 +10,10 @@
   position:relative;
 }
 
+.small-container .row a{
+ text-decoration:none;
+}
+
 .nav-bar img{
   padding-top:10px;
 }
@@ -54,9 +58,8 @@
 }
 
 .nav-bar .cart{
-  background:#cf1733;
-  height:15px;
-  width:15px;
+  height:20px;  
+  width:20px;
   display:block;
   content:'';
   margin:10px;
@@ -65,16 +68,17 @@
   color:#fff;
   text-align:center;
   right:2px;
-  top:8px;
+  top:5px;
 }
 
 .nav-bar .cart p{
-  width:5px;
-  height:5px;
-  margin-left:4.3px;
+  background:#cf1733;
   border-radius:5px;
   font-size:13px;
-}
+  margin-top:3px;
+  padding:2px;
+  border-radius:50%;
+}   
 
 
 /*----- code to be move to home.html  Header -----*/
@@ -97,7 +101,7 @@
 .col-2 h1{
   margin-bottom:10px;
   font-size:50px;
-  font-family:cursive;
+  font-family:cursive,serif;
 }
 
 .col-2 p{
@@ -248,7 +252,7 @@
 }
 
 .col-7 h2{
-  font-family:cursive;
+  font-family:cursive,serif;
   font-size:40px;
 }
 
@@ -267,6 +271,10 @@
   margin-top:50px;
 }
 
+#exit{
+ display:none;
+}
+
 @media only screen and (max-width:700px){
   
   /*------ Nav-bar ------*/
@@ -281,6 +289,7 @@
     position:absolute;
     right:30px;
     top:10px;
+    cursor:pointer;
   }
   
   .nav-bar .cart{
@@ -293,7 +302,8 @@
     height:0px;
     position:absolute;
     right:10px;
-    top:33px;
+    top:10px;
+    text-align:center;
   }
 
   .nav-bar ul li{
@@ -303,12 +313,14 @@
 
   .col-2 h1{
     font-size:40px;
+    font-family:cursive;
    }
   
+  .col-7 h2{
+    font-family:cursive;
+   }
   
-/*----- code to be move to home.html  Header -----*/
-  .col-2 img{
-    margin-left:-13px;
+  #exit{
+    display:block;
   }
-  
 }

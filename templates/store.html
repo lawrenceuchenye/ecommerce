@@ -1,48 +1,84 @@
-{% extends "new-base.html" %}
-            
-{% block content %}
+{% extends "base.html" %}
 {% load static %}
- <style>
-  .body{
-   width:100%;
-   height:120vh;
-  }                
-    
-  .store-goods{
-    overflow:scroll;
-  }
- </style>
- <link rel="stylesheet" href="{% static 'css/store.css' %}"/>
- <div class="content">
-  <div class="snav-bar">
-   <form method="GET">
-    <input type="text" placeholder="Search your favourite pastry"/>
-    <input type="submit" value="Search"/>
-  </div>
-  <div class="store-goods">
-    {% for product in products %}
-      <div class="product">    
-         <p id="title"><strong> 
-         {% if product.title|length > 8 %}
-           {{product.snippet_android}}
-         {% else %}
-           {{product.title}}
-         {% endif %}
-         </strong></p>
-         <div class="img-holder">
-           <img src="{{product.product_pic.url}}"/>
-         </div>
-        <a href="{% url 'detail' product.id %}">
-         <div class="info">
-           <p>NGN{{product.price}}</p>
+
+{% block style %}
+ <link href="{% static 'css/store.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block header %}
+          <div class="row row-header">
+            <div class="col-2">
+              <img src="{{exculsive.product_pic.url}}"/>
+            </div>
+          <div class="col-2">
+            <h1>{{exculsive.title}}</h1>
+             <p>NGN{{exculsive.price}}</p>
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <a href="{% url 'detail' exculsive.id %}" class="btn btn-ex">BUY NOW</a>
+          </div>       
         </div>
-        </a>
-    </div>                      
-  {% empty %}
-   <div class="product-empty">
-     <p><strong>SOLD OUT!</strong> come back later.</p>
-   </div>
-  {% endfor %}
-  </div>
- </div>
+      {% endblock %}
+
+{% block content %}
+  <div class="small-container">
+         <div class="row row-2">
+           <h2 class="title-b">All Products</h2>
+           <select id="categories">
+            <option value="general">General</option>
+            {% for category in categories %}
+              <option value="{% url 'category' category.slug %}?page=1">{{category}}</option>
+            {% endfor %}                                        
+           </select>
+         </div>
+          <div class="row">
+           {% for item in products %}
+             <a href="{% url 'detail' item.id %}">
+             <div class="col-4">
+              <img src="{{item.product_pic.url}}"/>
+              <h4>{{item.title}}</h4>
+              <p>NGN{{item.price}}</p>
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div> 
+        <div class="page-nav">
+          {% if products.has_previous %}                                   
+            <span><a href="{% url 'store' %}?page={{products.number|add:'-1'}}">&#8592;</a></span>
+          {% endif %}
+                  
+          {% for page in products.paginator.page_range %}
+             {% if page == products.number %}
+                <span class="current-page"><a href="{% url 'store' %}?page={{page}}">{{page}}</a></span>
+             {% else %}
+               <span><a href="{% url 'store' %}?page={{page}}">{{page}}</a></span>
+             {% endif %}
+          {% endfor %}                              
+
+          {% if products.has_next %}    
+            <span><a href="{% url 'store' %}?page={{products.number|add:'1'}}">&#8594;</a></span>
+          {% endif %}
+        </div>                               
+{% endblock %}
+
+{% block script %}
+  <script>
+    $("#categories").change(function(){
+      var category=$(this).children("option:selected").val();
+      window.location.replace(category);
+    });                
+   </script>
 {% endblock %}
