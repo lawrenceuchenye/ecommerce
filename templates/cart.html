@@ -39,15 +39,11 @@
        </td>    
       <td>
        <div class="price">
-       
-          <p id="totalcost-{{item.product.id}}">
-          {{item.totalcost}}
          {% if item.totalcost == 0 %}
-            NGN0.00   
+            <p id="totalcost-{{item.product.id}}">NGN0.00</p>
          {% else %}    
-             NGN{{item.totalcost}}
+             <p id="totalcost-{{item.product.id}}">NGN{{item.totalcost}}0</p>
           {% endif %}
-          </p>
        </div>     
       </td>
       </tr>
@@ -58,13 +54,13 @@
     <table>
       <tr>
         <td>Subtotal</td>    
-        <td><p id="subtotal">
+        <td>     
         {% if sub_total == 0 %}
-         NGN0.00
+         <p id="subtotal">NGN0.00</p>
         {% else %}
-          NGN{{sub_total}}0
-        {% endif %}
-        </p></td>
+         <p id="subtotal">NGN{{sub_total}}0</p>
+        {% endif %}               
+        </td>
        </tr>                                 
        <tr>                                     
          <td>Service Charge</td>
@@ -72,11 +68,11 @@
        </tr>
       <tr>
         <td>Total</td>
-         <td><p id="total">
-         {% if total == 10 %}
-         NGN10.00
+         <td>
+      {% if total == 10 %}
+        <p id="total">NGN10.00</p>
         {% else %}
-          NGN{{total}}0
+         <p id="total">NGN{{total}}0</p>
         {% endif %}
          </p></td>
        </tr>                                               
@@ -98,8 +94,6 @@
                    
  <script>     
    function remove_item(product_id){
-
-     $("#id-"+product_id).css({"display":"none"});
         
      fetch("{% url 'remove_from_cart' %}",{
       method:"POST",
@@ -112,7 +106,25 @@
       "product_id":product_id
       })
      });
-     
+
+     var total=$("#total").text();
+     total=parseInt(total.slice(3,total.length));
+
+     var price=$("#price-"+product_id).text();
+     price=parseInt(price.slice(3,price.length));
+
+     var qty=parseInt($("#qty-"+product_id).text());
+
+     $("#total").text("NGN"+(total-(price*qty))+".00");
+     $("#subtotal").text("NGN"+((total-(price*qty))-10.0)+".00");
+                                
+      $("#id-"+product_id).css({"display":"none"});
+
+    $("#cart_items_n").text(parseInt($("#cart_items_n").text())-qty);
+
+    if(parseInt($("#cart_items_n").text())==0){
+       $("#cart_items_n").css({"display":"none"});
+    }
    }
 
                
@@ -135,12 +147,11 @@
                                                 
       if((parseInt($("#qty-"+product_id).text())-1)==1){
       $("#sub").css({"opacity":"0.5"});
-      }
-
       }else{
-       remove_item(product_id);
-     }       
+       $("#sub").css({"opacity":"1"});
+      }      
      
+
      $("#qty-"+product_id).text(parseInt($("#qty-"+product_id).text())-1);
      var price_total=$("#totalcost-"+product_id).text();
      price_total=parseInt(price_total.slice(3,price_total.length));
@@ -153,11 +164,13 @@
      var total=$("#total").text();                 
      total=parseInt(total.slice(3,total.length));  
       $("#total").text("NGN"+(total-price)+".00");
-                                    
       $("#subtotal").text("NGN"+((total-price)-10)+".00");
       $("#cart-items").css({"display":"block"});
       $("#cart_items_n").text(parseInt($("#cart_items_n").text())-1);
       
+     }else{
+       remove_item(product_id);
+     }
     }                                   
                                                    
    function add_qty(product_id,price){
