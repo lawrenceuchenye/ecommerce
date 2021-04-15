@@ -30,7 +30,7 @@
           <!----- Nav-bar ----->
           <div class="nav-bar">
             <img src="{% static 'images/logo.png' %}" width="50px" height="50px"/>
-            <h3>DivineBakery</h3>
+            <h3><a href="{% url 'home' %}" class="home">Divine Bakery</a></h3>
             <ul id="menuItems">
               <li id="exit"><img src="{% static 'images/x-octagon.svg' %}"/>
               <li><a href="{% url 'home' %}">Home</a></li>

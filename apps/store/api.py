@@ -20,17 +20,10 @@ def remove_from_cart(request):
     cart.remove_from_cart(data["product_id"])
     return JsonResponse({"success":True})
 
-def api_checkout(request,session_intent):
+def api_checkout(request):
    data=json.loads(request.body)
-   order_id=checkout(request,data["firstname"],data["lastname"],data["email"],data["zipcode"],data["place"],data["address"],session_intent)
-   order=Order.objects.get(id=order_id)
-   paid=True
-   cart=Cart(request)
-   if paid:
-      order.paid=True   
-      order.paid_amount=(cart.get_total()+10)
-      cart.clear()
-   order.save()
+   order_id=checkout(request,data["firstname"],data["lastname"],data["email"],data["zipcode"],data["place"],data["address"])
+   return order_id
 
 def create_checkout_session(request):
     cart=Cart(request)
@@ -52,13 +45,19 @@ def create_checkout_session(request):
 
        items.append(obj)
 
+    order_id=api_checkout(request)
     session=stripe.checkout.Session.create(
      payment_method_types=["card"],
      mode="payment",
      line_items=items,
-     success_url="http://127.0.0.1:8000/",
+     success_url="http://127.0.0.1:8000/validate/"+str(order_id)+"/",
      cancel_url="http://127.0.0.1:8000/cart/"
      )   
-    api_checkout(request,session.payment_intent)
+    
+    order=Order.objects.get(id=order_id)
+    order.payment_intent=session.id
+    order.paid_amount=cart.get_total()
+    order.save()
+
     return JsonResponse({"session":session})
                                  

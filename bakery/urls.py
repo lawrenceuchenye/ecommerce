@@ -25,7 +25,7 @@ from apps.store.views import store_view,category_view,detail_view
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session
 from apps.cart.views import cart_view
 from apps.cart.webhook import webhook
-from apps.order.views import checkout_view
+from apps.order.views import checkout_view,validate_order_view,success_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,5 +49,8 @@ urlpatterns = [
     path('create_checkout_session/',create_checkout_session,name="create_checkout_session"),
 
     path('checkout/',checkout_view,name="checkout"),
+    path('validate/<int:order_id>/',validate_order_view,name="validate"),
+    path('success/',success_view,name="success")
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
                               
