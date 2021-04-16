@@ -21,9 +21,9 @@ def remove_from_cart(request):
     return JsonResponse({"success":True})
 
 def api_checkout(request):
+   return request.body # debug
    data=json.loads(request.body)
-   # order_id=checkout(request,data["firstname"],data["lastname"],data["email"],data["zipcode"],data["place"],data["address"])
-   return request.body
+   order_id=checkout(request,data["firstname"],data["lastname"],data["email"],data["zipcode"],data["place"],data["address"])
    return order_id
 
 def create_checkout_session(request):
@@ -60,5 +60,5 @@ def create_checkout_session(request):
     order.paid_amount=cart.get_total()
     order.save()
 
-    return JsonResponse({"session":session})
+    return JsonResponse({"session":session, "order-id": order_id})
                                  
