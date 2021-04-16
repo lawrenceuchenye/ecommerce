@@ -6,7 +6,7 @@ class Category(models.Model):
    title=models.CharField(max_length=255)
    slug=models.SlugField(max_length=255)
    order=models.IntegerField()
-   
+
    def __str__(self):
      return self.title
 
@@ -26,7 +26,7 @@ class Product(models.Model):
    created_at=models.DateTimeField(auto_now_add=True)
    category=models.ForeignKey(Category,related_name="products",on_delete=models.CASCADE)
 
-                                                    
+
    class Meta:
       ordering=["-created_at"]
 

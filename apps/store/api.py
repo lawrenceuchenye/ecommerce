@@ -6,14 +6,14 @@ from django.http import JsonResponse
 from .utils import checkout
 import json
 import stripe
-     
+
 def add_to_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
     return JsonResponse({"success":True})
 
-      
+
 def remove_from_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
@@ -39,8 +39,8 @@ def create_checkout_session(request):
             "name":product.title
            },
            "unit_amount":int((product.price/481)*100),
-          },                               
-           "quantity":item["quantity"]                  
+          },
+           "quantity":item["quantity"]
         }
 
        items.append(obj)
@@ -48,18 +48,19 @@ def create_checkout_session(request):
       JsonResponse({"error": "No items in cart!"})
 
     order_id=api_checkout(request)
+    if (order_id)
     session=stripe.checkout.Session.create(
      payment_method_types=["card"],
      mode="payment",
      line_items=items,
      success_url="http://127.0.0.1:8000/validate/"+str(order_id)+"/",
      cancel_url="http://127.0.0.1:8000/cart/"
-     )   
-    
+     )
+
     order=Order.objects.get(id=order_id)
     order.payment_intent=session.id
     order.paid_amount=cart.get_total()
     order.save()
 
     return JsonResponse({"session":session, "order-id": order_id})
-                                 
+
