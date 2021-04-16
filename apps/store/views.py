@@ -6,6 +6,8 @@ from apps.cart.cart import Cart
 # Create your views here.
 def store_view(request):
    page=request.GET.get("page")
+   if not (page):
+     page = 1
    pages=Paginator(Product.objects.all(),8)
    products=pages.page(int(page))
    exculsive=Product.objects.filter(is_exculsive=True)[0]
