@@ -45,10 +45,9 @@ def create_checkout_session(request):
 
        items.append(obj)
     if (len(items) == 0):
-      JsonResponse({"error": "No items in cart!"})
+      return JsonResponse({"error": "No items in cart!", "status": False})
 
     order_id=api_checkout(request)
-    if (order_id)
     session=stripe.checkout.Session.create(
      payment_method_types=["card"],
      mode="payment",
@@ -62,5 +61,5 @@ def create_checkout_session(request):
     order.paid_amount=cart.get_total()
     order.save()
 
-    return JsonResponse({"session":session, "order-id": order_id})
+    return JsonResponse({"session":session, "order-id": order_id, "status": True})
 

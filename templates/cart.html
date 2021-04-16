@@ -24,27 +24,27 @@
          <div class="info">
           <p>{{item.product.title}}</p>
           <p id="price-{{item.product.id}}">NGN{{item.product.price}}0</p>
-          <br />         
-            
+          <br />
+
           <a onclick="remove_item({{item.product.id}})">Remove</a>
-         </div>                                 
+         </div>
        </div>
        </td>
        <td>
-       <div class="quantity">      
+       <div class="quantity">
          <button id="sub"  class="btn-option" onclick="sub_qty({{item.product.id}})">-</button>
          <p id="qty-{{item.product.id}}" class="qty">{{item.quantity}}</p>
          <button onclick="add_qty({{item.product.id}},{{item.product.price}})" class="btn-option">+</button>
-       </div>                                        
-       </td>    
+       </div>
+       </td>
       <td>
        <div class="price">
          {% if item.totalcost == 0 %}
             <p id="totalcost-{{item.product.id}}">NGN0.00</p>
-         {% else %}    
+         {% else %}
              <p id="totalcost-{{item.product.id}}">NGN{{item.totalcost}}0</p>
           {% endif %}
-       </div>     
+       </div>
       </td>
       </tr>
   {% endfor %}
@@ -53,16 +53,16 @@
    <div class="total-price">
     <table>
       <tr>
-        <td>Subtotal</td>    
-        <td>     
+        <td>Subtotal</td>
+        <td>
         {% if sub_total == 0 %}
          <p id="subtotal">NGN0.00</p>
         {% else %}
          <p id="subtotal">NGN{{sub_total}}0</p>
-        {% endif %}               
+        {% endif %}
         </td>
-       </tr>                                 
-       <tr>                                     
+       </tr>
+       <tr>
          <td>Service Charge</td>
          <td>NGN10.00</td>
        </tr>
@@ -75,30 +75,30 @@
          <p id="total">NGN{{total}}0</p>
         {% endif %}
          </p></td>
-       </tr>                                               
+       </tr>
       <tr>
         <td>
          <div class="btn-holder">
           <a href="{% url 'checkout' %}" class="btn">Check Out</a>
-                   
+
          </div>
         </td>
       </tr>
     </table>
    </div>
- </div>                 
+ </div>
 {% endblock %}
 
 {% block script %}
  <script type="application/javascript" src="https://js.stripe.com/v3"></script>
-                   
- <script>     
+
+ <script>
    function remove_item(product_id){
-        
+
      fetch("{% url 'remove_from_cart' %}",{
       method:"POST",
       headers:{
-      "Content-Type":"applications/json",
+      "Content-Type":"application/json",
       "X-CSRFToken":"{{csrf_token}}"
       },
       credentials:"same-origin",
@@ -117,7 +117,7 @@
 
      $("#total").text("NGN"+(total-(price*qty))+".00");
      $("#subtotal").text("NGN"+((total-(price*qty))-10.0)+".00");
-                                
+
       $("#id-"+product_id).css({"display":"none"});
 
     $("#cart_items_n").text(parseInt($("#cart_items_n").text())-qty);
@@ -127,30 +127,30 @@
     }
    }
 
-               
-   function sub_qty(product_id){     
-     
+
+   function sub_qty(product_id){
+
      if(parseInt($("#qty-"+product_id).text())>1){
-     
+
       fetch("{% url 'add_to_cart' %}",{
         method:"POST",
         headers:{
-         "Content-Type":"applications/json",
+         "Content-Type":"application/json",
          "X-CSRFToken":"{{csrf_token}}"
         },
         credentials:"same-origin",
         body:JSON.stringify({
          "product_id":product_id,
          "qty":(parseInt($("#qty-"+product_id).text())-1)
-        })     
+        })
       });
-                                                
+
       if((parseInt($("#qty-"+product_id).text())-1)==1){
       $("#sub").css({"opacity":"0.5"});
       }else{
        $("#sub").css({"opacity":"1"});
-      }      
-     
+      }
+
 
      $("#qty-"+product_id).text(parseInt($("#qty-"+product_id).text())-1);
      var price_total=$("#totalcost-"+product_id).text();
@@ -161,24 +161,24 @@
 
      $("#totalcost-"+product_id).text("NGN"+(price_total-price)+".00");
 
-     var total=$("#total").text();                 
-     total=parseInt(total.slice(3,total.length));  
+     var total=$("#total").text();
+     total=parseInt(total.slice(3,total.length));
       $("#total").text("NGN"+(total-price)+".00");
       $("#subtotal").text("NGN"+((total-price)-10)+".00");
       $("#cart-items").css({"display":"block"});
       $("#cart_items_n").text(parseInt($("#cart_items_n").text())-1);
-      
+
      }else{
        remove_item(product_id);
      }
-    }                                   
-                                                   
+    }
+
    function add_qty(product_id,price){
        $("#sub").css({"opacity":"1"});
       fetch("{% url 'add_to_cart' %}",{
         method:"POST",
         headers:{
-         "Content-Type":"applications/json",
+         "Content-Type":"application/json",
          "X-CSRFToken":"{{csrf_token}}"
         },
         credentials:"same-origin",
@@ -188,25 +188,25 @@
         })
       });
 
-   
-      $("#qty-"+product_id).text(parseInt($("#qty-"+product_id).text())+1);                                      
+
+      $("#qty-"+product_id).text(parseInt($("#qty-"+product_id).text())+1);
       var price_total=$("#totalcost-"+product_id).text();
       price_total=parseInt(price_total.slice(3,price_total.length));
-      
+
       var price=$("#price-"+product_id).text();
       price=parseInt(price.slice(3,price.length));
-      
+
      $("#totalcost-"+product_id).text("NGN"+(price_total+price)+".00");
-      
-     var total=$("#total").text();           
+
+     var total=$("#total").text();
      total=parseInt(total.slice(3,total.length));
-     $("#total").text("NGN"+(total+price)+".00");                                   
-           
+     $("#total").text("NGN"+(total+price)+".00");
+
      $("#subtotal").text("NGN"+((total+price)-10.0)+".00");
      $("#cart-items").css({"display":"block"});
      $("#cart_items_n").text(parseInt($("#cart_items_n").text())+1);
-                     
-    }                                           
+
+    }
 
  </script>
 {% endblock %}

@@ -53,10 +53,10 @@
    }).then(response=>{
       return response.json();
    }).then(data=>{
-    if (data.session) {
-      return stripe.redirectToCheckout({sessionId:session.session.id});
+    if (data.status) {
+      return stripe.redirectToCheckout({sessionId:data.session.session.id});
     }
-    else if (data.error) {
+    else {
       alert(data.error);
     }
    });/*.then(results=>{
@@ -70,7 +70,7 @@
    fetch("{% url 'api_checkout' %}",{
      method:"POST",
      headers:{
-     "Content-Type":"applications/json",
+     "Content-Type":"application/json",
      "X-CSRFToken":"{{csrf_token}}"
      },
      credentials:"same-origin",
