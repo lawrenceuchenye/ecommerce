@@ -9,7 +9,7 @@ def store_view(request):
    pages=Paginator(Product.objects.all(),8)
    try:
       page = int(page)
-      if (page > pages.num_pages):
+      if (page > pages.num_pages or page < 1):
          page = 1
    except Exception:
       page = 1
@@ -23,7 +23,7 @@ def category_view(request,category_slug):
    pages=Paginator(category.products.all(),8)
    try:
       page = int(page)
-      if (page > pages.num_pages):
+      if (page > pages.num_pages or page < 1):
          page = 1
    except Exception:
       page = 1
