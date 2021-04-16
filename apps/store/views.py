@@ -6,10 +6,14 @@ from apps.cart.cart import Cart
 # Create your views here.
 def store_view(request):
    page=request.GET.get("page")
-   if not (page):
-     page = 1
    pages=Paginator(Product.objects.all(),8)
-   products=pages.page(int(page))
+   try:
+      page = int(page)
+      if (page > pages.num_pages):
+         page = 1
+   except Exception:
+      page = 1
+   products=pages.page(page)
    exculsive=Product.objects.filter(is_exculsive=True)[0]
    return render(request,"store.html",{"products":products,"exculsive":exculsive})
 
@@ -17,7 +21,13 @@ def category_view(request,category_slug):
    page=request.GET.get("page")
    category=Category.objects.get(slug=category_slug)
    pages=Paginator(category.products.all(),8)
-   products=pages.page(int(page))
+   try:
+      page = int(page)
+      if (page > pages.num_pages):
+         page = 1
+   except Exception:
+      page = 1
+   products=pages.page(page)
    return render(request,"category.html",{"products":products,"category":category})
                                                   
 
