@@ -11,12 +11,12 @@
           <div class="form-container">
             <img src="{% static 'images/user.svg' %}"/>
             <form id="form">
-              <input id="firstname" type="text" placeholder="First Name"/>
-              <input id="lastname" type="text" placeholder="Last Name"/>
-              <input id="email"  type="email" placeholder="Email"/>
-              <input id="zipcode"type="text" placeholder="Zip Code"/>
-              <input id="place" type="text" placeholder="Place"/>
-              <input id="address" type="text" placeholder="Address"/>
+              <input id="firstname" type="text" required placeholder="First Name"/>
+              <input id="lastname" type="text" required placeholder="Last Name"/>
+              <input id="email"  type="email" required placeholder="Email"/>
+              <input id="zipcode"type="text" required placeholder="Zip Code"/>
+              <input id="place" type="text" required placeholder="Place"/>
+              <input id="address" type="text" required placeholder="Address"/>
               <input id="submit" type="submit" value="check out"/>
             </form> 
           </div>
@@ -41,7 +41,7 @@
    fetch("{% url 'create_checkout_session' %}",{
      method:"POST",
      headers:{
-     "Content-Type":"applications/json",
+     "Content-Type":"application/json",
      "X-CSRFToken":"{{csrf_token}}"
      },
      credentials:"same-origin",
@@ -55,8 +55,13 @@
      })
    }).then(response=>{
       return response.json();
-   }).then(session=>{
+   }).then(data=>{
+    if (data.session) {
       return stripe.redirectToCheckout({sessionId:session.session.id});
+    }
+    else if (data.error) {
+      alert(data.error);
+    }
    });/*.then(results=>{
      if(results.error){
         alert(results.error.message);
