@@ -3,6 +3,16 @@ from apps.store.models import Product
 
 # Create your models here.
 class Order(models.Model):
+   ORDERED="ordered"
+   SHIPPED="shipped"
+   BAKING="baking"
+
+   CHOICES=(
+    (ORDERED,"Ordered"),
+    (SHIPPED,"Shipped"),
+    (BAKING,"Baking"),
+   )
+
    first_name=models.CharField(max_length=60)
    last_name=models.CharField(max_length=60)
    email=models.EmailField()
@@ -15,7 +25,8 @@ class Order(models.Model):
    payment_intent=models.CharField(max_length=255,blank=True)
 
    created_at=models.DateTimeField(auto_now_add=True)
-   
+   status=models.CharField(max_length=20,choices=CHOICES,default=ORDERED)
+                                         
    def __str__(self):
        return self.first_name
 
