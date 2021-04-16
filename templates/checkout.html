@@ -54,7 +54,6 @@
      "address":$("#address").val()
      })
    }).then(response=>{
-      response.text().then(data=> { console.log(data) });
       return response.json();
    }).then(session=>{
       return stripe.redirectToCheckout({sessionId:session.session.id});

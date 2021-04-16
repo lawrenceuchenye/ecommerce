@@ -21,7 +21,6 @@ def remove_from_cart(request):
     return JsonResponse({"success":True})
 
 def api_checkout(request):
-   return request.body # debug
    data=json.loads(request.body)
    order_id=checkout(request,data["firstname"],data["lastname"],data["email"],data["zipcode"],data["place"],data["address"])
    return order_id
@@ -45,6 +44,8 @@ def create_checkout_session(request):
         }
 
        items.append(obj)
+    if (len(items) == 0):
+      JsonResponse({"error": "No items in cart!"})
 
     order_id=api_checkout(request)
     session=stripe.checkout.Session.create(
