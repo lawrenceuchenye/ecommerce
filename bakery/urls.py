@@ -19,10 +19,9 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static 
 
-from apps.core.views import home_view,login_view,signup_view,logout_view
-
-from apps.userprofile.views import account_view
-
+from apps.core.views import home_view,account_view,logout_view
+from apps.core.api import api_login,api_signup
+                     
 from apps.store.views import store_view,category_view,detail_view
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session
 
@@ -33,11 +32,11 @@ from apps.order.views import checkout_view,validate_order_view,success_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('',home_view,name="home"),
-    path('login/',login_view,name="login"),
-    path('signup/',signup_view,name="signup"),
-    path('logout/',logout_view,name="logout"),
-                                 
+    path('api_login/',api_login,name="api_login"),
+    path('api_signup/',api_signup,name="api_signup"),
+    path('logout/',logout_view,name="logout"),                   
     path('account/',account_view,name="account"),
      
     path('store/',store_view,name="store"),
@@ -46,12 +45,11 @@ urlpatterns = [
 
     path('cart/',cart_view,name="cart"),
     path('webhooks/',webhook,name="webhooks"),
-                 
     path('add_to_cart/',add_to_cart,name="add_to_cart"),
     path('remove_from_cart/',remove_from_cart,name="remove_from_cart"),
     path('api_checkout/',api_checkout,name="api_checkout"),
     path('create_checkout_session/',create_checkout_session,name="create_checkout_session"),
-
+    
     path('checkout/',checkout_view,name="checkout"),
     path('validate/<int:order_id>/',validate_order_view,name="validate"),
     path('success/',success_view,name="success")

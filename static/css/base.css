@@ -4,6 +4,12 @@
   font-family:serif;
 }
 
+.logout{
+ background:#cf1733;
+ padding:3px;
+ border-radius:2px;
+}
+
 .home{
  color:#fff;
  text-decoration:none;
