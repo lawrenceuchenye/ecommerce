@@ -19,7 +19,7 @@ def api_login(request):
    login(request,user)
 
    return JsonResponse({"success":True,"bad_username":False,"bad_password":False})
-         
+
 
 def api_signup(request):
     data=json.loads(request.body)
