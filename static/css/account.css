@@ -172,7 +172,7 @@ section .content.active .signup-box .login-btn-div img{
 #check-circle{
  position:absolute;
  right:15px;
- top:-21px;
+ top:-25px;
  height:24px;
  width:24px;
  padding:0px;
@@ -225,4 +225,15 @@ section .content.active .signup-box .login-btn-div img{
   section .content .login-box .login-form form{
     margin-top:-50%;
   }
+
+  #check-circle{
+ position:absolute;
+ right:15px;
+ top:-21px;
+ height:24px;
+ width:24px;
+ padding:0px;
+ box-shadow:none;
+ display:none;
+ }
 }
