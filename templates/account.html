@@ -44,12 +44,15 @@
             <div class="signup-form login-form">
                <form onsubmit="return validateSignup()">
                  <img src="{% static 'images/user.svg' %}"/>
-                 <h2>Sign Up</h2>
-                 <p class="error" id="error-1">
-                   *username already used
-                 </p>
+                 <h2>Sign Up</h2>       
                  <input id="signup-username" type="text" placeholder="Username"/>
+                 <p class="error" id="error-1">
+                   *email already used
+                 </p>
                  <input id="signup-email" type="email" placeholder="Email"/>
+                 <p class="error" id="error-6">
+                   *must be a number
+                 </p>
                  <input id="signup-phone-number" type="number" placeholder="Phone Number (Optional)"/>
                  <input id="signup-address" type="text" placeholder="Address"/>
                  <p class="error" id="error-2">              
@@ -135,7 +138,8 @@
 
                         
   $("#submit-btn-signup").on("click",function(){
-
+   
+   if($("#signup-username").val() && $("#signup-email").val() && $("#signup-password").val() && $("#signup-password-conf").val() && $("#signup-address").val()){
       var data={                  
        "username":$("#signup-username").val(),
        "password":$("#signup-password").val(),
@@ -143,15 +147,17 @@
        "email":$("#signup-email").val(),
        "address":$("#signup-address").val()
       }                         
-                                     
+  
+                                    
      var password=$("#signup-password").val();
      var password_conf=$("#signup-password-conf").val();
-                
+     var number=parseInt($("#signup-phone-number").val());
+                                   
     if(password.length<=7 || password_conf.length <=7){
      $("#error-3").css({"display":"block"});
-   }else{
+     }else{
      $("#error-3").css({"display":"none"});
-  }
+    }
 
     if($("#signup-password").val() != $("#signup-password-conf").val()){
       $("#error-2").css({"display":"block"});
@@ -160,11 +166,17 @@
        $("#error-2").css({"display":"none"});
      }
 
-    if((password==password_conf)&&(password.length>=8)){
+    if(Number.isInteger(number) || $("#signup-phone-number").val()==""){
+      $("#error-6").css({"display":"none"});
+     }else{
+      $("#error-6").css({"display":"block"});
+    }                          
 
+    if((password==password_conf)&&(password.length>=8) && (($("#signup-phone-number").val()=="") || (Number.isInteger(number)==true))){
+                                                                   
      $(".loader-login").css({"display":"block"});
     $("#submit-btn-signup").val("Processing...");
-   
+                  
     fetch("{% url 'api_signup' %}",{      
         method:"POST",      
         headers:{
@@ -176,6 +188,12 @@
      }).then(response=>{
        return response.json();
      }).then(json=>{
+       if(json.used_email){
+         $("#error-1").css({"display":"block"});
+       }else{
+        $("#error-1").css({"display":"none"});
+       }
+
        if(json.success){
          $("#submit-btn-signup").css({"background":"#52ac39"});
          $(".loader-login").css({"display":"none"}); 
@@ -185,9 +203,10 @@
       }else{
         $(".loader-login").css({"display":"none"});
         $("#submit-btn-signup").val("Sign Up");
-        alert("Wrong username or password");
      }});               
    }
+
+  }
 
   });
 

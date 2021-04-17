@@ -23,11 +23,16 @@ def api_login(request):
 
 def api_signup(request):
     data=json.loads(request.body)
+
+    if User.objects.filter(email=data["email"]).exists():
+      return JsonResponse({"success":False,"used_email":True})
+
     user=User.objects.create_user(username=data["username"],email=data["email"],password=data["password"])
     userprofile=user.userprofile
     userprofile.phone_number=data["phone_number"]
     userprofile.address=data["address"]
     userprofile.save()
 
-    return JsonResponse({"success":True})
+    login(request,user)
+    return JsonResponse({"success":True,"used_email":False})
 
