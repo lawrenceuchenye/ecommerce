@@ -24,6 +24,9 @@ def api_login(request):
 def api_signup(request):
     data=json.loads(request.body)
 
+    if User.objects.filter(username=data["username"]).exists():
+      return JsonResponse({"success":False,"used_username":True})
+
     if User.objects.filter(email=data["email"]).exists():
       return JsonResponse({"success":False,"used_email":True})
 

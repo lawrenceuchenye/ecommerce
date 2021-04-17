@@ -45,6 +45,9 @@
                <form>
                  <img src="{% static 'images/user.svg' %}"/>
                  <h2>Sign Up</h2>
+                 <p class="error" id="error-7">
+                   *username already used
+                 </p>
                  <input id="signup-username" type="text" placeholder="Username"/>
                  <p class="error" id="error-1">
                    *email already used
@@ -190,8 +193,13 @@
      }).then(json=>{
        if(json.used_email){
          $("#error-1").css({"display":"block"});
+         $("#error-7").css({"display":"none"});
+       }else if(json.used_username){
+         $("#error-7").css({"display":"block"});
+         $("#error-1").css({"display":"none"});
        }else{
-        $("#error-1").css({"display":"none"});
+         $("#error-1").css({"display":"none"});
+         $("#error-7").css({"display":"none"});
        }
 
        if(json.success){
@@ -211,7 +219,7 @@
   });
 
   $("form").submit(function(e){
-   e.preventDefault();
+    e.preventDefault();
   });
   </script>
 {% endblock %}

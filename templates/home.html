@@ -11,7 +11,7 @@
       padding-right:25px;
       max-width:1300px;
       margin:auto;
-   }      
+   }
    </style>
    <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
 {% endblock %}
@@ -19,15 +19,21 @@
        {% block header %}
           <div class="row">
             <div class="col-2">
+              {% if request.user.is_authenticated == False %}
               <h1 class="header">
                Welcome Customer!
               </h1>
+              {% else %}
+              <h1 class="header">
+               Welcome {{ request.user }}!
+              </h1>
+              {% endif %}
               <p>divine bakery a bakery you can trust to satisfy your tatse</p>
               <p><a href="{% url 'store' %}?page=1" class="btn">Explore</a></p>
-            </div>         
+            </div>
             <div class="col-2">
               <img src="{% static 'images/cake.jpg' %}"/>
-            </div>      
+            </div>
           </div>
         </div>
       {% endblock %}
@@ -41,7 +47,7 @@
             <img src="{% static 'images/cake.svg' %}"/>
            <p><i class="fa fa-quote-left"></i></p>
             <p>We specialize in cake and muffins for all types of events and celebrations</p>
-          </div>                    
+          </div>
           <div class="col-3">
             <h4 class="title-b">Donut</h4>
             <img src="{% static 'images/donut.svg' %}"/>
@@ -56,7 +62,7 @@
           </div>
          </div>
         </div>
-        
+
         <div class="small-container">
           <h2 class="title-b">Featured Pastries</h2>
           <div class="row">
@@ -78,7 +84,7 @@
             {% endfor %}
           </div>
         </div>
-        
+
         <div class="small-container">
           <h2 class="title-b">Latest Pastries</h2>
           <div class="row">
@@ -99,7 +105,7 @@
             </div>
            {% endfor %}
           </div>
-          
+
         <div class="row exculsive">
             <div class="col-2">
               <img src="{{exculsive.product_pic.url}}"/>
@@ -118,7 +124,7 @@
          <div class="row">
            <div class="col-5">
              <i class="fa fa-quote-left"></i>
-             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <p>They've got some really yummy pies</p>
              <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -126,12 +132,12 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-              <img src="{% static 'images/cookies.jpg' %}"/>
+              <img src="{% static 'images/user.png' %}"/>
               <h4>Mr Cookie</h4>
            </div>
            <div class="col-5">
              <i class="fa fa-quote-left"></i>
-             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <p>Amazing wedding cake, and we were so surprised when we did the cake tasting that we chose the vanilla cake. It was fabulous – by far, the best vanilla cake I have ever had</p>
              <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -139,12 +145,12 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-              <img src="{% static 'images/cookies.jpg' %}"/>
+              <img src="{% static 'images/user.png' %}"/>
               <h4>Mr Cookie</h4>
            </div>
            <div class="col-5">
              <i class="fa fa-quote-left"></i>
-             <p>Loerem ipus lorem as is thr dummybword of the industry</p>
+             <p>Tried this place a long time ago and it is my favorite place to go for cupcakes. The flavor and texture is astonishing.</p>
              <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -152,7 +158,7 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-              <img src="{% static 'images/cookies.jpg' %}"/>
+              <img src="{% static 'images/user.png' %}"/>
               <h4>Mr Cookie</h4>
            </div>
          </div>
