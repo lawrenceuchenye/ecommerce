@@ -29,7 +29,6 @@ def category_view(request,category_slug):
       page = 1
    products=pages.page(page)
    return render(request,"category.html",{"products":products,"category":category})
-                                                  
 
 def detail_view(request,product_id):
     product=Product.objects.get(id=product_id)

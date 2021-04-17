@@ -18,26 +18,23 @@
               <input id="place" type="text" required placeholder="Place"/>
               <input id="address" type="text" required placeholder="Address"/>
               <input id="submit" type="submit" value="check out"/>
-            </form> 
+            </form>
           </div>
-     </div>         
-{% endblock %} 
+     </div>
+{% endblock %}
 
 
 
 {% block script %}
  <script type="application/javascript" src="https://js.stripe.com/v3"></script>
-    
- <script>    
-     
-  $("#form").submit(function(e){
-    e.preventDefault(e);
-   });	
 
-   
-  $("#submit").on("click",function(){
+ <script>
+
+  $("#form").submit(function(e){
+   e.preventDefault(e);
+
    var stripe=Stripe("{{pub_key}}");
-    
+
    fetch("{% url 'create_checkout_session' %}",{
      method:"POST",
      headers:{
@@ -56,24 +53,24 @@
    }).then(response=>{
       return response.json();
    }).then(data=>{
-    if (data.session) {
-      return stripe.redirectToCheckout({sessionId:session.session.id});
+    if (data.status) {
+      return stripe.redirectToCheckout({sessionId:data.session.session.id});
     }
-    else if (data.error) {
+    else {
       alert(data.error);
     }
    });/*.then(results=>{
      if(results.error){
         alert(results.error.message);
-      }   
-   })   */ 
-     
+      }
+   })   */
+
 
 /*
    fetch("{% url 'api_checkout' %}",{
      method:"POST",
      headers:{
-     "Content-Type":"applications/json",
+     "Content-Type":"application/json",
      "X-CSRFToken":"{{csrf_token}}"
      },
      credentials:"same-origin",
@@ -87,6 +84,6 @@
      })
     });*/
 
-  });                 
+  });
  </script>
 {% endblock %}

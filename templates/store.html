@@ -21,7 +21,7 @@
                 <i class="far fa-star"></i>
               </div>
               <a href="{% url 'detail' exculsive.id %}" class="btn btn-ex">BUY NOW</a>
-          </div>       
+          </div>
         </div>
       {% endblock %}
 
@@ -33,7 +33,7 @@
             <option value="general">General</option>
             {% for category in categories %}
               <option value="{% url 'category' category.slug %}?page=1">{{category}}</option>
-            {% endfor %}                                        
+            {% endfor %}
            </select>
          </div>
           <div class="row">
@@ -54,24 +54,24 @@
             </a>
             {% endfor %}
           </div>
-        </div> 
+        </div>
         <div class="page-nav">
-          {% if products.has_previous %}                                   
+          {% if products.has_previous %}
             <span><a href="{% url 'store' %}?page={{products.number|add:'-1'}}">&#8592;</a></span>
           {% endif %}
-                  
+
           {% for page in products.paginator.page_range %}
              {% if page == products.number %}
                 <span class="current-page"><a href="{% url 'store' %}?page={{page}}">{{page}}</a></span>
              {% else %}
                <span><a href="{% url 'store' %}?page={{page}}">{{page}}</a></span>
              {% endif %}
-          {% endfor %}                              
+          {% endfor %}
 
-          {% if products.has_next %}    
+          {% if products.has_next %}
             <span><a href="{% url 'store' %}?page={{products.number|add:'1'}}">&#8594;</a></span>
           {% endif %}
-        </div>                               
+        </div>
 {% endblock %}
 
 {% block script %}
@@ -79,6 +79,6 @@
     $("#categories").change(function(){
       var category=$(this).children("option:selected").val();
       window.location.replace(category);
-    });                
+    });
    </script>
 {% endblock %}

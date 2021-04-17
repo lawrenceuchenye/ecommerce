@@ -27,17 +27,17 @@
          <p id="qty">1</p>
          <button id="add-btn" class="btn-option">+</button>
          <a id="add-to-cart" class="btn">Add To Cart </a>
-        </div>             
+        </div>
       {% else %}
         <div class="quantity">
           <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
-        </div>                                    
+        </div>
       {% endif %}
        <h4>Product Detail</h4>
         <p>{{product.desc}}</p>
     </div>
   </div>
-                    
+
   <div class="small-container">
      <h1 class="title-b">Related Pastries</h1>
        <div class="row row-2">
@@ -69,7 +69,7 @@
       $("#qty").text(qty+1);
       $("#remove-btn").css({"opacity":"1"});
     });
-       
+
     $("#remove-btn").on("click",function(){
       var qty=parseInt($("#qty").text());
       if(qty>1){
@@ -77,8 +77,8 @@
         $("#qty").text(qty-1);
       }else{
         $("#remove-btn").css({"opacity":"0.5"});
-      }        
-    });     
+      }
+    });
 
     $("#add-to-cart").on("click",function(){
       $("#add-to-cart").css({"background":"#52ac39"});
@@ -92,7 +92,7 @@
       fetch("{% url 'add_to_cart' %}",{
         method:"POST",
         headers:{
-         "Content-Type":"applications/json",
+         "Content-Type":"application/json",
          "X-CSRFToken":"{{csrf_token}}"
         },
         credentials:"same-origin",
@@ -105,7 +105,7 @@
 
       $("#cart-items").css({"display":"block"});
       $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt($("#qty").text()));
-                                              
-    });  
+
+    });
   </script>
 {% endblock %}
