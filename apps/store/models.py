@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Category(models.Model):
+   parent=models.ForeignKey("self",related_name="children",on_delete=models.CASCADE,null=True,blank=True)
    title=models.CharField(max_length=255)
    slug=models.SlugField(max_length=255)
    order=models.IntegerField()

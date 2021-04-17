@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+ <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
+ <link rel="stylesheet" href="{% static 'css/account.css' %}"/>
+{% endblock %}
+
+{% block header %}
+      <section>
+        <div class="content">
+           
+           <div class="login-box">
+            
+             <div class="signup-btn-div">
+               <img src="{% static 'images/cookies.jpg' %}"/>
+             </div>              
+                                         
+             <div class="login-form">
+               <form>
+                 <img src="{% static 'images/user.svg' %}"/>
+                 <h2>Log in</h2>
+                 <p class="error">
+                   *account for user not found
+                 </p>
+                 <input type="text" placeholder="Username"/>
+                 <p class="error">
+                   *incorrect password
+                 </p>
+                 <input type="password" placeholder="Password"/>
+                 <input class="login-btn" type="submit" value="Log in"/>
+                 <div class="loader-login">
+                 </div>
+                 <p>Don't have an account <a onclick="Toggle()">Sign up</a></p>
+               </form>
+             </div>
+             
+          </div>
+          
+          <div class="signup-box login-box">
+            <div class="signup-form login-form">
+               <form onsubmit="return validateSignup()">
+                 <img src="{% static 'images/user.svg' %}"/>
+                 <h2>Sign Up</h2>
+                 <p class="error" id="error-1">
+                   *username already used
+                 </p>
+                 <input id="signup-username" type="text" placeholder="Username"/>
+                 <input type="email" placeholder="Email"/>
+                 <p class="error" id="error-2">
+                   *passwords must be the same 
+                 </p>
+                 <p class="error" id="error-3">
+                   *password must be 8 characters or more
+                 </p>
+                 <input id="signup-password" type="password" placeholder="Password"/>
+                 <input id="signup-password-conf" type="password" placeholder="confirm password"/>
+                 <input class="login-btn" type="submit" value="Sign Up"/>
+                 <p>Do you have an account <a onclick="Toggle()">Log in</a></p>
+               </form>
+            </div>
+            <div class="signup-btn-div login-btn-div">
+              <img src="{% static 'images/wed_cake.jpg' %}"/>
+            </div>
+          </div>
+        </div>
+      </section>
+{% endblock %}
+
+{% block script %}
+  <script>
+   function Toggle(){
+     var container=document.querySelector(".content");
+     container.classList.toggle("active");
+    } 
+           
+  </script>
+{% endblock %}

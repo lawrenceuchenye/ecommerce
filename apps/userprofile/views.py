@@ -5,3 +5,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def dashboard_view(request):
    return render(request,"dashboard.html",{"user":request.user})
+          
+
+def account_view(request):
+     return render(request,"account.html",{})

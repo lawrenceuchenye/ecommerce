@@ -20,11 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static 
 
 from apps.core.views import home_view,login_view,signup_view,logout_view
-from apps.userprofile.views import dashboard_view
+
+from apps.userprofile.views import account_view
+
 from apps.store.views import store_view,category_view,detail_view
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session
+
 from apps.cart.views import cart_view
 from apps.cart.webhook import webhook
+
 from apps.order.views import checkout_view,validate_order_view,success_view
 
 urlpatterns = [
@@ -33,8 +37,8 @@ urlpatterns = [
     path('login/',login_view,name="login"),
     path('signup/',signup_view,name="signup"),
     path('logout/',logout_view,name="logout"),
-
-    path('dashboard/',dashboard_view,name="dashboard"),
+                                 
+    path('account/',account_view,name="account"),
      
     path('store/',store_view,name="store"),
     path('store/<slug:category_slug>/',category_view,name="category"),

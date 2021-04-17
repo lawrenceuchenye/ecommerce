@@ -2,10 +2,10 @@
   margin:0px;
   padding:0px;
   font-family:serif;
-  list-style:none;
 }
 
 section{
+  height:100vh;
   padding:20px;
   justify-content:center;
   align-items:center;
@@ -15,9 +15,11 @@ section{
 section .content{
   width:800px;
   height:520px;
-  box-shadow:0 5px 8px #000;
+  box-shadow:0 0 5px grey;
+  box-shadow:0 0 5px grey;
   position:relative;
   background:#fff;
+  border-radius:5px;
   overflow:hidden;
   margin-top:-10%;
 }
@@ -45,12 +47,6 @@ section .content .login-box .login-form{
   display:flex;
   width:50%;
   transition:0.5s;
-}
-
-section .content .login-box .login-form li{
- color:grey;
- margin:5px; 
- font-size:12px;
 }
 
 section .content .login-box .login-form form{
@@ -89,8 +85,9 @@ section .content .login-box .login-form form input{
 }
 
 section .content .login-box .login-form .login-btn{
-  background:#c168de;
-  width:50%;
+
+  background:#ff523b;
+  width:106%;
   color:white;
   text-transform:uppercase;
   font-weight:600;
@@ -106,19 +103,94 @@ section .content .login-box .login-form p a{
   color:#b20dec;
 }
 
-@media only screen and (max-width:700px){
-  section{
-    height:92vh;
-  }
+section .content .signup-box{
+  position:absolute;
+  top:0;
+}
 
-  section .content{
-   top:-10px;
-  }
+
+section .content .signup-box{
+  z-index:-1;
+  transition:0.5s;
+}
+
+section .content .signup-box .signup-form{
+  position:relative;
+  left:100%;
+}
+
+section .content .signup-box .login-btn-div{
+  position:relative;
+  left:-100%;
+}
+
+section .content.active .signup-box{
+  z-index:1;
+}
+
+section .content.active .signup-box .signup-form{
+  left:0;
+  background:#fff;
+}
+
+section .content.active .signup-box .login-btn-div{
+  left:0;
+}
+
+section .content.active .signup-box .login-btn-div img{
+  border-radius:0 5px 5px 0;
+}
+
+
+.error{
+  color:grey;
+  font-size:12px;
+  margin:5px;
+  display:none;
+}
+        
+.loader-login{
+ width:20px;
+ height:20px;;
+ border:2px solid #fff;
+ border-radius:50%;
+ border-left-color:transparent;
+ animation-name:rotate-animation;
+ animation-duration:1s;
+ animation-iteration-count:infinite;
+ position:absolute;
+ right:30px;
+ bottom:30%;
+}
+
+@keyframes rotate-animation{
+ 0%{
+  transform:rotate(360deg);
+ }
+ 100%{
+  transform:rotate(0deg);
+ }
+ 
+}
+
+@media only screen and (max-width:700px){
+  .container{
+   padding-left:5px;
+   padding-right:5px;
+   }
+ 
+   section{
+    height:650px;
+    }
 
   .signup-btn-div{
     display:none;
   }
   
+  section .content .login-box .login-form .login-btn{
+   width:108%;
+  }
+   
   section .content .login-box .login-form{
     width:100%;
     height:100%;
@@ -131,9 +203,4 @@ section .content .login-box .login-form p a{
   section .content .login-box .login-form form{
     margin-top:-50%;
   }
-  
-  section .content{
-   height:430px;
-  }
-
 }
