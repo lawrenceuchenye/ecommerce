@@ -5,8 +5,8 @@ from .models import Order,OrderItem
 
 
 def order_name(obj):
-   return "%s %s"%(obj.first_name,obj.last_name)
-
+   return "%s"%(obj.user)
+              
 order_name.short_description="Name"
 
 class OrderItemInline(admin.TabularInline):
@@ -16,8 +16,8 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
   list_display=["id",order_name,"created_at"]
   list_filter=["created_at","status"]
-  search_fields=["first_name","place"]
-  inlines=[OrderItemInline]
+  search_fields=["user","place"]
+  inlines=[OrderItemInline]    
                      
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderItem)

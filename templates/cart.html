@@ -78,10 +78,15 @@
        </tr>
       <tr>
         <td>
+       {% if request.user.is_authenticated %}
          <div class="btn-holder">
-          <a href="{% url 'checkout' %}" class="btn">Check Out</a>
-
-         </div>
+          <a id="checkout-btn"  class="btn">Check Out</a>
+         </div>                         
+       {% else %}
+         <div class="btn-holder">     
+          <a href="{% url 'account' %}" class="btn">Check Out</a>
+         </div>                         
+        {% endif %}     
         </td>
       </tr>
     </table>
@@ -208,5 +213,37 @@
 
     }
 
+
+    $("#checkout-btn").on("click",function(){
+     try{
+     var stripe=Stripe("{{pub_key}}");
+     }catch(error){
+       alert("No Internet Connection");
+       return;
+     }
+
+     fetch("{% url 'create_checkout_session' %}",{
+     method:"POST",
+     headers:{
+     "Content-Type":"application/json",
+     "X-CSRFToken":"{{csrf_token}}"
+     },
+     credentials:"same-origin",
+     body:JSON.stringify({
+     "username":"{{request.user.username}}",
+     "email":"{{request.user.email}}", 
+     "address":"{{request.user.userprofile.address}}"
+     })
+   }).then(response=>{
+      return response.json();
+   }).then(session=>{
+      if(session.status){
+        return stripe.redirectToCheckout({sessionId:session.session.id});
+      }else{
+       alert("No Internet Connection");
+     }
+   });
+
+ });
  </script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Order
 from apps.cart.cart import Cart
-
+from django.core.mail import send_mail
 from django.conf import settings
 
 # Create your views here.

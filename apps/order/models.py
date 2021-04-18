@@ -1,5 +1,8 @@
 from django.db import models
 from apps.store.models import Product
+from django.contrib.auth import get_user_model
+
+User=get_user_model()
 
 # Create your models here.
 class Order(models.Model):
@@ -13,13 +16,10 @@ class Order(models.Model):
     (BAKING,"Baking"),
    )
 
-   first_name=models.CharField(max_length=60)
-   last_name=models.CharField(max_length=60)
-   email=models.EmailField()
-   zip_code=models.CharField(max_length=255)
-   place=models.CharField(max_length=255)
+   user=models.ForeignKey(User,related_name="user_orders",on_delete=models.CASCADE,null=True)
+   email=models.EmailField()          
    address=models.CharField(max_length=255)
-  
+
    paid=models.BooleanField(default=False)
    paid_amount=models.FloatField(blank=True,null=True)
    payment_intent=models.CharField(max_length=255,blank=True)
@@ -28,7 +28,7 @@ class Order(models.Model):
    status=models.CharField(max_length=20,choices=CHOICES,default=ORDERED)
                                          
    def __str__(self):
-       return self.first_name
+       return self.email
 
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,related_name="orders",on_delete=models.CASCADE)

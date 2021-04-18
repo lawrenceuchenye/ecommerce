@@ -7,7 +7,7 @@ class UserProfile(models.Model):
    user=models.OneToOneField(User,on_delete=models.CASCADE)
    phone_number=models.IntegerField(null=True,blank=True)
    address=models.CharField(max_length=255,null=True,blank=True)
-   orders=models.ForeignKey(Order,related_name="user_orders",on_delete=models.CASCADE,blank=True,null=True)
+
                                                 
 
 User.userprofile=property(lambda u:UserProfile.objects.get_or_create(user=u)[0])

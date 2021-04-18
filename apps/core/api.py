@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import get_user_model
-
+from django.core.mail import send_mail
+                  
 import json
 
 
@@ -32,6 +33,8 @@ def api_signup(request):
     userprofile.phone_number=data["phone_number"]
     userprofile.address=data["address"]
     userprofile.save()
+
+    send_mail("Sign Up Verification","You have successfully signup for an account","lawuche29@gmail.com",["lawuche249@gmail.com","lawuche29@gmail.com"])
 
     login(request,user)
     return JsonResponse({"success":True,"used_email":False})
