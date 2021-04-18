@@ -23,11 +23,11 @@
                  <p class="error" id="error-4">
                    *account for user not found
                  </p>
-                 <input id="login-username" type="text" placeholder="Username"/>
+                 <input id="login-username" required type="text" placeholder="Username"/>
                  <p class="error" id="error-5">
                    *incorrect password
                  </p>
-                 <input id="login-password" type="password" placeholder="Password"/>
+                 <input id="login-password" required type="password" placeholder="Password"/>
                  <div class="loader">
                  <input id="submit-btn-login" class="login-btn" type="submit" value="Log in"/>
                  <div class="loader-login">
@@ -48,11 +48,11 @@
                  <p class="error" id="error-7">
                    *username already used
                  </p>
-                 <input id="signup-username" type="text" placeholder="Username"/>
+                 <input id="signup-username" type="text" required placeholder="Username"/>
                  <p class="error" id="error-1">
                    *email already used
                  </p>
-                 <input id="signup-email" type="email" placeholder="Email"/>
+                 <input id="signup-email" type="email" required placeholder="Email"/>
                  <p class="error" id="error-6">
                    *must be a number
                  </p>
@@ -64,8 +64,8 @@
                  <p class="error" id="error-3">
                    *password must be 8 characters or more
                  </p>
-                 <input id="signup-password" type="password" placeholder="Password"/>
-                 <input id="signup-password-conf" type="password" placeholder="Confirm Password"/>
+                 <input id="signup-password" type="password" required placeholder="Password"/>
+                 <input id="signup-password-conf" type="password" required placeholder="Confirm Password"/>
                  <div class="loader">
                     <input type="submit" id="submit-btn-signup" class="login-btn" value="Sign up"/>
                     <div class="loader-login">
@@ -105,7 +105,7 @@
      fetch("{% url 'api_login' %}",{
         method:"POST",
         headers:{
-         "Content-Type":"applications/json",
+         "Content-Type":"application/json",
          "X-CSRFToken":"{{csrf_token}}"
         },
        credentials:"same-origin",
@@ -183,7 +183,7 @@
     fetch("{% url 'api_signup' %}",{
         method:"POST",
         headers:{
-         "Content-Type":"applications/json",
+         "Content-Type":"application/json",
          "X-CSRFToken":"{{csrf_token}}"
         },
        credentials:"same-origin",
