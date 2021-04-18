@@ -20,10 +20,13 @@ def api_login(request):
    login(request,user)
 
    return JsonResponse({"success":True,"bad_username":False,"bad_password":False})
-         
+
 
 def api_signup(request):
     data=json.loads(request.body)
+
+    if User.objects.filter(username=data["username"]).exists():
+      return JsonResponse({"success":False,"used_username":True})
 
     if User.objects.filter(email=data["email"]).exists():
       return JsonResponse({"success":False,"used_email":True})

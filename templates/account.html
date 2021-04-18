@@ -9,42 +9,45 @@
 {% block header %}
       <section>
         <div class="content">
-           
+
            <div class="login-box">
-            
+
              <div class="signup-btn-div">
                <img src="{% static 'images/cookies.jpg' %}"/>
-             </div>              
-                                         
+             </div>
+
              <div class="login-form">
                <form id="form">
                  <img src="{% static 'images/user.svg' %}"/>
                  <h2>Log in</h2>
                  <p class="error" id="error-4">
                    *account for user not found
-                 </p>   
+                 </p>
                  <input id="login-username" type="text" placeholder="Username"/>
                  <p class="error" id="error-5">
                    *incorrect password
-                 </p>  
+                 </p>
                  <input id="login-password" type="password" placeholder="Password"/>
                  <div class="loader">
                  <input id="submit-btn-login" class="login-btn" type="submit" value="Log in"/>
                  <div class="loader-login">
-                 </div>               
+                 </div>
                   <img id="check-circle" src="{% static 'images/check-circle.svg' %}"/>
                   </div>
-                 <p>Don't have an account <a onclick="Toggle()">Sign up</a></p>
+                 <p>Don't have an account <a style="cursor: pointer;" onclick="Toggle()">Sign up</a></p>
                </form>
              </div>
-             
+
           </div>
-          
+
           <div class="signup-box login-box">
             <div class="signup-form login-form">
-               <form onsubmit="return validateSignup()">
+               <form>
                  <img src="{% static 'images/user.svg' %}"/>
-                 <h2>Sign Up</h2>       
+                 <h2>Sign Up</h2>
+                 <p class="error" id="error-7">
+                   *username already used
+                 </p>
                  <input id="signup-username" type="text" placeholder="Username"/>
                  <p class="error" id="error-1">
                    *email already used
@@ -55,9 +58,9 @@
                  </p>
                  <input id="signup-phone-number" type="number" placeholder="Phone Number (Optional)"/>
                  <input id="signup-address" type="text" placeholder="Address"/>
-                 <p class="error" id="error-2">              
-                   *passwords must be the same 
-                 </p>  
+                 <p class="error" id="error-2">
+                   *passwords must be the same
+                 </p>
                  <p class="error" id="error-3">
                    *password must be 8 characters or more
                  </p>
@@ -66,10 +69,10 @@
                  <div class="loader">
                     <input type="submit" id="submit-btn-signup" class="login-btn" value="Sign up"/>
                     <div class="loader-login">
-                    </div>               
+                    </div>
                     <img id="check-circle" src="{% static 'images/check-circle.svg' %}"/>
-                 </div>  
-                 <p>Do you have an account <a onclick="Toggle()">Log in</a></p>
+                 </div>
+                 <p>Do you have an account <a style="cursor: pointer;" onclick="Toggle()">Log in</a></p>
                </form>
             </div>
             <div class="signup-btn-div login-btn-div">
@@ -83,13 +86,13 @@
 {% block script %}
   <script>
 
-  
+
    function Toggle(){
      var container=document.querySelector(".content");
      container.classList.toggle("active");
-    } 
+    }
 
-    
+
    $("#submit-btn-login").on("click",function(){
       if($("#login-username").val()&&$("#login-password").val()){
       $(".loader-login").css({"display":"block"});
@@ -98,7 +101,7 @@
        "username":$("#login-username").val(),
        "password":$("#login-password").val()
       }
-  
+
      fetch("{% url 'api_login' %}",{
         method:"POST",
         headers:{
@@ -119,40 +122,40 @@
 
      if(json.bad_password){
          $("#error-5").css({"display":"block"});
-       }else{       
+       }else{
         $("#error-5").css({"display":"none"});
       }
 
-       if(json.success){      
+       if(json.success){
          $("#submit-btn-login").css({"background":"#52ac39"});
-         $(".loader-login").css({"display":"none"});      
+         $(".loader-login").css({"display":"none"});
          $("#check-circle").css({"display":"block"});
          $("#submit-btn-login").val("Logged in");
          window.location.replace("{% url 'cart' %}");
       }else{
         $(".loader-login").css({"display":"none"});
         $("#submit-btn-login").val("Log in");
-     }});                    
+     }});
    }
   });
 
-                        
+
   $("#submit-btn-signup").on("click",function(){
-   
+
    if($("#signup-username").val() && $("#signup-email").val() && $("#signup-password").val() && $("#signup-password-conf").val() && $("#signup-address").val()){
-      var data={                  
+      var data={
        "username":$("#signup-username").val(),
        "password":$("#signup-password").val(),
        "phone_number":$("#signup-phone-number").val(),
        "email":$("#signup-email").val(),
        "address":$("#signup-address").val()
-      }                         
-  
-                                    
+      }
+
+
      var password=$("#signup-password").val();
      var password_conf=$("#signup-password-conf").val();
      var number=parseInt($("#signup-phone-number").val());
-                                   
+
     if(password.length<=7 || password_conf.length <=7){
      $("#error-3").css({"display":"block"});
      }else{
@@ -161,7 +164,7 @@
 
     if($("#signup-password").val() != $("#signup-password-conf").val()){
       $("#error-2").css({"display":"block"});
-      return;    
+      return;
      }else{
        $("#error-2").css({"display":"none"});
      }
@@ -170,15 +173,15 @@
       $("#error-6").css({"display":"none"});
      }else{
       $("#error-6").css({"display":"block"});
-    }                          
+    }
 
     if((password==password_conf)&&(password.length>=8) && (($("#signup-phone-number").val()=="") || (Number.isInteger(number)==true))){
-                                                                   
+
      $(".loader-login").css({"display":"block"});
     $("#submit-btn-signup").val("Processing...");
-                  
-    fetch("{% url 'api_signup' %}",{      
-        method:"POST",      
+
+    fetch("{% url 'api_signup' %}",{
+        method:"POST",
         headers:{
          "Content-Type":"applications/json",
          "X-CSRFToken":"{{csrf_token}}"
@@ -190,20 +193,25 @@
      }).then(json=>{
        if(json.used_email){
          $("#error-1").css({"display":"block"});
+         $("#error-7").css({"display":"none"});
+       }else if(json.used_username){
+         $("#error-7").css({"display":"block"});
+         $("#error-1").css({"display":"none"});
        }else{
-        $("#error-1").css({"display":"none"});
+         $("#error-1").css({"display":"none"});
+         $("#error-7").css({"display":"none"});
        }
 
        if(json.success){
          $("#submit-btn-signup").css({"background":"#52ac39"});
-         $(".loader-login").css({"display":"none"}); 
+         $(".loader-login").css({"display":"none"});
          $(".loader #check-circle").css({"display":"block"});
          $("#submit-btn-signup").val("Sign Up");
          window.location.replace("{% url 'cart' %}?page=1");
       }else{
         $(".loader-login").css({"display":"none"});
         $("#submit-btn-signup").val("Sign Up");
-     }});               
+     }});
    }
 
   }
@@ -211,7 +219,7 @@
   });
 
   $("form").submit(function(e){
-   e.preventDefault();
+    e.preventDefault();
   });
   </script>
 {% endblock %}
