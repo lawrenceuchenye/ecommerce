@@ -6,7 +6,7 @@ Examples:
 Function views
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
+|Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
@@ -19,6 +19,9 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap,CategorySitemap,ProductSitemap
+
 from apps.core.views import home_view,account_view,logout_view
 from apps.core.api import api_login,api_signup
 
@@ -30,8 +33,11 @@ from apps.cart.webhook import webhook
 
 from apps.order.views import checkout_view,validate_order_view,success_view,order_conf_view
 
+sitemaps={"static":StaticViewSitemap,"category":CategorySitemap,"product":ProductSitemap}
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sitemap.xml',sitemap,{"sitemaps":sitemaps},name="django.sitemaps.views.sitemap"),
 
     path('',home_view,name="home"),
     path('api_login/',api_login,name="api_login"),
