@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sitemaps',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'apps.userprofile',
     'apps.store',
     'apps.cart',
-    'apps.order'
+    'apps.order',
 ]
 
 MIDDLEWARE = [
@@ -157,10 +158,10 @@ STRIPE_API_HIDDEN_KEY="sk_test_51IfRKVLh9kwXHjLMb5fSXC4ZL6W3HQEAhxB9wZUZQv9GyGPK
 
 LOGOUT_REDIRECT_URL="home"
 
-EMAIL_HOST="localhost"
-EMAIL_PORT="1025"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT="587"
 
-EMAIL_HOST_USER="lawuche29@gmail.com"
-EMAIL_HOST_PASSWORD=""
-EMAIL_USE_TSL=False
+EMAIL_HOST_USER="divinebakery81@gmail.com"
+EMAIL_HOST_PASSWORD="DivineBakery81@gmail.com"
+EMAIL_USE_TSL=True
      

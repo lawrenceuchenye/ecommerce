@@ -3,7 +3,7 @@
 
 {% block content %}
 {% load static %}
-       
+
      <style>
          .content{
             background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/bg.jpg' %}");
@@ -27,12 +27,12 @@
             <div class="user-img">
              {% if request.user.userprofile.profile_pic %}
                 <img src="{{ user.userprofile.profile_pic.url }}"/>
-             {% else %}     
+             {% else %}
                 <img src="{% static 'images/user.svg' %}"/>
              {% endif %}
               <input type="file" name="user_profile"/>
               <img id="add-pic" src="{% static 'images/plus-circle.svg' %}"/>
-            </div>                   
+            </div>
             <div class="user-info">
               <p><strong>{{request.user.username}}</strong></p>
             </div>
@@ -40,7 +40,7 @@
             <a href="#"><img id="complaint" src="{% static 'images/edit.svg' %}"/></a>
           </div>
           <div class="utills">
-           
+
             <div class="card wishlist">
               <div class="header">
                 <img src="{% static 'images/paperclip.svg' %}"/>
@@ -52,7 +52,7 @@
                  </div>
               </div>
             </div>
-            
+
             <div class="card special">
               <div class="header">
                 <img src="{% static 'images/gift.svg' %}"/>
@@ -64,7 +64,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="card customize">
                <div class="header">
                  <img src="{% static 'images/settings.svg' %}"/>
@@ -84,7 +84,7 @@
             </div>
             <div class="user-orders">
               <div class="order">
-                <p>Sorry,you have ordered anything ,click here to order</p>
+                <p>Sorry,you have ordered anything, click here to order</p>
               </div>
             </div>
           </div>

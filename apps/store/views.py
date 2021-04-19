@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 from .models import Product,Category
 from apps.cart.cart import Cart
@@ -19,7 +19,7 @@ def store_view(request):
 
 def category_view(request,category_slug):
    page=request.GET.get("page")
-   category=Category.objects.get(slug=category_slug)
+   category=get_object_or_404(Category, slug=category_slug)
    pages=Paginator(category.products.all(),8)
    try:
       page = int(page)
@@ -31,7 +31,7 @@ def category_view(request,category_slug):
    return render(request,"category.html",{"products":products,"category":category})
 
 def detail_view(request,product_id):
-    product=Product.objects.get(id=product_id)
+    product=get_object_or_404(Product, id=product_id)
     related_products=product.category.products.all()[:4]
     is_in_cart=False
     cart=Cart(request)
