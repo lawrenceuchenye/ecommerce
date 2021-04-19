@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block style %}
+        <style>
+         .main-holder{
+           font-family:sans-serif;
+           text-align:center;
+         }
+         
+         table{
+           width:100%;
+           border-collapse:collapse;
+         }
+         
+         th{
+           background:#ff523b;
+           color:#fff;
+           padding:5px;
+           text-align:left;
+           font-weight:800;
+         }
+         
+         td{
+           padding:10px 5px;
+         }
+
+              
+         .main-holder  p{
+            margin:0px;
+            
+           }
+          
+          td:nth-child(1){
+           text-align:left;
+          }
+
+          td:nth-child(2){
+           text-align:center;
+         }
+
+         td:nth-child(3){
+          text-align:right;
+        }
+
+        .total-price{
+          display:flex;
+          justify-content:flex-end;
+          color:#555;
+         }
+
+        .total-price table{
+          border-top:3px solid #ff523b;
+          width:100%;
+          max-width:350px;
+        }
+
+        .total-price table td:nth-child(1){
+          text-align:left;
+        }
+
+         .total-price table td:nth-child(2){
+           text-align:right;
+         }
+
+         .table-container{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+         }
+
+         @media only screen and (max-width:700px){
+                           
+          table{
+           max-width:350px;
+           }
+
+          #price{
+           font-size:16px;
+         }
+         
+         h1,h3{
+         margin:10px;
+        } 
+
+        .nav-bar ul{
+ background:#000;
+ position:absolute;
+ right:-22px;
+ border-radius:5px;
+ z-index:1;
+ padding:0px;
+}
+
+.nav-bar ul li{
+ padding:10px;
+ padding-bottom:0px;
+ } 
+
+         hr{
+          margin-top:25px;
+          margin:25px;
+                       
+         }
+       
+        .col-7{
+         text-align:center;
+        }
+        </style>
+{% endblock %}
+  
+{% block content %}
+        <div class="main-holder">
+          <h1>Thanks {{request.user.username}}.</h1>
+          <h3>Order successfully received.</h3>
+          <div class="table-container">
+            <table>     
+              <tr>
+                <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+              </tr>
+             {% for item in cart %}
+              <tr>  
+                <td>
+                  <div class="item-info">
+                    <p><strong>{{item.product.title}}</strong></p>
+                    <p>Price:NGN{{item.product.price}}</p>
+                  </div>     
+                 </td>
+                <td>{{item.quantity}}</td>
+                <td><p id="price">NGN{{item.totalcost}}0</p></td>
+              </tr>   
+             {% endfor %}
+            </table>
+          </div>
+        <div class="total-price">
+    <table>
+      <tr>
+        <td>Subtotal</td>
+        <td>
+        {% if sub_total == 0 %}
+         <p id="subtotal">NGN0.00</p>
+        {% else %}
+         <p id="subtotal">NGN{{cart.get_total}}0</p>
+        {% endif %}                     
+        </td>
+       </tr>
+       <tr>
+         <td>Service Charge</td>
+         <td>NGN10.00</td>
+       </tr>
+      <tr>
+        <td>Total</td>
+         <td>
+      {% if total == 10 %}
+        <p id="total">NGN10.00</p>
+        {% else %}
+         <p id="total">NGN{{cart.get_total|add:'10'}}.00</p>
+        {% endif %}              
+         </p></td>
+       </tr>
+    </table>
+    </div>
+    <div class="info">
+    <hr />
+    <p>Please note a service charge of NGN10.00 was added and the exchange rate used was NGN481.00 per $1.00</p>
+    </div>	
+
+{% endblock %}
+
+

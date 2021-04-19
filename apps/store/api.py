@@ -22,7 +22,6 @@ def remove_from_cart(request):
 
 def api_checkout(request):
    data=json.loads(request.body)
-   print(data)
    order_id=checkout(request,data["username"],data["email"],data["address"])
    return order_id
     

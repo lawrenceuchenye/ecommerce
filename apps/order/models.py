@@ -21,9 +21,9 @@ class Order(models.Model):
    address=models.CharField(max_length=255)
 
    paid=models.BooleanField(default=False)
-   paid_amount=models.FloatField(blank=True,null=True)
+   total_amount=models.FloatField(blank=True,null=True)
    payment_intent=models.CharField(max_length=255,blank=True)
-
+       
    created_at=models.DateTimeField(auto_now_add=True)
    status=models.CharField(max_length=20,choices=CHOICES,default=ORDERED)
                                          

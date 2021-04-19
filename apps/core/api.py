@@ -33,11 +33,12 @@ def api_signup(request):
 
     user=User.objects.create_user(username=data["username"],email=data["email"],password=data["password"])
     userprofile=user.userprofile
-    userprofile.phone_number=data["phone_number"]
+    if data["phone_number"]!="":
+      userprofile.phone_number=data["phone_number"]
     userprofile.address=data["address"]
     userprofile.save()
-
-    send_mail("Sign Up Verification","You have successfully signup for an account","lawuche29@gmail.com",["lawuche249@gmail.com","lawuche29@gmail.com"])
+  #block 
+  #  send_mail("Sign Up Verification","You have successfully signup for an account","lawuche29@gmail.com",["lawuche249@gmail.com","lawuche29@gmail.com"])
 
     login(request,user)
     return JsonResponse({"success":True,"used_email":False})

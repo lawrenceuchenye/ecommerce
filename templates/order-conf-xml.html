@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,scale=1.0">
+        <link rel="stylesheet" href="styles/style.css"/>
+        <title>Hello, World!</title>
+        <style>
+         .main{
+           padding-left:10px;
+           padding-right:10px;
+           text-align:center;
+         }
+         
+         table{
+           width:100%;
+           border-collapse:collapse;
+         }
+         
+         th{
+           background:#ff523b;
+           color:#fff;
+           padding:5px;
+           text-align:left;
+           font-weight:800;
+         }
+         
+         td{
+           padding:10px 5px;
+         }
+
+
+          p{
+            margin:0px;
+            color:#555;
+           }
+          
+          td:nth-child(1){
+           text-align:left;
+          }
+
+          td:nth-child(2){
+           text-align:center;
+         }
+
+         td:nth-child(3){
+          text-align:right;
+        }
+
+        .total-price{
+          display:flex;
+          justify-content:flex-end;
+         }
+
+        .total-price table{
+          border-top:3px solid #ff523b;
+          width:100%;
+          max-width:350px;
+        }
+
+        .total-price table td:nth-child(1){
+          text-align:left;
+        }
+
+         .total-price table td:nth-child(2){
+           text-align:right;
+         }
+
+         .table-container{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+         }
+
+         @media only screen and (max-width:700px){
+                           
+          table{
+           max-width:350px;
+           }
+
+          #price{
+           font-size:16px;
+         }
+
+         }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+          <h1>Thanks {{request.user.username}}.</h1>
+          <h3>Order successfully received.</h3>
+          <div class="table-container">
+            <table>     
+              <tr>
+                <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+              </tr>
+             {% for item in cart %}
+              <tr>  
+                <td>
+                  <div class="item-info">
+                    <p><strong>{{item.product.title}}</strong></p>
+                    <p>Price:NGN{{item.product.price}}</p>
+                  </div>     
+                 </td>
+                <td>{{item.quantity}}</td>
+                <td><p id="price">NGN{{item.totalcost}}0</p></td>
+              </tr>   
+             {% endfor %}
+            </table>
+          </div>
+        <div class="total-price">
+    <table>
+      <tr>
+        <td>Subtotal</td>
+        <td>
+        {% if sub_total == 0 %}
+         <p id="subtotal">NGN0.00</p>
+        {% else %}
+         <p id="subtotal">NGN{{cart.get_total}}0</p>
+        {% endif %}                     
+        </td>
+       </tr>
+       <tr>
+         <td>Service Charge</td>
+         <td>NGN10.00</td>
+       </tr>
+      <tr>
+        <td>Total</td>
+         <td>
+      {% if total == 10 %}
+        <p id="total">NGN10.00</p>
+        {% else %}
+         <p id="total">NGN{{cart.get_total|add:'10'}}.00</p>
+        {% endif %}              
+         </p></td>
+       </tr>
+    </table>
+    </div>
+    </body>
+</html>
+
