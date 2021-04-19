@@ -31,6 +31,6 @@ def order_conf_view(request):
     cart.clear()
     email=request.user.email
     html_string=render_to_string("order-conf-xml.html",{"cart":cart})
-    send_mail("Order Confirmation","Please note a service charge of NGN10.00 was added and the exchange rate used was NGN481.00 per $1.00",settings.EMAIL_HOST_USER,[email,settings.EMAIL_HOST_USER],html_message=html_string,fail_silently=True)
-                                                                                                                                                                                                                                  
+    send_mail("Order Confirmation","Please note a service charge of NGN10.00 was added and the exchange rate used was NGN481.00 per $1.00",settings.EMAIL_HOST_USER,[email,settings.EMAIL_HOST_USER],html_message=html_string,fail_silently=False)
+                                                                                                                                                                                                                                                
     return render(request,"order-conf.html",{"cart":cart})
