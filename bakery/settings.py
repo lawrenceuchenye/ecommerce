@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
-               
+
 STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 django_heroku.settings(locals())
@@ -154,15 +154,23 @@ SESSION_COOKIE_AGE=86400
 
 STRIPE_API_PUBLISHABLE_KEY="pk_test_51IfRKVLh9kwXHjLM9P5eEA1Q0RBPSA2x3l8j0ZCR605LhmNG5bs3BsW2a1sqMQX5FpipWHaRdHGUHS3FdlKYSKYQ00BxXGOLHI"
 STRIPE_API_HIDDEN_KEY="sk_test_51IfRKVLh9kwXHjLMb5fSXC4ZL6W3HQEAhxB9wZUZQv9GyGPKnybvu0LXImLvi9ZDpQu8wNGBt0539TQLh6QApyDx008TJ7AP1b"
-                 
+
 
 LOGOUT_REDIRECT_URL="home"
 
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+                                                     
+
+
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
 
 EMAIL_HOST_USER="divinebakery81@gmail.com"
-EMAIL_HOST_PASSWORD="DivineBakery81@gmail.com"
+EMAIL_HOST_PASSWORD="DivineBakery81@gmail.com" 
+
+#<<<<<<< HEAD
 EMAIL_USE_TSL=True
+#=======
+EMAIL_USE_TLS=True
+#>>>>>>> 830a46681880bab64c281550461f2526240ab750
 

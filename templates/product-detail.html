@@ -21,14 +21,31 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-       {% if is_in_cart == False %}
-       <div class="quantity">
+      {% if product.is_in_store == False %}
+       <div class="sold-out-holder">
+        <div class="quantity">
+          <button id="remove-btn" class="btn-option">-</button>
+          <p id="qty">1</p>
+          <button id="add-btn" class="btn-option">+</button>
+
+         <a class="btn btn-sold-out" id="sold-out">
+          <img id="wishlist-btn" src="{% static 'images/plus-circle.svg' %}"/>
+          Sold out                            
+         </a>  
+        </div>
+        <span id="user-info">
+           <img id="close-x" src="{% static 'images/x-octagon.svg' %}"/>
+           <p>Tap To Wishlist</p>
+        </span>
+      </div> 
+     {% elif is_in_cart == False %}
+      <div class="quantity">
          <button id="remove-btn" class="btn-option">-</button>
          <p id="qty">1</p>
          <button id="add-btn" class="btn-option">+</button>
-         <a id="add-to-cart" class="btn">Add To Cart </a>
-        </div>
-      {% else %}
+         <a id="add-to-cart" class="btn"> Add To Cart </a>
+        </div>                                        
+     {% else %}        
         <div class="quantity">
           <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
         </div>
@@ -107,5 +124,31 @@
       $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt($("#qty").text()));
 
     });
+
+    $("#close-x").on("click",function(){
+      $("#user-info").css({"display":"none"});
+    });
+
+     $("#wishlist-btn").on("click",function(){
+       $("#sold-out").css({"background":"#0d81ea"});
+       $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
+       $(".btn-option").css({"opacity":"0.5"});
+       $("#remove-btn").unbind("click");
+       $("#add-btn").unbind("click");
+
+       fetch("{% url 'wishlist' %}",{
+         method:"POST",
+         headers:{
+         "Content-Type":"applications/json",
+         "X-CSRFToken":"{{csrf_token}}"
+         },
+         credentials:"same-origin",
+         body:JSON.stringify({
+          "product_id":{{product.id}},
+          "quantity":parseInt($("#qty").text()),
+          "is_authenticated":{{request.user.is_authenticated}}
+         })                   
+       });
+     });                         
   </script>
 {% endblock %}

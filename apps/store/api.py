@@ -3,9 +3,13 @@ from apps.order.models import Order
 from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse
-from .utils import checkout
+from django.contrib.auth import get_user_model
+from .utils import checkout,wishlist
 import json
 import stripe
+
+
+User=get_user_model()
 
 def add_to_cart(request):
     cart=Cart(request)
@@ -65,3 +69,9 @@ def create_checkout_session(request):
 
     return JsonResponse({"session":session, "status":True});
 
+def wishlist_item(request):
+    data=json.loads(request.body)
+    print(data)
+    if(data["is_authenticated"]):
+       wishlist(data["product_id"],data["quantity"],request.user)
+    return JsonResponse({"success":True})

@@ -26,7 +26,7 @@ from apps.core.views import home_view,account_view,logout_view
 from apps.core.api import api_login,api_signup
 
 from apps.store.views import store_view,category_view,detail_view
-from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session
+from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item
 
 from apps.cart.views import cart_view
 from apps.cart.webhook import webhook
@@ -55,7 +55,7 @@ urlpatterns = [
     path('remove_from_cart/',remove_from_cart,name="remove_from_cart"),
     path('api_checkout/',api_checkout,name="api_checkout"),
     path('create_checkout_session/',create_checkout_session,name="create_checkout_session"),
-
+    path('wishlist/',wishlist_item,name="wishlist"),
     path('checkout/',checkout_view,name="checkout"),
     path('validate/<int:order_id>/',validate_order_view,name="validate"),
     path('success/',success_view,name="success"),

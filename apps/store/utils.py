@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from apps.order.models import Order,OrderItem
 from apps.cart.cart import Cart
-from .models import Product
+from .models import Product,WishList
 
 User=get_user_model()
 
@@ -14,3 +14,6 @@ def checkout(request,username,email,address):
   return order.id
 
 
+def wishlist(product_id,quantity,user):
+   WishList.objects.create(user=user,product=Product.objects.get(id=product_id),quantity=quantity)
+                                                                    

@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User=get_user_model()
 
 # Create your models here.
 
@@ -21,10 +24,13 @@ class Product(models.Model):
    product_pic=models.ImageField(upload_to="uploads/products")
    price=models.DecimalField(max_digits=100,decimal_places=2)
    desc=models.TextField(blank=True,null=True)
+
    is_in_store=models.BooleanField(default=True)
    is_featured=models.BooleanField(default=False)
    is_latest=models.BooleanField(default=True)
    is_exculsive=models.BooleanField(default=False)
+   
+   quantity=models.IntegerField(default=1)
 
    created_at=models.DateTimeField(auto_now_add=True)
    category=models.ForeignKey(Category,related_name="products",on_delete=models.CASCADE)
@@ -39,9 +45,10 @@ class Product(models.Model):
    def get_absolute_url(self):
       return "/%s/%s/"%(self.category.slug,self.title)
                                     
-class ProductImage(models.Model):
-   product=models.ForeignKey(Product,related_name="images",on_delete=models.CASCADE)
-   image=models.ImageField(upload_to="uploads/product_images")
-
-   def __str__(self):
+class WishList(models.Model):
+     user=models.ForeignKey(User,related_name="wishlist",on_delete=models.CASCADE)
+     product=models.ForeignKey(Product,related_name="wishlised_items",on_delete=models.CASCADE)
+     quantity=models.IntegerField(default=1)
+           
+     def __str__(self):
        return self.product.title
