@@ -6,6 +6,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from .models import Product
 
 User=get_user_model()
 
@@ -28,9 +29,14 @@ def success_view(request):
 @login_required
 def order_conf_view(request):
     cart=Cart(request)
+    for item in cart:
+     product=Product.objects.get(id=item["product"].id)
+     product.quantity=(product.quantity-item["quantity"])
+     product.save()
+
     cart.clear()
     email=request.user.email
     html_string=render_to_string("order-conf-xml.html",{"cart":cart,"request":request})
-    send_mail("Order Confirmation","Please note a service charge of NGN10.00 was added and the exchange rate used was NGN481.00 per $1.00",settings.EMAIL_HOST_USER,[email,settings.EMAIL_HOST_USER],html_message=html_string,fail_silently=False)
+    send_mail("Order Confirmation","Please note a service charge of NGN10.00 was added and the exchange rate used was NGN481.00 per $1.00",settings.EMAIL_HOST_USER,[email,settings.EMAIL_HOST_USER],html_message=html_string,fail_silently=True)
                                                                                                                                                                                                                                                 
     return render(request,"order-conf.html",{"cart":cart})

@@ -1,4 +1,5 @@
 from apps.cart.cart import Cart
+from .models import Product
 from apps.order.models import Order
 from django.conf import settings
 from django.shortcuts import redirect
@@ -13,7 +14,9 @@ User=get_user_model()
 
 def add_to_cart(request):
     cart=Cart(request)
-    data=json.loads(request.body)
+    data=json.loads(request.body)                 
+    if (Product.objects.get(id=data["product_id"])[0].qauntity-data["qty"])<=0:
+      return JsonResponse({"success":False})
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
     return JsonResponse({"success":True})
 
@@ -72,6 +75,12 @@ def create_checkout_session(request):
 def wishlist_item(request):
     data=json.loads(request.body)
     print(data)
-    if(data["is_authenticated"]):
+    if(toBoolean(data["is_authenticated"])):
        wishlist(data["product_id"],data["quantity"],request.user)
     return JsonResponse({"success":True})
+       
+
+def toBoolean(string):
+  if string=="True":
+     return True
+  return False

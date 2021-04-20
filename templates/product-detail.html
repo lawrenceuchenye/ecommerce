@@ -21,7 +21,11 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-      {% if product.is_in_store == False %}
+      {% if is_wish_listed %}
+       <div class="quantity">
+        <a class="btn wishlist-btn">Wishlisted <i class="fas fa-check-circle"></i></a>
+       </div>                             
+      {% elif product.is_in_store == False %}
        <div class="sold-out-holder">
         <div class="quantity">
           <button id="remove-btn" class="btn-option">-</button>
@@ -47,8 +51,8 @@
         </div>                                        
      {% else %}        
         <div class="quantity">
-          <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
-        </div>
+          <a class="btn-g btn">Added To Cart <i class="fas fa-check-circle"></i></a>
+        </div>                       
       {% endif %}
        <h4>Product Detail</h4>
         <p>{{product.desc}}</p>
@@ -128,14 +132,22 @@
     $("#close-x").on("click",function(){
       $("#user-info").css({"display":"none"});
     });
-
+                     
      $("#wishlist-btn").on("click",function(){
+       alert("Hello");
        $("#sold-out").css({"background":"#0d81ea"});
        $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
        $(".btn-option").css({"opacity":"0.5"});
        $("#remove-btn").unbind("click");
        $("#add-btn").unbind("click");
-
+        
+                
+       var data={
+        "is_authenticated":"{{request.user.is_authenticated}}",
+        "product_id":{{product.id}},
+        "quantity":parseInt($("#qty").text())
+      }                  
+          
        fetch("{% url 'wishlist' %}",{
          method:"POST",
          headers:{
@@ -143,12 +155,10 @@
          "X-CSRFToken":"{{csrf_token}}"
          },
          credentials:"same-origin",
-         body:JSON.stringify({
-          "product_id":{{product.id}},
-          "quantity":parseInt($("#qty").text()),
-          "is_authenticated":{{request.user.is_authenticated}}
-         })                   
-       });
+         body:JSON.stringify(data)
+         });          
+
+     alert("hi");
      });                         
   </script>
 {% endblock %}
