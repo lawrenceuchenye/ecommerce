@@ -46,4 +46,4 @@ def detail_view(request,product_id):
         is_wish_listed=True
     print(is_wish_listed)
     return render(request,"product-detail.html",{"related_products":related_products,"product":product,"is_in_cart":is_in_cart,"is_wish_listed":is_wish_listed})
-                                                                                                   
+
