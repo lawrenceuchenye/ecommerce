@@ -8,7 +8,7 @@ class UserProfile(models.Model):
    phone_number=models.IntegerField(null=True,blank=True)
    address=models.CharField(max_length=255,null=True,blank=True)
 
-                                                
+
 
 User.userprofile=property(lambda u:UserProfile.objects.get_or_create(user=u)[0])
-                                                                 
+

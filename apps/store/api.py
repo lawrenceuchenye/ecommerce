@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
-from .utils import checkout,wishlist
+from .utils import checkout,wishlist,unwishlist
 import json
 import stripe
 
@@ -71,7 +71,14 @@ def create_checkout_session(request):
 
 def wishlist_item(request):
     data=json.loads(request.body)
-    print(data)
+    success = False
     if(data["is_authenticated"]):
-       wishlist(data["product_id"],data["quantity"],request.user)
-    return JsonResponse({"success":True})
+       success = wishlist(data["product_id"],data["quantity"],request.user)
+    return JsonResponse({"success":success})
+
+def unwishlist_item(request):
+    data=json.loads(request.body)
+    success = False
+    if(data["is_authenticated"]):
+       success = unwishlist(data["product_id"], data["quantity"], request.user)
+    return JsonResponse({"success":success})

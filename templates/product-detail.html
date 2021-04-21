@@ -25,12 +25,22 @@
        <div class="sold-out-holder">
         <div class="quantity">
           <button id="remove-btn" class="btn-option">-</button>
+          {% if is_in_wishlist %}
+          <p id="qty">{{wishlisted_quantity}}</p>
+          {% else %}
           <p id="qty">1</p>
+          {% endif %}
           <button id="add-btn" class="btn-option">+</button>
 
+         {% if is_in_wishlist %}
+         <a class="btn btn-wishlisted" id="sold-out">
+         {% else %}
          <a class="btn btn-sold-out" id="sold-out">
+         {% endif %}
           <img id="wishlist-btn" src="{% static 'images/plus-circle.svg' %}"/>
-          Sold out
+          <span class="sold-out-text">Sold out</span>
+          <span class="wishlisted-text">Wishlisted</span>
+          <i class='fas fa-check-circle' id="unwishlist-btn"></i>
          </a>
         </div>
         <span id="user-info">
@@ -130,13 +140,39 @@
     });
 
      $("#wishlist-btn").on("click",function(){
-       $("#sold-out").css({"background":"#0d81ea"});
-       $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
+       $("#sold-out").addClass("btn-wishlisted");
+       $("#sold-out").removeClass("btn-sold-out");
+       // $("#sold-out").css({"background":"#0d81ea"});
+       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
        $(".btn-option").css({"opacity":"0.5"});
        $("#remove-btn").unbind("click");
        $("#add-btn").unbind("click");
 
        fetch("{% url 'wishlist' %}",{
+         method:"POST",
+         headers:{
+         "Content-Type":"applications/json",
+         "X-CSRFToken":"{{csrf_token}}"
+         },
+         credentials:"same-origin",
+         body:JSON.stringify({
+          "product_id":{{product.id}},
+          "quantity":parseInt($("#qty").text()),
+          "is_authenticated":{{request.user.is_authenticated | stringformat:"s" | lower}}
+         })
+       });
+     });
+
+     $("#unwishlist-btn").on("click",function(){
+       $("#sold-out").removeClass("btn-wishlisted");
+       $("#sold-out").addClass("btn-sold-out");
+       // $("#sold-out").css({"background":"#0d81ea"});
+       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
+       $(".btn-option").css({"opacity":"0.5"});
+       $("#remove-btn").unbind("click");
+       $("#add-btn").unbind("click");
+
+       fetch("{% url 'un-wishlist' %}",{
          method:"POST",
          headers:{
          "Content-Type":"applications/json",
