@@ -17,42 +17,37 @@ def add_to_cart(request):
     data=json.loads(request.body)
     product=Product.objects.get(id=data["product_id"])
     product_qty=product.quantity
-    #check if any of the products remain after a purchase
-    if(product_qty-data["qty"])<=0:
-       prev_quantity=cart.get_item(data["product_id"])
-       #check if the item has been added to the cart with a previous quantity
-       if prev_quantity:
-         prev_quantity=prev_quantity["quantity"]
-         #check if user increase or decrease the item quantity
-         if prev_quantity>int(data["qty"]):
-            product.quantity+=1
-            product.is_in_store=True
-            cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
-         else:           
-            if product.is_in_store:
-              if product.quantity>=1:
-                print("hero",product.quantity)
-                product.quantity-=1
-                cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
-              else:
-                product.is_in_store=False
-            else:
-               return JsonResponse({"success":False})
-         product.save()
-         return JsonResponse({"success":True})
-     #if not added to cart and all items purcahse return false and set quantity of product to 0
-       cart.add_to_cart(int(data["product_id"]),product.quantity)
-       product.quantity=0
-       product.is_in_store=False
-       product.save()
-       return JsonResponse({"success":False})
-   #if remaining add to cart and decrease product quantity
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
     product.quantity=(product_qty-int(data["qty"]))
     product.save()
     return JsonResponse({"success":True})
 
 
+def edit_quantity(request):
+   cart=Cart(request)
+   data=json.loads(request.body)
+   product=Product.objects.get(id=data["product_id"])
+   product_qty=product.quantity
+   quantity=cart.get_item(data["product_id"])
+   if(quantity["quantity"]>data["qty"]):
+      product.is_in_store=True
+      product.quantity+=1
+      product.save()
+      cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+   else:
+      if product.is_in_store:
+         if product.quantity>=1:
+            product.quantity-=1
+            product.save()
+            cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+         else:
+            product.is_in_store=False
+            product.save()
+            return JsonResponse({"success":False})
+      else:
+        return JsonResponse({"success":False})
+   return JsonResponse({"success":True})
+ 
 def remove_from_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)

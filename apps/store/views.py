@@ -32,7 +32,8 @@ def category_view(request,category_slug):
 
 def detail_view(request,product_id):
     product=get_object_or_404(Product, id=product_id)
-    related_products=product.category.products.all()[:4]
+    related_products=[related_product for related_product in product.category.products.all()[:5]]
+    related_products.remove(product)
     is_in_cart=False
     is_wish_listed=False
     cart=Cart(request)
@@ -44,6 +45,5 @@ def detail_view(request,product_id):
       wishlist=request.user.wishlist.all()
       if request.user.wishlist.filter(product=product):
         is_wish_listed=True
-    print(is_wish_listed)
     return render(request,"product-detail.html",{"related_products":related_products,"product":product,"is_in_cart":is_in_cart,"is_wish_listed":is_wish_listed})
                                                                                                    
