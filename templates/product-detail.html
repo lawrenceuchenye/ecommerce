@@ -25,14 +25,10 @@
        <div class="sold-out-holder">
         <div class="quantity">
           <button id="remove-btn" class="btn-option">-</button>
-          {% if is_in_wishlist %}
-          <p id="qty">{{wishlisted_quantity}}</p>
-          {% else %}
           <p id="qty">1</p>
-          {% endif %}
           <button id="add-btn" class="btn-option">+</button>
 
-         {% if is_in_wishlist %}
+         {% if is_wish_listed %}
          <a class="btn btn-wishlisted" id="sold-out">
          {% else %}
          <a class="btn btn-sold-out" id="sold-out">
@@ -43,7 +39,11 @@
           <i class='fas fa-check-circle' id="unwishlist-btn"></i>
          </a>
         </div>
+        {% if is_wish_listed %}
+        <span id="user-info" style="display: none;">
+        {% else %}
         <span id="user-info">
+        {% endif %}
            <img id="close-x" src="{% static 'images/x-octagon.svg' %}"/>
            <p>Tap To Wishlist</p>
         </span>
