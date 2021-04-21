@@ -35,12 +35,15 @@
               <li id="exit"><img src="{% static 'images/x-octagon.svg' %}"/>
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'store' %}?page=1">Store</a></li>
-              <li><a href="#">Account</a></li>
+              {% if request.user.is_authenticated %}
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+              {% endif %}     
+
               {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}" class="logout">Log out</a></li>
               {% else %}       
-                <li><a href="{% url 'account' %}">Account</a></li>
-              {% endif %}      
+               <li><a href="{% url 'account' %}">Account</a></li>
+               {% endif %}
              </ul>
           <a href="{% url 'cart' %}"> <img id="cart" src="{% static 'images/cart.svg' %}"/></a>
 

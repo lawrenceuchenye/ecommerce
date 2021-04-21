@@ -31,10 +31,9 @@
           <button id="remove-btn" class="btn-option">-</button>
           <p id="qty">1</p>
           <button id="add-btn" class="btn-option">+</button>
-
-         <a class="btn btn-sold-out" id="sold-out">
+         <a class="btn btn-sold-out add-btn" id="sold-out">
           <img id="wishlist-btn" src="{% static 'images/plus-circle.svg' %}"/>
-          Sold out                            
+          Sold out                 
          </a>  
         </div>
         <span id="user-info">
@@ -47,8 +46,8 @@
          <button id="remove-btn" class="btn-option">-</button>
          <p id="qty">1</p>
          <button id="add-btn" class="btn-option">+</button>
-         <a id="add-to-cart" class="btn"> Add To Cart </a>
-        </div>                                        
+         <a id="add-to-cart" class="btn add-btn"> Add To Cart </a>
+        </div>                         
      {% else %}        
         <div class="quantity">
           <a class="btn-g btn">Added To Cart <i class="fas fa-check-circle"></i></a>

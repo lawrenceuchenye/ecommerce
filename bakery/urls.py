@@ -33,11 +33,14 @@ from apps.cart.webhook import webhook
 
 from apps.order.views import checkout_view,validate_order_view,success_view,order_conf_view
 
+from apps.userprofile.views import dashboard_view
+
 sitemaps={"static":StaticViewSitemap,"category":CategorySitemap,"product":ProductSitemap}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sitemap.xml',sitemap,{"sitemaps":sitemaps},name="django.sitemaps.views.sitemap"),
+    path('dashboard/',dashboard_view,name="dashboard"),
 
     path('',home_view,name="home"),
     path('api_login/',api_login,name="api_login"),
