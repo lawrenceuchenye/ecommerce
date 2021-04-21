@@ -28,7 +28,7 @@ def api_checkout(request):
    data=json.loads(request.body)
    order_id=checkout(request,data["username"],data["email"],data["address"])
    return order_id
-    
+
 def create_checkout_session(request):
     cart=Cart(request)
     stripe.api_key=settings.STRIPE_API_HIDDEN_KEY
