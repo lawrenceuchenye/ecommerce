@@ -1,10 +1,4 @@
-
-.col-2 .wishlist-btn{
- background:#0d81ea;
- font-weight:800;
-}
-
-.row-1{ 
+.row-1{
  display:flex;
  justify-content:center;
 }
@@ -21,7 +15,7 @@
  transform:translateY(10px);
  margin-bottom:5px;
 }
-	
+
 .col-2{
  text-align:left;
 }
@@ -33,9 +27,6 @@
 .btn{
  background:#ff523b;
  color:#fff;
- position:relative;
- left:-5px;
- margin-left:10px;
 }
 
 .btn-option{
@@ -75,7 +66,7 @@
  font-weight:800;
 }
 
-.col-2 p{ 
+.col-2 p{
  color:#555;
  transform:translateY(20px);
 }
@@ -116,10 +107,25 @@
  left:-20px;
 }
 
+.btn-sold-out .wishlisted-text, .btn-sold-out #unwishlist-btn {
+  display: none;
+}
+
 .sold-out-holder{
  position:relative;
 }
-                   
+
+.btn-wishlisted{
+  background:#0d81ea;
+  font-weight:800;
+  display:flex;
+  color:#fff;
+}
+
+.btn-wishlisted #wishlist-btn, .btn-wishlisted .sold-out-text {
+  display: none;
+}
+
 #user-info{
  background:black;
  width:100px;
@@ -130,11 +136,11 @@
  text-align:center;
  transition:1s;
  transform:translate(-48px,-21px);
- padding:5px;         
+ padding:5px;
  border-radius:5px;
  z-index:1;
- 
-}                   
+
+}
 /*
 @keyframes fade-in{
   0%{
@@ -161,14 +167,14 @@
  top:-15px;
  padding:10px;
  position:relative;
- 
+
 }
 
 #user-info p{
  color:#fff;
  position:relative;
  top:-50px;
- z-index:2;	
+ z-index:2;
 }
 
 @media only screen and (max-width:700px){
@@ -189,7 +195,7 @@
  padding:10px;
  padding-bottom:0px;
  }
-  
+
   .col img{
     width:330px;
    }

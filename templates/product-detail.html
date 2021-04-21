@@ -21,20 +21,26 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-      {% if is_wish_listed %}
-       <div class="quantity">
-        <a class="btn wishlist-btn">Wishlisted <i class="fas fa-check-circle"></i></a>
-       </div>                             
-      {% elif product.is_in_store == False %}
+      {% if product.is_in_store == False %}
        <div class="sold-out-holder">
         <div class="quantity">
           <button id="remove-btn" class="btn-option">-</button>
+          {% if is_in_wishlist %}
+          <p id="qty">{{wishlisted_quantity}}</p>
+          {% else %}
           <p id="qty">1</p>
+          {% endif %}
           <button id="add-btn" class="btn-option">+</button>
 
+         {% if is_in_wishlist %}
+         <a class="btn btn-wishlisted" id="sold-out">
+         {% else %}
          <a class="btn btn-sold-out" id="sold-out">
+         {% endif %}
           <img id="wishlist-btn" src="{% static 'images/plus-circle.svg' %}"/>
-          Sold out
+          <span class="sold-out-text">Sold out</span>
+          <span class="wishlisted-text">Wishlisted</span>
+          <i class='fas fa-check-circle' id="unwishlist-btn"></i>
          </a>
         </div>
         <span id="user-info">
@@ -48,16 +54,11 @@
          <p id="qty">1</p>
          <button id="add-btn" class="btn-option">+</button>
          <a id="add-to-cart" class="btn"> Add To Cart </a>
-<<<<<<< HEAD
         </div>
      {% else %}
-=======
-        </div>                                        
-     {% else %}        
->>>>>>> 3a3adcc4baea09e7f53dcfc5149757e2fc24b877
         <div class="quantity">
-          <a class="btn-g btn">Added To Cart <i class="fas fa-check-circle"></i></a>
-        </div>                       
+          <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
+        </div>
       {% endif %}
        <h4>Product Detail</h4>
         <p>{{product.desc}}</p>
@@ -127,41 +128,26 @@
          "qty":parseInt($("#qty").text())
         })
 
-      }).then(response=>{
-       return response.json();
-      }).then(json=>{
-        if(!json.success){
-          alert("Item Out Of Stock");
-          $("#cart-items").css({"display":"block"});
-          $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt("{{product.quantity}}"));
-                                                                             
-        }else{
-          $("#cart-items").css({"display":"block"});
-          $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt($("#qty").text()));
-       }
       });
- 
+
+      $("#cart-items").css({"display":"block"});
+      $("#cart_items_n").text(parseInt($("#cart_items_n").text())+parseInt($("#qty").text()));
+
     });
 
     $("#close-x").on("click",function(){
       $("#user-info").css({"display":"none"});
     });
-                     
+
      $("#wishlist-btn").on("click",function(){
-      
-       $("#sold-out").css({"background":"#0d81ea"});
-       $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
+       $("#sold-out").addClass("btn-wishlisted");
+       $("#sold-out").removeClass("btn-sold-out");
+       // $("#sold-out").css({"background":"#0d81ea"});
+       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
        $(".btn-option").css({"opacity":"0.5"});
        $("#remove-btn").unbind("click");
        $("#add-btn").unbind("click");
-        
-                
-       var data={
-        "is_authenticated":"{{request.user.is_authenticated}}",
-        "product_id":{{product.id}},
-        "quantity":parseInt($("#qty").text())
-      }                  
-          
+
        fetch("{% url 'wishlist' %}",{
          method:"POST",
          headers:{
@@ -169,9 +155,6 @@
          "X-CSRFToken":"{{csrf_token}}"
          },
          credentials:"same-origin",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
          body:JSON.stringify({
           "product_id":{{product.id}},
           "quantity":parseInt($("#qty").text()),
@@ -179,15 +162,29 @@
          })
        });
      });
-=======
-=======
->>>>>>> 3a3adcc4baea09e7f53dcfc5149757e2fc24b877
-=======
->>>>>>> temp
-         body:JSON.stringify(data)
-         });          
 
-     });                         
->>>>>>> 3a3adcc4baea09e7f53dcfc5149757e2fc24b877
+     $("#unwishlist-btn").on("click",function(){
+       $("#sold-out").removeClass("btn-wishlisted");
+       $("#sold-out").addClass("btn-sold-out");
+       // $("#sold-out").css({"background":"#0d81ea"});
+       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
+       $(".btn-option").css({"opacity":"0.5"});
+       $("#remove-btn").unbind("click");
+       $("#add-btn").unbind("click");
+
+       fetch("{% url 'un-wishlist' %}",{
+         method:"POST",
+         headers:{
+         "Content-Type":"applications/json",
+         "X-CSRFToken":"{{csrf_token}}"
+         },
+         credentials:"same-origin",
+         body:JSON.stringify({
+          "product_id":{{product.id}},
+          "quantity":parseInt($("#qty").text()),
+          "is_authenticated":{{request.user.is_authenticated | stringformat:"s" | lower}}
+         })
+       });
+     });
   </script>
 {% endblock %}
