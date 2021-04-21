@@ -40,3 +40,9 @@ class Cart(object):
    def clear(self):
       del self.sessions[settings.CART_SESSION_ID]
       self.sessions.modified=True
+    
+   def get_item(self,product_id):
+       for item in self.cart.values():
+         if item["product_id"]==product_id:
+            return item
+       return None

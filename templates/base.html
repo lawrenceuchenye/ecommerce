@@ -35,6 +35,7 @@
               <li id="exit"><img src="{% static 'images/x-octagon.svg' %}"/>
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'store' %}?page=1">Store</a></li>
+              <li><a href="#">Account</a></li>
               {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}" class="logout">Log out</a></li>
               {% else %}       
@@ -99,8 +100,8 @@
 
       $("#menu").on("click",function(){
        if($("#menuItems").height()==0){
-          $("#menuItems").css({"height":"200px"});
-        }else{
+          $("#menuItems").css({"height":"215px"});
+        }else{                              
           $("#menuItems").css({"height":"0px"});
         }
       });
