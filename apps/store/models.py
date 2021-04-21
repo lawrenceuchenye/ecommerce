@@ -29,7 +29,7 @@ class Product(models.Model):
    is_featured=models.BooleanField(default=False)
    is_latest=models.BooleanField(default=True)
    is_exculsive=models.BooleanField(default=False)
-   
+
    quantity=models.IntegerField(default=1)
 
    created_at=models.DateTimeField(auto_now_add=True)
@@ -44,11 +44,11 @@ class Product(models.Model):
 
    def get_absolute_url(self):
       return "/%s/%s/"%(self.category.slug,self.title)
-                                    
+
 class WishList(models.Model):
      user=models.ForeignKey(User,related_name="wishlist",on_delete=models.CASCADE)
      product=models.ForeignKey(Product,related_name="wishlisted_items",on_delete=models.CASCADE)
      quantity=models.IntegerField(default=1)
-           
+
      def __str__(self):
        return self.product.title

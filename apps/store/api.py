@@ -1,11 +1,10 @@
 from apps.cart.cart import Cart
-from .models import Product
 from apps.order.models import Order
 from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
-from .utils import checkout,wishlist
+from .utils import checkout,wishlist,unwishlist
 import json
 import stripe
 
@@ -15,11 +14,12 @@ User=get_user_model()
 def add_to_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
+<<<<<<< HEAD
     product=Product.objects.get(id=data["product_id"])
     product_qty=product.quantity
+=======
+>>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
-    product.quantity=(product_qty-int(data["qty"]))
-    product.save()
     return JsonResponse({"success":True})
 
 
@@ -51,10 +51,6 @@ def edit_quantity(request):
 def remove_from_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
-    product=Product.objects.get(id=data["product_id"])
-    product.quantity+=data["quantity"]
-    product.is_in_store=True
-    product.save()  
     cart.remove_from_cart(data["product_id"])
     return JsonResponse({"success":True})
 
@@ -62,7 +58,7 @@ def api_checkout(request):
    data=json.loads(request.body)
    order_id=checkout(request,data["username"],data["email"],data["address"])
    return order_id
-    
+
 def create_checkout_session(request):
     cart=Cart(request)
     stripe.api_key=settings.STRIPE_API_HIDDEN_KEY
@@ -105,13 +101,14 @@ def create_checkout_session(request):
 
 def wishlist_item(request):
     data=json.loads(request.body)
-    print(data)
-    if(toBoolean(data["is_authenticated"])):
-       wishlist(data["product_id"],data["quantity"],request.user)
-    return JsonResponse({"success":True})
-       
+    success = False
+    if(data["is_authenticated"]):
+       success = wishlist(data["product_id"],data["quantity"],request.user)
+    return JsonResponse({"success":success})
 
-def toBoolean(string):
-  if string=="True":
-     return True
-  return False
+def unwishlist_item(request):
+    data=json.loads(request.body)
+    success = False
+    if(data["is_authenticated"]):
+       success = unwishlist(data["product_id"], data["quantity"], request.user)
+    return JsonResponse({"success":success})
