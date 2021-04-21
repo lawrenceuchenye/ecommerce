@@ -98,6 +98,7 @@
  <script type="application/javascript" src="https://js.stripe.com/v3"></script>
 
  <script>
+
    function remove_item(product_id){
 
      fetch("{% url 'remove_from_cart' %}",{
@@ -108,8 +109,9 @@
       },
       credentials:"same-origin",
       body:JSON.stringify({
-      "product_id":product_id
-      })
+      "product_id":product_id,
+       "quantity":parseInt($("#qty-"+product_id).text())
+      })                    
      });
 
      var total=$("#total").text();
@@ -149,8 +151,8 @@
          "qty":(parseInt($("#qty-"+product_id).text())-1)
         })
       });
-
-      if((parseInt($("#qty-"+product_id).text())-1)==1){
+         
+      if(((parseInt($("#qty-"+product_id).text())-1)==1)){
       $("#sub").css({"opacity":"0.5"});
       }else{
        $("#sub").css({"opacity":"1"});
@@ -179,6 +181,7 @@
     }
 
    function add_qty(product_id,price){
+
        $("#sub").css({"opacity":"1"});
       fetch("{% url 'add_to_cart' %}",{
         method:"POST",
@@ -191,9 +194,12 @@
          "product_id":product_id,
          "qty":(parseInt($("#qty-"+product_id).text())+1)
         })
-      });
-
-
+      }).then(response=>{
+        return response.json();
+     }).then(json=>{
+        if(!json.success){
+           alert("Item Out Of Stock");
+        }else{
       $("#qty-"+product_id).text(parseInt($("#qty-"+product_id).text())+1);
       var price_total=$("#totalcost-"+product_id).text();
       price_total=parseInt(price_total.slice(3,price_total.length));
@@ -210,7 +216,8 @@
      $("#subtotal").text("NGN"+((total+price)-10.0)+".00");
      $("#cart-items").css({"display":"block"});
      $("#cart_items_n").text(parseInt($("#cart_items_n").text())+1);
-
+       }
+     });
     }
 
 
