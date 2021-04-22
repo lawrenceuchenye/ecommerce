@@ -36,12 +36,12 @@
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'store' %}?page=1">Store</a></li>
               {% if request.user.is_authenticated %}
-                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-              {% endif %}     
+                <li><a href="{% url 'dashboard' %}">Admin</a></li>
+              {% endif %}                                                 
 
               {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}" class="logout">Log out</a></li>
-              {% else %}       
+              {% else %}                                 
                <li><a href="{% url 'account' %}">Account</a></li>
                {% endif %}
              </ul>

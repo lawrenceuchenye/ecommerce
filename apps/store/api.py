@@ -14,11 +14,8 @@ User=get_user_model()
 def add_to_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
-<<<<<<< HEAD
     product=Product.objects.get(id=data["product_id"])
     product_qty=product.quantity
-=======
->>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
     return JsonResponse({"success":True})
 

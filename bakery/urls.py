@@ -26,11 +26,12 @@ from apps.core.views import home_view,account_view,logout_view
 from apps.core.api import api_login,api_signup
 
 from apps.store.views import store_view,category_view,detail_view
-<<<<<<< HEAD
+#<<<<<<< HEAD
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,edit_quantity
-=======
+#======
+
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,unwishlist_item
->>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
+#>>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
 
 from apps.cart.views import cart_view
 from apps.cart.webhook import webhook

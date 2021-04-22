@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 from .models import Product,Category
@@ -47,7 +46,7 @@ def detail_view(request,product_id):
       if request.user.wishlist.filter(product=product):
         is_wish_listed=True
     return render(request,"product-detail.html",{"related_products":related_products,"product":product,"is_in_cart":is_in_cart,"is_wish_listed":is_wish_listed})
-                                                                                                   
+"""""                                                                                                   
 =======
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
@@ -98,3 +97,4 @@ def detail_view(request,product_id):
     return render(request,"product-detail.html",{"related_products":related_products,"product":product,"is_in_cart":is_in_cart,"is_wish_listed":is_wish_listed})
 
 >>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
+"""
