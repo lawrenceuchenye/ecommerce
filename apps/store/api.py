@@ -14,10 +14,37 @@ User=get_user_model()
 def add_to_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
+    product=Product.objects.get(id=data["product_id"])
+    product_qty=product.quantity
     cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
     return JsonResponse({"success":True})
 
 
+def edit_quantity(request):
+   cart=Cart(request)
+   data=json.loads(request.body)
+   product=Product.objects.get(id=data["product_id"])
+   product_qty=product.quantity
+   quantity=cart.get_item(data["product_id"])
+   if(quantity["quantity"]>data["qty"]):
+      product.is_in_store=True
+      product.quantity+=1
+      product.save()
+      cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+   else:
+      if product.is_in_store:
+         if product.quantity>=1:
+            product.quantity-=1
+            product.save()
+            cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+         else:
+            product.is_in_store=False
+            product.save()
+            return JsonResponse({"success":False})
+      else:
+        return JsonResponse({"success":False})
+   return JsonResponse({"success":True})
+ 
 def remove_from_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)

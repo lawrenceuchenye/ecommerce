@@ -27,6 +27,15 @@
 .btn{
  background:#ff523b;
  color:#fff;
+<<<<<<< HEAD
+ position:relative;
+ left:-5px;
+}
+
+.add-btn{
+ margin-left:10px;
+=======
+>>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
 }
 
 .btn-option{

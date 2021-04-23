@@ -26,18 +26,26 @@ from apps.core.views import home_view,account_view,logout_view
 from apps.core.api import api_login,api_signup
 
 from apps.store.views import store_view,category_view,detail_view
+#<<<<<<< HEAD
+from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,edit_quantity
+#======
+
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,unwishlist_item
+#>>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
 
 from apps.cart.views import cart_view
 from apps.cart.webhook import webhook
 
 from apps.order.views import checkout_view,validate_order_view,success_view,order_conf_view
 
+from apps.userprofile.views import dashboard_view
+
 sitemaps={"static":StaticViewSitemap,"category":CategorySitemap,"product":ProductSitemap}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sitemap.xml',sitemap,{"sitemaps":sitemaps},name="django.sitemaps.views.sitemap"),
+    path('dashboard/',dashboard_view,name="dashboard"),
 
     path('',home_view,name="home"),
     path('api_login/',api_login,name="api_login"),
@@ -53,7 +61,8 @@ urlpatterns = [
     path('webhooks/',webhook,name="webhooks"),
     path('add_to_cart/',add_to_cart,name="add_to_cart"),
     path('remove_from_cart/',remove_from_cart,name="remove_from_cart"),
-    path('api_checkout/',api_checkout,name="api_checkout"),
+    path('edit_quantity/',edit_quantity,name="edit_quantity"),
+	
     path('create_checkout_session/',create_checkout_session,name="create_checkout_session"),
     path('wishlist/',wishlist_item,name="wishlist"),
     path('un-wishlist/',unwishlist_item,name="un-wishlist"),
