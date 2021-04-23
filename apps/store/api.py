@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
+from .models import Product
 from .utils import checkout,wishlist,unwishlist
 import json
 import stripe

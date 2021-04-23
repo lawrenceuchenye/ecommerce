@@ -28,7 +28,7 @@ class Order(models.Model):
    status=models.CharField(max_length=20,choices=CHOICES,default=ORDERED)
                                          
    def __str__(self):
-       return self.email
+       return self.user.username
 
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,related_name="orders",on_delete=models.CASCADE)

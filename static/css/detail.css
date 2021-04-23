@@ -27,15 +27,13 @@
 .btn{
  background:#ff523b;
  color:#fff;
-<<<<<<< HEAD
  position:relative;
  left:-5px;
+ display:flex;
 }
 
 .add-btn{
  margin-left:10px;
-=======
->>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea
 }
 
 .btn-option{
@@ -56,6 +54,27 @@
 
 .btn-option:nth-child(1){
  opacity:0.5;
+}
+     
+.sold-out-btn{
+  background:#cf1733;
+  font-weight:800;
+  text-transform:uppercase;
+  transition:0.5s;
+}
+
+.btn-b{
+ background:#0d81ea;
+ font-weight:800;
+}
+
+#wishlist-btn{
+ width:20px;
+ height:20px;
+ border:none;
+ padding:0px;
+ margin:0px;
+ transform:translateX(-25px);
 }
 
 #qty{
@@ -116,10 +135,6 @@
  left:-20px;
 }
 
-.btn-sold-out .wishlisted-text, .btn-sold-out #unwishlist-btn {
-  display: none;
-}
-
 .sold-out-holder{
  position:relative;
 }
@@ -131,9 +146,6 @@
   color:#fff;
 }
 
-.btn-wishlisted #wishlist-btn, .btn-wishlisted .sold-out-text {
-  display: none;
-}
 
 #user-info{
  background:black;
@@ -150,21 +162,6 @@
  z-index:1;
 
 }
-/*
-@keyframes fade-in{
-  0%{
-   opacity:0;
-  }
-
-  50%{
-   opacity:0.5;
-  }
-
-  100%{
-   opacity:1;
-  }
-}
- */
 
 #user-info img{
  width:30px;
