@@ -20,41 +20,34 @@
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
-              </div>
-      {% if product.is_in_store == False %}
+              </div> 
+      {% if is_wish_listed %}
+      <div class="quantity">
+          <a class="spin btn btn-b">Wishlisted <i class="fas fa-check-circle"></i></a>
+        </div>      
+      {% elif product.is_in_store == False %}
        <div class="sold-out-holder">
         <div class="quantity">
           <button id="remove-btn" class="btn-option">-</button>
           <p id="qty">1</p>
           <button id="add-btn" class="btn-option">+</button>
-
-         {% if is_wish_listed %}
-         <a class="btn btn-wishlisted" id="sold-out">
-         {% else %}
-         <a class="btn btn-sold-out" id="sold-out">
-         {% endif %}
-          <img id="wishlist-btn" src="{% static 'images/plus-circle.svg' %}"/>
-          <span class="sold-out-text">Sold out</span>
-          <span class="wishlisted-text">Wishlisted</span>
-          <i class='fas fa-check-circle' id="unwishlist-btn"></i>
-         </a>
-        </div>
-        {% if is_wish_listed %}
-        <span id="user-info" style="display: none;">
-        {% else %}
-        <span id="user-info">
-        {% endif %}
+          <a class="btn add-btn sold-out-btn" id="sold-out">
+            <img id="wishlist-btn"  src="{% static 'images/plus-circle.svg' %}"/>
+            Sold out        
+          </a>  
+         </div>
+       <span id="user-info">
            <img id="close-x" src="{% static 'images/x-octagon.svg' %}"/>
            <p>Tap To Wishlist</p>
-        </span>
+        </span>             
       </div>
      {% elif is_in_cart == False %}
       <div class="quantity">
          <button id="remove-btn" class="btn-option">-</button>
          <p id="qty">1</p>
          <button id="add-btn" class="btn-option">+</button>
-         <a id="add-to-cart" class="btn"> Add To Cart </a>
-        </div>
+         <a id="add-to-cart" class="btn add-btn"> Add To Cart </a>
+        </div>                         
      {% else %}
         <div class="quantity">
           <a class="btn-g btn">Item Added Cart <i class="fas fa-check-circle"></i></a>
@@ -140,14 +133,12 @@
     });
 
      $("#wishlist-btn").on("click",function(){
-       $("#sold-out").addClass("btn-wishlisted");
-       $("#sold-out").removeClass("btn-sold-out");
-       // $("#sold-out").css({"background":"#0d81ea"});
-       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
-       $(".btn-option").css({"opacity":"0.5"});
+       $("#sold-out").css({"background":"#0d81ea"});
+       $("#sold-out").html("Wishlisted <i class='fas fa-check-circle spin'></i>");
+       $(".btn-option").css({"opacity":"0.5"});                        
        $("#remove-btn").unbind("click");
        $("#add-btn").unbind("click");
-
+             
        fetch("{% url 'wishlist' %}",{
          method:"POST",
          headers:{
@@ -188,4 +179,3 @@
      });
   </script>
 {% endblock %}
->>>>>>> 52e5778a3d70921f2ed4b59bac776b495e0f91ea

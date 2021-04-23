@@ -7,8 +7,80 @@
     <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
 {% endblock %}
 
-{% block content %}
-    <section>
-      <h1>Area Under Code-Struction </h1>
-    </section>
+{% block content %}   
+   <div class="head-txt">
+    <h1>Weclome To Dashboard</h1>
+   </div>
+     <div class="content content-white">
+        <div class="user-profile">
+           <img src="{% static 'images/user.svg' %}"/>
+         </div>
+         <div class="user-profile">
+           <div class="user-tab">
+             <h3>Hi,{{firstname}}</h3>                               
+              <img id="settings" src="{% static 'images/settings.svg' %}"/>
+                   
+            </div>                                   
+          </div>
+         </div>
+      </div>   
+
+      <div class="content content-2">
+        <div class="user-info">
+        <h4>Full Name:{{request.user.username}}</h4>
+        <h4>Email:{{request.user.email}}</h4>
+        <h4>Address:{{request.user.userprofile.address}}</h4>
+        </div>
+       </div>  
+                  
+      <div class="content-utils">
+        <div class="content">
+        <div class="header">
+                           
+         {% if orders > 0 %}
+          <span class="nums"><h2>{{orders}}</h2></span>
+        {% endif %}                     
+         <img src="{% static 'images/archive.svg' %}"/>
+           <h2>Number of Orders</h2>
+           <h3>Check to view orders</h3>
+         </div>
+        </div>
+
+        <div class="content">
+        <div class="header">
+        {% if transactions != 0 %}
+          <span class="nums"><h2>{{wishlist}}</h2></span>
+        {% endif %}                          
+        <img src="{% static 'images/package.svg' %}">
+           <h2>Wishlist of Pastries</h2>
+           <h3>Check to view wishlist</h3>
+         </div>                    
+        </div>
+
+       <div class="content">
+       <div class="header header-3">
+        {% if transactions > 0 %}
+          <span class="nums"><h2>{{transactions}}</h2></span>
+        {% endif %}                                  
+        <img src="{% static 'images/credit-card.svg' %}"/>
+           <h2>Transactions</h2>           
+           <h3>Check to view transactions</h3>
+         </div>                      
+        </div>
+
+      </div>
+
+      <div class="content content-holder">
+       <div class="content content-1">
+        <h4>Total:NGN0.00</h4>
+       </div>                  
+      </div>
+{% endblock %}
+
+{% block script %}
+ <script>
+   $("#settings").on("click",function(){
+     window.location.replace("{% url 'usersettings' request.user.username %}");
+   });
+ </script>
 {% endblock %}

@@ -36,7 +36,7 @@
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'store' %}?page=1">Store</a></li>
               {% if request.user.is_authenticated %}
-                <li><a href="{% url 'dashboard' %}">Admin</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
               {% endif %}                                                 
 
               {% if request.user.is_authenticated %}
