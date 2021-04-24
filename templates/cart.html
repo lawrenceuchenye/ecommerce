@@ -243,11 +243,11 @@
      })
    }).then(response=>{
       return response.json();
-   }).then(session=>{
-      if(session.status){
-        return stripe.redirectToCheckout({sessionId:session.session.id});
+   }).then(data=>{
+      if(data.status){
+        return stripe.redirectToCheckout({sessionId:data.session.id});
       }else{
-       alert("No Internet Connection");
+       alert(data.error);
      }
    });
 

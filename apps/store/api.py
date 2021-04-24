@@ -89,7 +89,7 @@ def create_checkout_session(request):
         cancel_url="http://127.0.0.1:8000/cart/"
        )
     except Exception:
-       return JsonResponse({"status":False,"session":{}})
+       return JsonResponse({"status":False,"error":"Sorry, an error occurred!","session":{}})
     order=Order.objects.get(id=order_id)
     order.payment_intent=session.id
     order.paid_amount=cart.get_total()
