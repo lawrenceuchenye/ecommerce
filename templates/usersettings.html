@@ -2,8 +2,59 @@
 {% load static %}
 
 {% block style %}
- <link href="{% static 'css/detail.css' %}"/>
+ <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
+ <link rel="stylesheet" href="{% static 'css/usersettings.css' %}"/>
 {% endblock %}
 
 {% block content %}
+      <section>
+        <div class="content">
+
+          <div class="signup-box login-box">
+            <div class="signup-form login-form">
+                    
+               <form enctype="multipart/form-data"  method="POST">{% csrf_token %}
+                <h1>Settings</h1>
+                <div class="user-pic">       
+                  {% if request.user.userprofile.user_profile %}
+                    <img id="img-holder" src="{{request.user.userprofile.user_profile.url}}"/>
+                  {% else %}
+                     <img id="img-holder" src="{% static 'images/user.svg' %}"/>
+                  {% endif %}
+                   <input type="file" name="profile_picture"  id="pic"/>
+                 </div>              
+                  {{form.as_p}}                                                     
+                 <div class="loader">
+                    <input type="submit" id="submit-btn-signup" class="login-btn" value="Save Changes"/>
+                    <div class="loader-login">
+                    </div>
+                    <img id="check-circle" src="{% static 'images/check-circle.svg' %}"/>
+                 </div>
+                 <p>Forgot password? <a>Recover</a></p>
+               </form>             
+            </div>
+            <div class="signup-btn-div login-btn-div">
+              <img src="{% static 'images/wed_cake.jpg' %}"/>
+            </div>
+          </div>
+        </div>
+      </section>
+{% endblock %}
+
+{% block script%}
+
+ <script>
+  var file=document.getElementById("pic");
+  file.addEventListener("change",function(){
+    var fileImg=this.files[0];
+     if(fileImg){
+      var imgReader=new FileReader();
+      imgReader.addEventListener("load",function(){
+       document.getElementById("img-holder").src=this.result;
+      });
+      imgReader.readAsDataURL(fileImg);
+     }                    
+   });
+
+  </script>
 {% endblock %}

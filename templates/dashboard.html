@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
 {% endblock %}
 
-{% block content %}   
+{% block content %}
    <div class="head-txt">
-    <h1>Weclome To Dashboard</h1>
+    <h1>Weclome To Dashboard {% block section %}{% endblock %}</h1>
    </div>
      <div class="content content-white">
         <div class="user-profile">
-           <img src="{% static 'images/user.svg' %}"/>
+          {% if request.user.userprofile.user_profile %}
+            <img src="{{request.user.userprofile.user_profile.url}}"/>
+          {% else %}
+             <img src="{% static 'images/user.svg' %}"/>
+          {% endif %}
          </div>
          <div class="user-profile">
            <div class="user-tab">
@@ -32,31 +36,33 @@
         <h4>Address:{{request.user.userprofile.address}}</h4>
         </div>
        </div>  
-                  
+      {% block body %}
       <div class="content-utils">
-        <div class="content">
+        <div class="content" id="orders">
         <div class="header">
                            
          {% if orders > 0 %}
           <span class="nums"><h2>{{orders}}</h2></span>
         {% endif %}                     
          <img src="{% static 'images/archive.svg' %}"/>
-           <h2>Number of Orders</h2>
-           <h3>Check to view orders</h3>
+           <h2>Number of Orders</h2> 
+           <h4>Check to view orders</h4>
+           <p>number of orders made since you joined</p>
          </div>
         </div>
-
-        <div class="content">
+ 
+        <div class="content" id="wishlist">
         <div class="header">
         {% if transactions != 0 %}
           <span class="nums"><h2>{{wishlist}}</h2></span>
         {% endif %}                          
         <img src="{% static 'images/package.svg' %}">
            <h2>Wishlist of Pastries</h2>
-           <h3>Check to view wishlist</h3>
-         </div>                    
+           <h4>Check to view wishlist</h4>
+           <p>number of pastries you wishlisted</a>
+         </div>
         </div>
-
+    
        <div class="content">
        <div class="header header-3">
         {% if transactions > 0 %}
@@ -64,8 +70,10 @@
         {% endif %}                                  
         <img src="{% static 'images/credit-card.svg' %}"/>
            <h2>Transactions</h2>           
-           <h3>Check to view transactions</h3>
-         </div>                      
+           <h4>Check to view transactions</h4>
+           <p>number of successful orders made since you joined</p>
+         </div>
+                                    
         </div>
 
       </div>
@@ -75,6 +83,7 @@
         <h4>Total:NGN0.00</h4>
        </div>                  
       </div>
+     {% endblock %}
 {% endblock %}
 
 {% block script %}
@@ -82,5 +91,9 @@
    $("#settings").on("click",function(){
      window.location.replace("{% url 'usersettings' request.user.username %}");
    });
+
+   $("#orders").on("click",function(){
+      window.location.replace("{% url 'orders' %}");
+    });
  </script>
 {% endblock %}

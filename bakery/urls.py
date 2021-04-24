@@ -38,7 +38,7 @@ from apps.cart.webhook import webhook
 
 from apps.order.views import checkout_view,validate_order_view,success_view,order_conf_view
 
-from apps.userprofile.views import dashboard_view,usersettings_view
+from apps.userprofile.views import dashboard_view,usersettings_view,user_order_view
 
 sitemaps={"static":StaticViewSitemap,"category":CategorySitemap,"product":ProductSitemap}
 
@@ -47,7 +47,8 @@ urlpatterns = [
     path('sitemap.xml',sitemap,{"sitemaps":sitemaps},name="django.sitemaps.views.sitemap"),
     path('dashboard/',dashboard_view,name="dashboard"),
     path('dashboard/<str:username>/settings',usersettings_view,name="usersettings"),
-           
+    path('dashboard/orders/',user_order_view,name="orders"),
+                          
     path('',home_view,name="home"),
     path('api_login/',api_login,name="api_login"),
     path('api_signup/',api_signup,name="api_signup"),

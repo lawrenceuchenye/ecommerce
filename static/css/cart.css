@@ -99,7 +99,7 @@ td:nth-child(3){
 
 .btn-holder .btn{
  position:absolute;
- text-align:center;
+ text-indent:85px;
  width:250px;
 }
 
