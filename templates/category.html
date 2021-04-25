@@ -3,6 +3,18 @@
 
 {% block style %}
  <link href="{% static 'css/store.css' %}" rel="stylesheet"/>
+ <link href="{% static 'css/detail.css' %}" rel="stylesheet" />
+ <style>
+   @media only screen and (max-width:700px){
+    #exit{
+     display:block;
+    }
+  
+   .nav-bar ul{
+    top:-10px;
+   }    
+  }  
+ </style>
 {% endblock %}
 
 
@@ -59,8 +71,8 @@
   <script>             
     $("#categories").change(function(){
       var category=$(this).children("option:selected").val();
-      window.location.replace(category);
-    });              
+      window.location.replace(category+"/");
+    });                           
 
     var options=document.getElementById("categories").options;
     for(var n=0;n<options.length;n++){

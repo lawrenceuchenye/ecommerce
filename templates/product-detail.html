@@ -21,7 +21,7 @@
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div> 
-      {% if is_wish_listed %}
+      {% if is_wish_listed and product.is_in_store == False %}
       <div class="quantity">
           <a class="spin btn btn-b">Wishlisted <i class="fas fa-check-circle"></i></a>
         </div>      

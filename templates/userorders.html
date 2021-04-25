@@ -17,18 +17,32 @@
      text-align:right;
     }
 
+     .g{
+      position:absolute;
+      right:33px;
+      color:#52ac39;
+     }
  </style>
  <div class="content">
-  <h2>{{request.user.username}}'s Orders</h2>
- </div>
+  <h2>{{firstname}}'s Orders</h2>
+ </div>                      
  {% for order in orders %}
   <div class="content">
-   <div class="info">   
-   </p><h4>Ordered</h4>{{order.created_at|naturaltime}}</p> 
-   </div>         
+   <div class="info">
+                  
+   </p><h4>Ordered
+   {% if order.paid %}                                       
+    <p class="g">PAID <i class="fas fa-check-circle"></i></p>
+   {% endif %} 
+   </h4>{{order.created_at|naturaltime}}</p> 
+   </div>            
    <div class="flex-1">
-     <a href="#" class="link">View details</a>
-   </div>
+     <a href="{% url 'order-detail' order.id %}" class="link">View details</a>
+   </div>      
   </div>      
+ {% empty %}
+  <div class="content">
+   <p>Sorry,you have not orders yet!</p>
+  </div>
  {% endfor %}
 {% endblock %}

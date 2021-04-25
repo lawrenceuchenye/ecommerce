@@ -1,7 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.files import File
+from apps.order.models import Order
 from PIL import Image
 from io import BytesIO
 from .forms import UserEditForm
@@ -48,5 +49,17 @@ def user_order_view(request):
    return render(request,"userorders.html",{"orders":orders,"firstname":firstname})
 
 @login_required
-def user_order_detail_view(request):
-  return render(request,"order-detail.html",{})
+def user_order_detail_view(request,id):
+  order=get_object_or_404(Order,id=id)
+  firstname=request.user.username.split()[0]
+  if(order.user!=request.user):
+      return ("orders")
+  return render(request,"order-detail.html",{"order":order,"firstname":firstname})
+
+         
+@login_required                  
+def user_wishlist_view(request):
+   wishlist=request.user.wishlist.all()
+   firstname=request.user.username.split()[0]
+   return render(request,"userwishlist.html",{"wishlist":wishlist,"firstname":firstname})
+                                        

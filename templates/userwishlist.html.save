@@ -1,0 +1,52 @@
+{% extends "dashboard.html" %}
+{% load humanize %}
+
+{% block section %} - Orders {% endblock %}
+{% block body %}
+ <style>
+   .link{
+     color:#0d81ea;
+     text-decoration:none;
+     margin-top:20px;
+     margin-left:25px;	
+
+    }
+
+   .flex-1{
+     text-align:right;
+     position:relative;
+     padding:10px;
+    }
+
+     .g{
+      position:absolute;
+      right:33px;
+      color:#52ac39;
+     }
+
+     .btn{
+       border-radius:5px;
+       background:#cf1733;
+       font-weight:800;
+       p
+      }
+ </style>
+ <div class="content">
+  <h2>{{request.user.username}}'s Wishlist</h2>
+ </div>
+ {% for item in wishlist %}
+  <div class="content">
+   <div class="info">
+   <h4>{{item.product.title}}</h4>
+   </div>
+   <div class="flex">
+    <a class="btn">Remove</a>
+   </div>	
+   </div>       
+  </div>      
+ {% empty %}
+  <div class="content">
+   <p>Sorry,you have no items wishlisted yet!</p>
+  </div>                       
+ {% endfor %}
+{% endblock %}

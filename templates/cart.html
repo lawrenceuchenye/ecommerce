@@ -225,8 +225,8 @@
      try{
      var stripe=Stripe("{{pub_key}}");
      }catch(error){
-       alert("No Internet Connection");
-       return;
+       alert("No Internet Connection!,Refresh Page");
+       return;                      
      }
 
      fetch("{% url 'create_checkout_session' %}",{

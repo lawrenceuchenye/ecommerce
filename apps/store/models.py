@@ -14,13 +14,14 @@ class Category(models.Model):
      return self.title
 
    def get_absolute_url(self):
-     return "/%s/"%(self.slug)
-
+     return "/store/%s/"%(self.slug)
+             
    class Meta:
      ordering=["-order"]
 
 class Product(models.Model):
    title=models.CharField(max_length=255)
+   slug=models.SlugField(max_length=255,null=True,blank=True)
    product_pic=models.ImageField(upload_to="uploads/products")
    price=models.DecimalField(max_digits=100,decimal_places=2)
    desc=models.TextField(blank=True,null=True)
@@ -43,8 +44,8 @@ class Product(models.Model):
       return self.title
 
    def get_absolute_url(self):
-      return "/%s/%s/"%(self.category.slug,self.title)
-
+      return "/store/%s/detail"%(self.id)
+              
 class WishList(models.Model):
      user=models.ForeignKey(User,related_name="wishlist",on_delete=models.CASCADE)
      product=models.ForeignKey(Product,related_name="wishlisted_items",on_delete=models.CASCADE)

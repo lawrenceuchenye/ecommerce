@@ -63,19 +63,6 @@
          </div>
         </div>
     
-       <div class="content">
-       <div class="header header-3">
-        {% if transactions > 0 %}
-          <span class="nums"><h2>{{transactions}}</h2></span>
-        {% endif %}                                  
-        <img src="{% static 'images/credit-card.svg' %}"/>
-           <h2>Transactions</h2>           
-           <h4>Check to view transactions</h4>
-           <p>number of successful orders made since you joined</p>
-         </div>
-                                    
-        </div>
-
       </div>
 
       <div class="content content-holder">
@@ -94,6 +81,11 @@
 
    $("#orders").on("click",function(){
       window.location.replace("{% url 'orders' %}");
+    });
+
+              
+    $("#wishlist").on("click",function(){
+      window.location.replace("{% url 'wishlists' %}");
     });
  </script>
 {% endblock %}

@@ -1,0 +1,62 @@
+{% extends "dashboard.html" %}
+{% load humanize %}
+{% load static %}
+
+{% block section %} - Wishlist {% endblock %}
+{% block body %}             
+ <style>
+      h4{
+        margin-right:10px;
+     }
+
+     .content{
+       position:relative;
+      }
+             
+     .flex-1 img{
+      position:absolute;
+      right:20px;
+      top:8px;
+     }   
+
+     .btn-r{
+      padding:5px;
+      border-radius:5px;
+      position:absolute;
+      right:50px;
+      top:5px;
+      background:#0d81ea;
+      color:#fff;
+      text-decoration:none;
+     }
+
+     .btn-g{
+      padding:5px 15px;
+      background:#52ac39;
+     }
+
+ </style>
+ <div class="content">
+  <h2>{{firstname}}'s Wishlist</h2>
+ </div>                      
+ {% for item in wishlist %}
+  <div class="content">
+   <h4>{{item.product.title}}</h4>
+   <p>({{item.quantity}})</p>
+                                  
+   <div class="flex-1">
+     {% if item.product.is_in_store %}
+        <a class="btn-r btn-g" href="{{item.product.get_absolute_url}}">Buy</a>
+     {% else %}               
+        <a class="btn-r" href="{{item.product.category.get_absolute_url}}">Explore</a>
+     {% endif %}                                              
+     <img src="{% static 'images/trash-2.svg' %}" />
+    </div>     
+   </div>       
+  </div>      
+ {% empty %}
+  <div class="content">
+   <p>Sorry,you have no items wishlisted yet!</p>
+  </div>                       
+ {% endfor %}
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "dashboard.html" %}
+{% load humanize %}
+{% block section %} - Order Detail {% endblock %}
+{% block body %}
+ <style>
+ .qty{
+  margin-left:20px;
+  margin-right:20px;
+ }           
+
+ td{
+  padding:8px 10px;
+}
+
+ p{
+ margin-left:10px;
+ margin-top:2px;
+}
+
+ .btn{
+  border-radius:5px;
+  font-weight:800;
+  position:relative;
+  top:-1px;
+  background:#cf1733;
+  }    
+
+  .btn-g{
+   color:#52ac39;
+   background:transparent;
+  }           
+
+   .flex{
+     flex:1;
+     text-align:right;
+     margin-left:10px;
+     width:100%:
+    }
+
+
+    table{
+     width:100%;
+     position:relative;
+    }
+             
+   #delete{
+     text-transform:uppercase;
+   }
+
+   .btn-y{
+     background:#0d81ea;
+    }
+
+   @media only screen and (max-width:700px){
+    
+   }
+
+</style>
+ <div class="content">           
+   <h3>Ordered:</h3><p>{{order.created_at|naturaltime}}</p>
+  </div>                                          
+ <div class="content">
+  <table>
+   <tr>
+   <td><h4>Product</h4></td>
+   <td><h4>Quantity</h4></td>
+   <td><h4>Unit Price</h4></td>
+   </tr>
+ {% for order_item in order.orders.all %}
+  <tr>
+   <td><h4>{{order_item.product.title}}</h3></td>
+   <td><h4 class="qty">{{order_item.quantity}}</h3></td>
+   <td><h4>NGN{{order_item.price}}</h4></td>
+  </tr>
+ {% endfor %}
+  </table>
+ </div> 
+
+   <div class="content">
+    {% if order.status == "ordered" %}
+      <a id="delete" class="btn">{{order.status}}</a>
+    {% elif order.status == "baking" %}
+      <a id="delete" class="btn btn-y">{{order.status}}</a>
+    {% else %}
+     <a id="delete" class="btn btn-g">{{order.status}}</a>
+    {% endif %}               
+      <div class="flex">              
+       {% if order.paid %}
+          <a class="btn btn-g">PAID <i class="fas fa-check-circle"></i></a>
+       {% endif %}
+       </div>          
+    </div>
+  </div>
+{% endblock %}
+
