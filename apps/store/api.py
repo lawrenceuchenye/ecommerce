@@ -16,8 +16,16 @@ def add_to_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
     product=Product.objects.get(id=data["product_id"])
-    product_qty=product.quantity
-    cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+    if product.quantity>data["qty"]:
+      product.quantity-=data["qty"]
+      product.save()
+      cart.add_to_cart(int(data["product_id"]),int(data["qty"]))
+    else:
+       rm_qty=product.quantity
+       product.quantity=0
+       product.save()
+       cart.add_to_cart(int(data["product_id"]),rm_qty)
+       return JsonResponse({"success":False})
     return JsonResponse({"success":True})
 
 
@@ -25,7 +33,6 @@ def edit_quantity(request):
    cart=Cart(request)
    data=json.loads(request.body)
    product=Product.objects.get(id=data["product_id"])
-   product_qty=product.quantity
    quantity=cart.get_item(data["product_id"])
    if(quantity["quantity"]>data["qty"]):
       product.is_in_store=True
@@ -49,6 +56,10 @@ def edit_quantity(request):
 def remove_from_cart(request):
     cart=Cart(request)
     data=json.loads(request.body)
+    product=Product.objects.get(id=data["product_id"])
+    product.quantity+=data["quantity"]
+    product.is_in_store=True
+    product.save()
     cart.remove_from_cart(data["product_id"])
     return JsonResponse({"success":True})
 
