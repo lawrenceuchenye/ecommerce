@@ -27,7 +27,7 @@ from apps.core.api import api_login,api_signup
 
 from apps.store.views import store_view,category_view,detail_view
 #<<<<<<< HEAD
-from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,edit_quantity
+from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,edit_quantity,rate
 #======
 
 from apps.store.api import add_to_cart,remove_from_cart,api_checkout,create_checkout_session,wishlist_item,unwishlist_item
@@ -50,8 +50,7 @@ urlpatterns = [
     path('dashboard/orders/',user_order_view,name="orders"),
     path('dashboard/orders/order/<int:id>/',user_order_detail_view,name="order-detail"),
     path('dashboard/wishlist/',user_wishlist_view,name="wishlists"),
-                                
-                          
+
     path('',home_view,name="home"),
     path('api_login/',api_login,name="api_login"),
     path('api_signup/',api_signup,name="api_signup"),
@@ -75,6 +74,7 @@ urlpatterns = [
     path('validate/<int:order_id>/',validate_order_view,name="validate"),
     path('success/',success_view,name="success"),
     path('order-confirmation/',order_conf_view,name="order_conf"),
+    path('rate/',rate,name="rate")
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

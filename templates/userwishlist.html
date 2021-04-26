@@ -40,23 +40,45 @@
   <h2>{{firstname}}'s Wishlist</h2>
  </div>                      
  {% for item in wishlist %}
-  <div class="content">
+  <div class="content" id="wishlist-item-{{item.id}}">
    <h4>{{item.product.title}}</h4>
-   <p>({{item.quantity}})</p>
-                                  
+   <p>qty:({{item.quantity}})</p>
+      
    <div class="flex-1">
      {% if item.product.is_in_store %}
         <a class="btn-r btn-g" href="{{item.product.get_absolute_url}}">Buy</a>
      {% else %}               
         <a class="btn-r" href="{{item.product.category.get_absolute_url}}">Explore</a>
      {% endif %}                                              
-     <img src="{% static 'images/trash-2.svg' %}" />
-    </div>     
-   </div>       
+     <img  onclick="remove_from_list({{item.id}})" src="{% static 'images/trash-2.svg' %}" />
+    </div>                              
+   </div> 
   </div>      
  {% empty %}
   <div class="content">
    <p>Sorry,you have no items wishlisted yet!</p>
   </div>                       
  {% endfor %}
+{% endblock %}
+
+
+{% block innerscript %}
+  <script>                
+  function remove_from_list(wishlist_id){
+    fetch("{% url 'un-wishlist' %}",{
+      method:"POST",
+      headers:{
+       "Content-Type":"applications/json",
+       "X-CSRFToken":"{{csrf_token}}"
+      },
+      credentials:"same-origin",
+      body:JSON.stringify({
+       "wishlist_id":wishlist_id
+      })
+    });
+
+    $("#wishlist-item-"+wishlist_id).css({"display":"none"});
+ }               
+             
+ </script>
 {% endblock %}

@@ -67,8 +67,8 @@
 
       <div class="content content-holder">
        <div class="content content-1">
-        <h4>Total:NGN0.00</h4>
-       </div>                  
+        <h4>Total:NGN{{total_amount_spent}}0</h4>
+       </div>    
       </div>
      {% endblock %}
 {% endblock %}
@@ -88,4 +88,6 @@
       window.location.replace("{% url 'wishlists' %}");
     });
  </script>
+ {% block innerscript %}
+ {% endblock %}
 {% endblock %}

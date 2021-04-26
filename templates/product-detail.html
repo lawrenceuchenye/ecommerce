@@ -3,6 +3,8 @@
 
 {% block style %}
   <link rel="stylesheet" href="{% static 'css/detail.css' %}"/>
+  <style>
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -14,13 +16,66 @@
      <div class="col-2">
        <h1>{{product.title}}</h1>
        <p>NGN{{product.price}}</p>
-       <div class="ratings">
+      {% if is_rated == False %}
+       <div class="ratings">     
+               <i id="change-1" class="far fa-star"></i>
+                <i id="change-2" class="far fa-star"></i>
+                <i id="change-3" class="far fa-star"></i>
+                <i id="change-4" class="far fa-star"></i>
+                <i id="change-5"  class="far fa-star"></i>
+              </div>
+       {% else %} 
+         {% if product.ratings >= 5 %}
+               <div class="ratings">
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+              </div>
+              {% elif product.ratings >= 4 and product.ratings < 4 %}
+                <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
-              </div> 
+              </div>
+             {% elif product.ratings >= 3 and product.ratings < 4 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% elif product.ratings >= 2 and product.ratings < 3 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% elif product.ratings >= 1 and product.ratings < 2 %}
+              <div class="ratings">
+               <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% else %}
+                <div class="ratings">
+               <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+            {% endif %}              
+       {% endif %}
+
       {% if is_wish_listed and product.is_in_store == False %}
       <div class="quantity">
           <a class="spin btn btn-b">Wishlisted <i class="fas fa-check-circle"></i></a>
@@ -67,14 +122,56 @@
               <img src="{{item.product_pic.url}}"/>
               <h4>{{item.title}}</h4>
               <p>NGN{{item.price}}</p>
-              <div class="ratings">
+               {% if item.ratings >= 5 %}
+               <div class="ratings">
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+              </div>
+              {% elif item.ratings >= 4 and item.ratings < 5 %}
+                <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
-            </div>
+             {% elif item.ratings >= 3 and item.ratings < 4 %}
+              <div class="ratings"> 
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% elif item.ratings >= 2 and item.ratings < 3 %}
+              <div class="ratings"> 
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>               
+             {% elif item.ratings >= 1  and item.ratings < 2 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                 <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+             </div>
+            {% else %}
+             <div class="ratings">
+               <i class="far fa-star"></i>
+               <i class="far fa-star"></i>
+               <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+               <i class="far fa-star"></i> 
+             </div>
+            {% endif %}
+             </div>
             </a>
             {% endfor %}
           </div>
@@ -160,28 +257,188 @@
        });
      });
 
-     $("#unwishlist-btn").on("click",function(){
-       $("#sold-out").removeClass("btn-wishlisted");
-       $("#sold-out").addClass("btn-sold-out");
-       // $("#sold-out").css({"background":"#0d81ea"});
-       // $("#sold-out").html("Wishlisted <i class='fas fa-check-circle'></i>");
-       $(".btn-option").css({"opacity":"0.5"});
-       $("#remove-btn").unbind("click");
-       $("#add-btn").unbind("click");
+     var change_1=true;
 
-       fetch("{% url 'un-wishlist' %}",{
+     $("#change-1").on("click",function(){
+      if(change_1){
+        document.getElementById("change-1").className="fa fa-star";
+        change_1=!change_1;
+        fetch("{% url 'rate' %}",{
          method:"POST",
          headers:{
-         "Content-Type":"applications/json",
-         "X-CSRFToken":"{{csrf_token}}"
-         },
-         credentials:"same-origin",
-         body:JSON.stringify({
-          "product_id":{{product.id}},
-          "quantity":parseInt($("#qty").text()),
-          "is_authenticated":{{request.user.is_authenticated | stringformat:"s" | lower}}
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"add"
          })
-       });
+        });
+      }else{
+       document.getElementById("change-1").className="far fa-star";
+       change_1=!change_1;
+       fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"sub"
+         })
+        });
+      }
+     });
+
+
+    var change_2=true;
+                
+    $("#change-2").on("click",function(){
+      if(change_2){
+        document.getElementById("change-2").className="fa fa-star";
+        change_2=!change_2;              
+        fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"add"
+         })
+        });
+      }else{
+       document.getElementById("change-2").className="far fa-star";
+       change_2=!change_2;              
+       fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"sub"
+         })
+        });
+      }
+     });
+
+
+     var change_3=true;
+                 
+     $("#change-3").on("click",function(){
+      if(change_3){
+        document.getElementById("change-3").className="fa fa-star";
+        change_3=!change_3;              
+        fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"add"
+         })
+        });
+      }else{
+       document.getElementById("change-3").className="far fa-star";
+       change_3=!change_3;
+       fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"sub"
+         })
+        });
+      }
+     });
+
+
+    var change_4=true;
+                 
+    $("#change-4").on("click",function(){
+      if(change_4){
+        document.getElementById("change-4").className="fa fa-star";
+        change_4=!change_4;              
+        fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"add"
+         })
+        });
+      }else{      
+       document.getElementById("change-4").className="far fa-star";
+       change_4=!change_4;
+       fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"sub"
+         })
+        });
+      }
+     });
+
+
+     var change_5=true;
+                                         
+    $("#change-5").on("click",function(){
+      if(change_5){
+        document.getElementById("change-5").className="fa fa-star";
+        change_5=!change_5;
+        fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"add"
+         })
+        });
+      }else{                            
+       document.getElementById("change-5").className="far fa-star";
+       change_5=!change_5;
+       fetch("{% url 'rate' %}",{
+         method:"POST",
+         headers:{
+          "Content-Type":"applications/json",
+          "X-CSRFToken":"{{csrf_token}}"
+        },
+        credentials:"same-origin",
+        body:JSON.stringify({
+         "product_id":{{product.id}},
+         "event":"sub"
+         })
+        });
+      }
      });
   </script>
 {% endblock %}

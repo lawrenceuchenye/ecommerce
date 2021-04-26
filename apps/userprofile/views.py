@@ -16,7 +16,10 @@ def dashboard_view(request):
    orders=len(request.user.user_orders.all())
    wishlist=len(request.user.wishlist.all())
    transactions=len(request.user.user_orders.filter(paid=True))
-   return render(request,"dashboard.html",{"firstname":firstname,"wishlist":wishlist,"orders":orders,"transactions":transactions})
+   sum=0
+   for transaction in request.user.user_orders.filter(paid=True):
+     sum+=transaction.total_amount
+   return render(request,"dashboard.html",{"firstname":firstname,"wishlist":wishlist,"orders":orders,"transactions":transactions,"total_amount_spent":sum})
           
 @login_required
 def usersettings_view(request,username):

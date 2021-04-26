@@ -36,7 +36,7 @@ class Product(models.Model):
    created_at=models.DateTimeField(auto_now_add=True)
    category=models.ForeignKey(Category,related_name="products",on_delete=models.CASCADE)
 
-
+   ratings=models.FloatField(default=0)
    class Meta:
       ordering=["-created_at"]
 
@@ -53,3 +53,8 @@ class WishList(models.Model):
 
      def __str__(self):
        return self.product.title
+
+
+class Rate(models.Model):
+   user=models.ForeignKey(User,related_name="rated_items",on_delete=models.CASCADE)
+   product=models.ForeignKey(Product,related_name="rated",on_delete=models.CASCADE)

@@ -72,13 +72,55 @@
               <img src="{{item.product_pic.url}}"/>
               <h4>{{item.title}}</h4>
               <p>NGN{{item.price}}</p>
-              <div class="ratings">
+              {% if item.ratings >= 5 %}
+               <div class="ratings">
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+              </div>
+              {% elif item.ratings >= 4 and item.ratings < 5 %}
+                <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
+             {% elif item.ratings >= 3 and item.ratings < 4 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+             {% elif item.ratings >= 2 and item.ratings < 3 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+             {% elif item.ratings >= 1 and item.ratings < 2 %}
+               <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+             {% else %}
+               <div class="ratings">
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+             {% endif %} 
              </a>
             </div>
             {% endfor %}
@@ -94,13 +136,55 @@
               <img src="{{item.product_pic.url}}"/>
               <h4>{{item.title}}</h4>
               <p>NGN{{item.price}}</h4>
-              <div class="ratings">
+              {% if item.ratings >= 5 %}
+               <div class="ratings">
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+                 <i class="fa fa-star"></i>
+              </div>
+              {% elif item.ratings >= 4 and item.ratings < 5%}
+                <div class="ratings">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
               </div>
+             {% elif item.ratings >= 3 and item.ratings < 4 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% elif item.ratings >= 2 and item.ratings < 3 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+             {% elif item.ratings >= 1 and item.ratings < 2 %}
+              <div class="ratings">
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+            {% else %}
+              <div class="ratings">
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>        
+            {% endif %}
               </a>
             </div>
            {% endfor %}

@@ -20,10 +20,3 @@ def wishlist(product_id,quantity,user):
 	   return True
 	except Exception as e:
 		return e
-
-def unwishlist(product_id,quantity,user):
-	try:
-	   WishList.objects.filter(user=user,product=Product.objects.get(id=product_id),quantity=quantity).delete()
-	   return True
-	except Exception as e:
-		return e

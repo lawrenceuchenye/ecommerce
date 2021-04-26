@@ -4,8 +4,8 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
-from .models import Product
-from .utils import checkout,wishlist,unwishlist
+from .models import Product,Rate
+from .utils import checkout,wishlist
 import json
 import stripe
 
@@ -117,7 +117,21 @@ def wishlist_item(request):
 
 def unwishlist_item(request):
     data=json.loads(request.body)
-    success = False
-    if(data["is_authenticated"]):
-       success = unwishlist(data["product_id"], data["quantity"], request.user)
-    return JsonResponse({"success":success})
+    wishlist=request.user.wishlist.get(id=data["wishlist_id"])
+    wishlist.delete()
+    return JsonResponse({"success":True})
+
+def rate(request):
+   data=json.loads(request.body)
+   if request.user.is_authenticated==False:
+    return JsonResponse({"success":False})
+   product=Product.objects.get(id=data["product_id"])
+   amount=(5/len(User.objects.all()))/5
+   if data["event"]=="add":
+     product.ratings+=amount
+   else:
+     product.ratings-=amount
+   product.save()
+   if request.user.rated_items.filter(product=product).exists()==False:
+       Rate.objects.create(user=request.user,product=product)
+   return JsonResponse({"success":True})
